@@ -1,0 +1,114 @@
+[22-Jul-2015 15:26:32 Asia/Manila] PHP Warning:  include(../protected/config/db_config.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/login.php on line 5
+[22-Jul-2015 15:26:32 Asia/Manila] PHP Warning:  include(../protected/config/db_config.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/login.php on line 5
+[22-Jul-2015 15:26:32 Asia/Manila] PHP Warning:  include(): Failed opening '../protected/config/db_config.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/zarilph/public_html/dev/login.php on line 5
+[22-Jul-2015 15:26:32 Asia/Manila] PHP Warning:  include(../protected/config/html_config.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/login.php on line 6
+[22-Jul-2015 15:26:32 Asia/Manila] PHP Warning:  include(../protected/config/html_config.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/login.php on line 6
+[22-Jul-2015 15:26:32 Asia/Manila] PHP Warning:  include(): Failed opening '../protected/config/html_config.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/zarilph/public_html/dev/login.php on line 6
+[22-Jul-2015 15:26:32 Asia/Manila] PHP Warning:  include(../protected/library/validation_library.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/login.php on line 7
+[22-Jul-2015 15:26:32 Asia/Manila] PHP Warning:  include(../protected/library/validation_library.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/login.php on line 7
+[22-Jul-2015 15:26:32 Asia/Manila] PHP Warning:  include(): Failed opening '../protected/library/validation_library.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/zarilph/public_html/dev/login.php on line 7
+[22-Jul-2015 15:26:32 Asia/Manila] PHP Warning:  include(../protected/controllers/login.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/login.php on line 8
+[22-Jul-2015 15:26:32 Asia/Manila] PHP Warning:  include(../protected/controllers/login.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/login.php on line 8
+[22-Jul-2015 15:26:32 Asia/Manila] PHP Warning:  include(): Failed opening '../protected/controllers/login.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/zarilph/public_html/dev/login.php on line 8
+[22-Jul-2015 15:26:32 Asia/Manila] PHP Fatal error:  Class 'db_config' not found in /home/zarilph/public_html/dev/login.php on line 10
+[22-Jul-2015 15:27:25 Asia/Manila] PHP Warning:  include(../../protected/config/db_config.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/login.php on line 5
+[22-Jul-2015 15:27:25 Asia/Manila] PHP Warning:  include(../../protected/config/db_config.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/login.php on line 5
+[22-Jul-2015 15:27:25 Asia/Manila] PHP Warning:  include(): Failed opening '../../protected/config/db_config.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/zarilph/public_html/dev/login.php on line 5
+[22-Jul-2015 15:27:25 Asia/Manila] PHP Warning:  include(../../protected/config/html_config.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/login.php on line 6
+[22-Jul-2015 15:27:25 Asia/Manila] PHP Warning:  include(../../protected/config/html_config.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/login.php on line 6
+[22-Jul-2015 15:27:25 Asia/Manila] PHP Warning:  include(): Failed opening '../../protected/config/html_config.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/zarilph/public_html/dev/login.php on line 6
+[22-Jul-2015 15:27:25 Asia/Manila] PHP Warning:  include(../../protected/library/validation_library.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/login.php on line 7
+[22-Jul-2015 15:27:25 Asia/Manila] PHP Warning:  include(../../protected/library/validation_library.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/login.php on line 7
+[22-Jul-2015 15:27:25 Asia/Manila] PHP Warning:  include(): Failed opening '../../protected/library/validation_library.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/zarilph/public_html/dev/login.php on line 7
+[22-Jul-2015 15:27:25 Asia/Manila] PHP Warning:  include(../../protected/controllers/login.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/login.php on line 8
+[22-Jul-2015 15:27:25 Asia/Manila] PHP Warning:  include(../../protected/controllers/login.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/login.php on line 8
+[22-Jul-2015 15:27:25 Asia/Manila] PHP Warning:  include(): Failed opening '../../protected/controllers/login.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/zarilph/public_html/dev/login.php on line 8
+[22-Jul-2015 15:27:25 Asia/Manila] PHP Fatal error:  Class 'db_config' not found in /home/zarilph/public_html/dev/login.php on line 10
+[22-Jul-2015 15:29:08 Asia/Manila] PHP Warning:  include(../../../protected/config/db_config.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/login.php on line 5
+[22-Jul-2015 15:29:08 Asia/Manila] PHP Warning:  include(../../../protected/config/db_config.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/login.php on line 5
+[22-Jul-2015 15:29:08 Asia/Manila] PHP Warning:  include(): Failed opening '../../../protected/config/db_config.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/zarilph/public_html/dev/login.php on line 5
+[22-Jul-2015 15:29:08 Asia/Manila] PHP Warning:  include(../protected/config/html_config.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/login.php on line 6
+[22-Jul-2015 15:29:08 Asia/Manila] PHP Warning:  include(../protected/config/html_config.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/login.php on line 6
+[22-Jul-2015 15:29:08 Asia/Manila] PHP Warning:  include(): Failed opening '../protected/config/html_config.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/zarilph/public_html/dev/login.php on line 6
+[22-Jul-2015 15:29:08 Asia/Manila] PHP Warning:  include(../protected/library/validation_library.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/login.php on line 7
+[22-Jul-2015 15:29:08 Asia/Manila] PHP Warning:  include(../protected/library/validation_library.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/login.php on line 7
+[22-Jul-2015 15:29:08 Asia/Manila] PHP Warning:  include(): Failed opening '../protected/library/validation_library.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/zarilph/public_html/dev/login.php on line 7
+[22-Jul-2015 15:29:08 Asia/Manila] PHP Warning:  include(../protected/controllers/login.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/login.php on line 8
+[22-Jul-2015 15:29:08 Asia/Manila] PHP Warning:  include(../protected/controllers/login.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/login.php on line 8
+[22-Jul-2015 15:29:08 Asia/Manila] PHP Warning:  include(): Failed opening '../protected/controllers/login.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/zarilph/public_html/dev/login.php on line 8
+[22-Jul-2015 15:29:08 Asia/Manila] PHP Fatal error:  Class 'db_config' not found in /home/zarilph/public_html/dev/login.php on line 10
+[22-Jul-2015 15:31:32 Asia/Manila] PHP Warning:  include(../protected/config/db_config.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/delivery.php on line 4
+[22-Jul-2015 15:31:32 Asia/Manila] PHP Warning:  include(../protected/config/db_config.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/delivery.php on line 4
+[22-Jul-2015 15:31:32 Asia/Manila] PHP Warning:  include(): Failed opening '../protected/config/db_config.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/zarilph/public_html/dev/delivery.php on line 4
+[22-Jul-2015 15:31:32 Asia/Manila] PHP Warning:  include(../protected/config/html_config.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/delivery.php on line 5
+[22-Jul-2015 15:31:32 Asia/Manila] PHP Warning:  include(../protected/config/html_config.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/delivery.php on line 5
+[22-Jul-2015 15:31:32 Asia/Manila] PHP Warning:  include(): Failed opening '../protected/config/html_config.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/zarilph/public_html/dev/delivery.php on line 5
+[22-Jul-2015 15:31:32 Asia/Manila] PHP Warning:  include(../protected/library/validation_library.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/delivery.php on line 6
+[22-Jul-2015 15:31:32 Asia/Manila] PHP Warning:  include(../protected/library/validation_library.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/delivery.php on line 6
+[22-Jul-2015 15:31:32 Asia/Manila] PHP Warning:  include(): Failed opening '../protected/library/validation_library.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/zarilph/public_html/dev/delivery.php on line 6
+[22-Jul-2015 15:31:32 Asia/Manila] PHP Warning:  include(../protected/controllers/index.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/delivery.php on line 7
+[22-Jul-2015 15:31:32 Asia/Manila] PHP Warning:  include(../protected/controllers/index.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/delivery.php on line 7
+[22-Jul-2015 15:31:32 Asia/Manila] PHP Warning:  include(): Failed opening '../protected/controllers/index.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/zarilph/public_html/dev/delivery.php on line 7
+[22-Jul-2015 15:31:32 Asia/Manila] PHP Warning:  include(../protected/models/delivery.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/delivery.php on line 8
+[22-Jul-2015 15:31:32 Asia/Manila] PHP Warning:  include(../protected/models/delivery.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/delivery.php on line 8
+[22-Jul-2015 15:31:32 Asia/Manila] PHP Warning:  include(): Failed opening '../protected/models/delivery.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/zarilph/public_html/dev/delivery.php on line 8
+[22-Jul-2015 15:31:32 Asia/Manila] PHP Fatal error:  Class 'db_config' not found in /home/zarilph/public_html/dev/delivery.php on line 10
+[22-Jul-2015 15:38:52 Asia/Manila] PHP Warning:  mysql_num_rows() expects parameter 1 to be resource, object given in /home/zarilph/public_html/dev/protected/controllers/login.php on line 12
+[22-Jul-2015 15:56:46 Asia/Manila] PHP Parse error:  syntax error, unexpected '.' in /home/zarilph/public_html/dev/protected/models/delivery-admin.php on line 36
+[22-Jul-2015 15:57:10 Asia/Manila] PHP Parse error:  syntax error, unexpected '.' in /home/zarilph/public_html/dev/protected/models/delivery-admin.php on line 36
+[22-Jul-2015 15:58:07 Asia/Manila] PHP Parse error:  syntax error, unexpected '.' in /home/zarilph/public_html/dev/protected/models/delivery-admin.php on line 36
+[22-Jul-2015 15:58:09 Asia/Manila] PHP Parse error:  syntax error, unexpected '.' in /home/zarilph/public_html/dev/protected/models/delivery-admin.php on line 36
+[22-Jul-2015 15:58:15 Asia/Manila] PHP Parse error:  syntax error, unexpected '.' in /home/zarilph/public_html/dev/protected/models/delivery-admin.php on line 36
+[22-Jul-2015 16:03:10 Asia/Manila] PHP Parse error:  syntax error, unexpected '.' in /home/zarilph/public_html/dev/protected/models/delivery-admin.php on line 38
+[22-Jul-2015 16:03:12 Asia/Manila] PHP Parse error:  syntax error, unexpected '.' in /home/zarilph/public_html/dev/protected/models/delivery-admin.php on line 38
+[22-Jul-2015 16:21:36 Asia/Manila] PHP Catchable fatal error:  Object of class mysqli_result could not be converted to string in /home/zarilph/public_html/dev/protected/controllers/login.php on line 15
+[22-Jul-2015 16:23:25 Asia/Manila] PHP Catchable fatal error:  Object of class mysqli_result could not be converted to string in /home/zarilph/public_html/dev/protected/controllers/login.php on line 15
+[22-Jul-2015 16:35:13 Asia/Manila] PHP Parse error:  syntax error, unexpected 'username' (T_STRING) in /home/zarilph/public_html/dev/login.php on line 22
+[22-Jul-2015 16:37:32 Asia/Manila] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/zarilph/public_html/dev/protected/controllers/login.php:14) in /home/zarilph/public_html/dev/protected/controllers/login.php on line 27
+[22-Jul-2015 17:01:07 Asia/Manila] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/zarilph/public_html/dev/protected/controllers/login.php:14) in /home/zarilph/public_html/dev/protected/controllers/login.php on line 27
+[22-Jul-2015 17:03:51 Asia/Manila] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/zarilph/public_html/dev/protected/controllers/login.php:14) in /home/zarilph/public_html/dev/protected/controllers/login.php on line 27
+[22-Jul-2015 18:13:00 Asia/Manila] PHP Parse error:  syntax error, unexpected 'if' (T_IF) in /home/zarilph/public_html/dev/protected/controllers/login.php on line 16
+[22-Jul-2015 18:13:34 Asia/Manila] PHP Fatal error:  Cannot use object of type stdClass as array in /home/zarilph/public_html/dev/protected/controllers/login.php on line 26
+[23-Jul-2015 10:42:50 Asia/Manila] PHP Warning:  include(../protected/config/db_config.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/index.php on line 7
+[23-Jul-2015 10:42:50 Asia/Manila] PHP Warning:  include(../protected/config/db_config.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/index.php on line 7
+[23-Jul-2015 10:42:50 Asia/Manila] PHP Warning:  include(): Failed opening '../protected/config/db_config.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/zarilph/public_html/dev/index.php on line 7
+[23-Jul-2015 10:42:50 Asia/Manila] PHP Warning:  include(../protected/config/html_config.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/index.php on line 8
+[23-Jul-2015 10:42:50 Asia/Manila] PHP Warning:  include(../protected/config/html_config.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/index.php on line 8
+[23-Jul-2015 10:42:50 Asia/Manila] PHP Warning:  include(): Failed opening '../protected/config/html_config.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/zarilph/public_html/dev/index.php on line 8
+[23-Jul-2015 10:42:50 Asia/Manila] PHP Warning:  include(../protected/library/validation_library.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/index.php on line 9
+[23-Jul-2015 10:42:50 Asia/Manila] PHP Warning:  include(../protected/library/validation_library.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/index.php on line 9
+[23-Jul-2015 10:42:50 Asia/Manila] PHP Warning:  include(): Failed opening '../protected/library/validation_library.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/zarilph/public_html/dev/index.php on line 9
+[23-Jul-2015 16:27:11 Asia/Manila] PHP Warning:  include(../protected/config/db_config.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/user.php on line 4
+[23-Jul-2015 16:27:11 Asia/Manila] PHP Warning:  include(../protected/config/db_config.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/user.php on line 4
+[23-Jul-2015 16:27:11 Asia/Manila] PHP Warning:  include(): Failed opening '../protected/config/db_config.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/zarilph/public_html/dev/user.php on line 4
+[23-Jul-2015 16:27:11 Asia/Manila] PHP Warning:  include(../protected/config/html_config.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/user.php on line 5
+[23-Jul-2015 16:27:11 Asia/Manila] PHP Warning:  include(../protected/config/html_config.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/user.php on line 5
+[23-Jul-2015 16:27:11 Asia/Manila] PHP Warning:  include(): Failed opening '../protected/config/html_config.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/zarilph/public_html/dev/user.php on line 5
+[23-Jul-2015 16:27:11 Asia/Manila] PHP Warning:  include(../protected/library/validation_library.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/user.php on line 6
+[23-Jul-2015 16:27:11 Asia/Manila] PHP Warning:  include(../protected/library/validation_library.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/user.php on line 6
+[23-Jul-2015 16:27:11 Asia/Manila] PHP Warning:  include(): Failed opening '../protected/library/validation_library.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/zarilph/public_html/dev/user.php on line 6
+[23-Jul-2015 16:27:11 Asia/Manila] PHP Fatal error:  Class 'db_config' not found in /home/zarilph/public_html/dev/user.php on line 8
+[23-Jul-2015 16:53:06 Asia/Manila] PHP Fatal error:  Call to a member function getDeliveriesAdmin() on a non-object in /home/zarilph/public_html/dev/user.php on line 133
+[23-Jul-2015 16:55:35 Asia/Manila] PHP Fatal error:  Call to a member function getDeliveriesAdmin() on a non-object in /home/zarilph/public_html/dev/user.php on line 133
+[23-Jul-2015 16:56:07 Asia/Manila] PHP Fatal error:  Call to a member function getDeliveriesAdmin() on a non-object in /home/zarilph/public_html/dev/user.php on line 118
+[23-Jul-2015 16:57:42 Asia/Manila] PHP Fatal error:  Call to a member function getUsers() on a non-object in /home/zarilph/public_html/dev/user.php on line 118
+[23-Jul-2015 16:59:07 Asia/Manila] PHP Fatal error:  Call to a member function getUsers() on a non-object in /home/zarilph/public_html/dev/user.php on line 118
+[23-Jul-2015 16:59:14 Asia/Manila] PHP Fatal error:  Call to a member function getUsers() on a non-object in /home/zarilph/public_html/dev/user.php on line 118
+[23-Jul-2015 16:59:20 Asia/Manila] PHP Fatal error:  Call to a member function getUsers() on a non-object in /home/zarilph/public_html/dev/user.php on line 118
+[23-Jul-2015 17:06:11 Asia/Manila] PHP Fatal error:  Class 'UsersModel' not found in /home/zarilph/public_html/dev/user.php on line 10
+[23-Jul-2015 17:07:14 Asia/Manila] PHP Fatal error:  Class 'UsersModel' not found in /home/zarilph/public_html/dev/user.php on line 10
+[23-Jul-2015 17:07:18 Asia/Manila] PHP Fatal error:  Class 'UsersModel' not found in /home/zarilph/public_html/dev/user.php on line 10
+[23-Jul-2015 17:08:15 Asia/Manila] PHP Warning:  include(protected/models/user.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/user.php on line 7
+[23-Jul-2015 17:08:15 Asia/Manila] PHP Warning:  include(protected/models/user.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/user.php on line 7
+[23-Jul-2015 17:08:15 Asia/Manila] PHP Warning:  include(): Failed opening 'protected/models/user.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/zarilph/public_html/dev/user.php on line 7
+[23-Jul-2015 17:08:15 Asia/Manila] PHP Fatal error:  Class 'UsersModel' not found in /home/zarilph/public_html/dev/user.php on line 11
+[23-Jul-2015 17:08:51 Asia/Manila] PHP Warning:  Missing argument 2 for UsersModel::getUsers(), called in /home/zarilph/public_html/dev/user.php on line 119 and defined in /home/zarilph/public_html/dev/protected/models/users.php on line 3
+[23-Jul-2015 17:08:51 Asia/Manila] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in /home/zarilph/public_html/dev/protected/models/users.php on line 10
+[23-Jul-2015 17:08:51 Asia/Manila] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, null given in /home/zarilph/public_html/dev/protected/models/users.php on line 16
+[23-Jul-2015 17:31:34 Asia/Manila] PHP Parse error:  syntax error, unexpected '}' in /home/zarilph/public_html/dev/protected/models/users.php on line 27
+[23-Jul-2015 17:33:49 Asia/Manila] PHP Parse error:  syntax error, unexpected '}' in /home/zarilph/public_html/dev/protected/models/users.php on line 28
+[23-Jul-2015 17:34:43 Asia/Manila] PHP Parse error:  syntax error, unexpected 'echo' (T_ECHO) in /home/zarilph/public_html/dev/protected/models/users.php on line 27
+[23-Jul-2015 17:36:34 Asia/Manila] PHP Parse error:  syntax error, unexpected '}' in /home/zarilph/public_html/dev/protected/models/users.php on line 28
+[23-Jul-2015 17:37:27 Asia/Manila] PHP Parse error:  syntax error, unexpected '}' in /home/zarilph/public_html/dev/protected/models/users.php on line 28
+[23-Jul-2015 17:38:29 Asia/Manila] PHP Parse error:  syntax error, unexpected '}' in /home/zarilph/public_html/dev/protected/models/users.php on line 28
+[23-Jul-2015 17:59:30 Asia/Manila] PHP Parse error:  syntax error, unexpected ';' in /home/zarilph/public_html/dev/protected/models/users.php on line 24

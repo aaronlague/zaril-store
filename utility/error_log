@@ -1,0 +1,8 @@
+[22-Jul-2015 09:50:09 Asia/Manila] PHP Parse error:  syntax error, unexpected '=>' (T_DOUBLE_ARROW) in /home/zarilph/public_html/dev/utility/create-user.php on line 31
+[22-Jul-2015 09:50:31 Asia/Manila] PHP Parse error:  syntax error, unexpected '=>' (T_DOUBLE_ARROW) in /home/zarilph/public_html/dev/utility/create-user.php on line 31
+[22-Jul-2015 09:50:33 Asia/Manila] PHP Parse error:  syntax error, unexpected '=>' (T_DOUBLE_ARROW) in /home/zarilph/public_html/dev/utility/create-user.php on line 31
+[22-Jul-2015 10:15:00 Asia/Manila] PHP Fatal error:  Call to a member function query() on a non-object in /home/zarilph/public_html/dev/protected/config/db_config.php on line 64
+[22-Jul-2015 13:33:49 Asia/Manila] PHP Fatal error:  Call to undefined method FormElem::check() in /home/zarilph/public_html/dev/utility/create-user.php on line 42
+[22-Jul-2015 13:34:13 Asia/Manila] PHP Fatal error:  Call to undefined method FormElem::checkbox() in /home/zarilph/public_html/dev/utility/create-user.php on line 42
+[22-Jul-2015 13:34:19 Asia/Manila] PHP Fatal error:  Call to undefined method FormElem::checkbox() in /home/zarilph/public_html/dev/utility/create-user.php on line 42
+[22-Jul-2015 13:49:28 Asia/Manila] PHP Parse error:  syntax error, unexpected ';' in /home/zarilph/public_html/dev/utility/create-user.php on line 20
