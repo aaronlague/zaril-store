@@ -35,6 +35,42 @@ class FormElem {
         return $elem;
     }
 
+    public function email($params = array()) {
+        $elem = '<input type="email"';
+        $elem .= (isset($params['id']))        ? " id='{$params['id']}'"                       : '';
+        $elem .= (isset($params['name']))      ? " name='{$params['name']}'"                   : '';
+        $elem .= (isset($params['placeholder']))   ? " placeholder='{$params['placeholder']}'" : '';
+        $elem .= (isset($params['class']))     ? " class='{$params['class']}'"                 : " class=''";
+        $elem .= (isset($params['onclick']))   ? " onclick='{$params['onclick']}'"             : '';
+        $elem .= (isset($params['onkeypress']))? " onkeypress='{$params['onkeypress']}'"       : '';
+        $elem .= (isset($params['value']))     ? ' value="' . $params['value'] . '"'           : '';
+        $elem .= (isset($params['length']))    ? " maxlength='{$params['length']}'"            : '';
+        $elem .= (isset($params['width']))     ? " style='width:{$params['width']}px;'"        : '';
+        $elem .= (isset($params['disabled']))  ? " disabled='{$params['disabled']}'"           : '';
+        $elem .= (isset($params['required']))  ? " required=''"                                : '';
+        $elem .= ' />';
+        return $elem;
+    }
+    
+    public function username($params = array()) {
+        $elem = '<input type="text"';
+        $elem .= (isset($params['id']))        ? " id='{$params['id']}'"                       : '';
+        $elem .= (isset($params['name']))      ? " name='{$params['name']}'"                   : '';
+        $elem .= (isset($params['placeholder']))   ? " placeholder='{$params['placeholder']}'" : '';
+        $elem .= (isset($params['class']))     ? " class='{$params['class']}'"                 : " class=''";
+        $elem .= (isset($params['onclick']))   ? " onclick='{$params['onclick']}'"             : '';
+        $elem .= (isset($params['onkeypress']))? " onkeypress='{$params['onkeypress']}'"       : '';
+        $elem .= (isset($params['value']))     ? ' value="' . $params['value'] . '"'           : '';
+        $elem .= (isset($params['length']))    ? " maxlength='{$params['length']}'"            : '';
+        $elem .= (isset($params['length']))    ? " minlength='{$params['length']}'"            : '';
+        $elem .= (isset($params['width']))     ? " style='width:{$params['width']}px;'"        : '';
+        $elem .= (isset($params['disabled']))  ? " disabled='{$params['disabled']}'"           : '';
+        $elem .= (isset($params['required']))  ? " required=''"                                : '';
+        $elem .= (isset($params['minlength']))  ? ' minlength="' . $params['minlength'] . '"'  : '';
+        $elem .= ' />';
+        return $elem;
+    }
+    
     public function password($params = array()) {
         $elem = '<input type="password"';
         $elem .= (isset($params['id']))        ? " id='{$params['id']}'"                       : '';

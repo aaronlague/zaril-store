@@ -27,6 +27,7 @@ if ($_SESSION['session_userid'] == '') {
 if(isset($_POST['btn-row'])){
 
 
+$delivery_report_id = "DR" . rand(0, 100) . date("ymds");
 $status = 'pending';
 $date_created = date("Y-m-d H:i:s");
 $details = $_POST['product_details'];
@@ -35,18 +36,23 @@ $item_code = 'test item';
 $price = $_POST['unit_price'];
 $quantity = $_POST['quantity'];
 
+$delivery_report_sql = "INSERT INTO tbl_delivery_report (delivery_report_id, brand_name, delivery_status, date_created) VALUES ('" .$delivery_report_id. "', '" .$brand_name. "', '" .$status. "', '" .$date_created. "')";
+
+$delivery_report_query = mysqli_query($connect, $delivery_report_sql) or die(mysqli_error($connect));
+
+
 	for ($i=0; $i<count($details); $i++) { 
 
-		$delivery_id = rand(0, 1000) . date("ymds");
-		$delivery_id = $delivery_id . $i;
+		$delivery_id = "D" . rand(0, 1000) . date("ymds");
+		//$delivery_id = $delivery_id . $i;
 
 		$sales_tax = ($tax_percentage / 100) * $price[$i];
 	    $total_price = ($price[$i] * $quantity[$i]) + $sales_tax;
 
 
-	   $sql = "INSERT INTO tbl_deliveries (delivery_id, brand_name, delivery_status, date_created, details, item_code, unit_price, quantity, sales_tax_amount, total_price) VALUES ('" .$delivery_id. "', '" .$brand_name. "', '" .$status. "', '" .$date_created. "', '" .$details[$i]. "', '" .$item_code. "', '" .$price[$i]. "', '" .$quantity[$i]. "', '" .$sales_tax. "' ,'" .$total_price. "')";
+	   $delivery_item_sql = "INSERT INTO tbl_deliveries (delivery_id, delivery_report_id, brand_name, delivery_status, date_created, details, item_code, unit_price, quantity, sales_tax_amount, total_price) VALUES ('" .$delivery_id. "', '" .$delivery_report_id. "', '" .$brand_name. "', '" .$status. "', '" .$date_created. "', '" .$details[$i]. "', '" .$item_code. "', '" .$price[$i]. "', '" .$quantity[$i]. "', '" .$sales_tax. "' ,'" .$total_price. "')";
 
-	   $query = mysqli_query($connect, $sql) or die(mysqli_error($connect));
+	   $delivery_item_query = mysqli_query($connect, $delivery_item_sql) or die(mysqli_error($connect));
 
 	   //echo $sql;
 	};
@@ -243,12 +249,16 @@ $quantity = $_POST['quantity'];
 	<!-- DATA TABES SCRIPT -->
     <script src="../js/jquery.dataTables.js" type="text/javascript"></script>
     <script src="../js/dataTables.bootstrap.js" type="text/javascript"></script>
+    <script src="../js/jquery.dataTables.rowGrouping.js" type="text/javascript"></script>
 
 	<script type="text/javascript">
             $(function() {
-                $("#example1").dataTable({
+                /*$("#example1").dataTable({
 					"bSort": false
-				});
+				});*/
+
+            	$('#example1').dataTable({ "bLengthChange": false, "bPaginate": false}).rowGrouping({bExpandableGrouping: true});
+
                 $('#example2').dataTable({
                     "bPaginate": true,
                     "bLengthChange": false,

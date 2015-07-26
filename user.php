@@ -51,6 +51,9 @@ if(isset($_POST['btn-create'])){
 	 <!-- Data Tables -->
 	<link href="css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
 
+	<!-- Data Tables -->
+	<link href="css/screen.css" rel="stylesheet" type="text/css" />
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -81,7 +84,7 @@ if(isset($_POST['btn-create'])){
 				User Account
 			</li>
 		</ol>
-		
+
         <!-- Page Data Grid -->
         <div class="form-group">
 			<button class="btn btn-primary addUser" type="button"><i class="fa fa-user fa-fw"></i>Add New User</button>
@@ -167,35 +170,40 @@ if(isset($_POST['btn-create'])){
 
 			<?php echo $formelem->create(array('method'=>'post','class'=>'', 'id'=>'createUser')); ?>
 
-			<label>Email</label>
-			<br />
-			<?php echo $formelem->text(array('id'=>'email','name'=>'email','placeholder'=>'email','class'=>'', 'value'=>'')); ?>
-			<br />
-			<label>Username</label>
-			<br />
-			<?php echo $formelem->text(array('id'=>'username','name'=>'username','placeholder'=>'username','class'=>'', 'value'=>'')); ?>
-			<br />
-			<label>Brand name</label>
-			<br />
-			<?php echo $formelem->text(array('id'=>'brandname','name'=>'brandname', 'placeholder'=>'brandname', 'class'=>'', 'value'=>'')); ?>
-			<br />
-			<label>Password</label>
-			<br />
-			<?php echo $formelem->password(array('id'=>'password','name'=>'password','placeholder'=>'Password','class'=>'')); ?>
-			<br />
-			<label>Is admin?</label>
-			<br />
-			<?php echo $formelem->checkbox(array('id'=>'isAdmin','name'=>'isAdmin','class'=>'', 'value'=>'0')); ?>
-
-			<br />
-			<?php echo $formelem->button(array('id'=>'btn-create','name'=>'btn-create','class'=>'', 'value'=>'create user')); ?>
-
+			<div class="form-group">
+				<label>Email</label>
+				<br />
+				<?php echo $formelem->email(array('id'=>'email','name'=>'email','placeholder'=>'email','class'=>'form-control', 'value'=>'')); ?>
+			</div>
+			<div class="form-group">
+				<label>Username</label>
+				<br />
+				<?php echo $formelem->username(array('id'=>'username','name'=>'username','placeholder'=>'username','class'=>'form-control', 'value'=>'', 'minlength'=>'2' )); ?>
+			</div>
+			<div class="form-group">
+				<label>Brand name</label>
+				<br />
+				<?php echo $formelem->text(array('id'=>'brandname','name'=>'brandname', 'placeholder'=>'brandname', 'class'=>'form-control', 'value'=>'')); ?>
+			</div>
+			<div class="form-group pw">
+				<label>Password</label>
+				<br />
+				<?php echo $formelem->password(array('id'=>'password','name'=>'password','placeholder'=>'Password','class'=>'form-control')); ?>
+			</div>
+			<div class="form-group">
+				<label>Is admin?</label>
+				<br />
+				<?php echo $formelem->checkbox(array('id'=>'isAdmin','name'=>'isAdmin','class'=>'', 'value'=>'0')); ?>
+			</div>
+			
+			<?php echo $formelem->button(array('id'=>'btn-create','name'=>'btn-create','class'=>'btn btn-primary', 'value'=>'create user')); ?>
 			<?php echo $formelem->close(); ?>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>          
+		  
         </div>
+		
      </div>
       
     </div>
@@ -208,6 +216,7 @@ if(isset($_POST['btn-create'])){
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
 	<script src="js/main.js"></script>
+	<script src="js/jquery.validate.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
@@ -236,33 +245,36 @@ if(isset($_POST['btn-create'])){
                 $('#UserModal').modal('show');
             } );
 
-			$( "#example1 tr" ).each(function(index) {
-				$(".editBtn").on('click', function(){
+			$( "#example1 tr .editBtn" ).each(function(index) {
+				$(this).on('click', function(){
 					$('#UserModal').modal('show');
-
-					var id = $("#example1 tr td.userId").html();
-					var account = $("#example1 tr td.userAccount").html();
+					
+					var email = $("#example1 tr td.userEmail").html();
 					var name = $("#example1 tr td.userName").html();
-					var address = $("#example1 tr td.userAddress").html();
-					var contact = $("#example1 tr td.userContact").html();
-        
-					console.log(id);
+					var brandname = $("#example1 tr td.userBrandName").html();
+					var role = $("#example1 tr td.userRole").html();
+					
 
-					$('#UserModal #userId').attr('placeholder' , id);
-					$('#UserModal #userAccount').attr('placeholder' , account);
-					$('#UserModal #userName').attr('placeholder' , name);
-					$('#UserModal #userAddress').attr('placeholder' , address);
-					$('#UserModal #userContact').attr('placeholder' , contact);
+					console.log(email);
+					
+
+					$('#UserModal #email').attr('placeholder' , email);
+					$('#UserModal #username').attr('placeholder' , name);
+					$('#UserModal #brandname').attr('placeholder' , brandname);
+					//$('#UserModal #password').attr('placeholder' , address);
+					$('#UserModal #isAdmin').attr('checked' , role);
 				});   
 			});
 
-
 			$(document).ready(function(){
-
+				$("#commentForm").validate();
+				$("#createUser").validate();
+				
 				$('#isAdmin').click(function(){
 
 					$(this).attr('value', this.checked ? 1 : 0)
 				});
+				
 
 			});
 	</script>

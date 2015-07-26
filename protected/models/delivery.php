@@ -19,7 +19,7 @@ class DeliveryModel {
 
 
 
-			$delivery_id = $row['delivery_id'];
+			$delivery_id = $row['delivery_report_id'];
 
 			$status = $row['delivery_status'];
 
