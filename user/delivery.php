@@ -85,6 +85,9 @@ $delivery_report_query = mysqli_query($connect, $delivery_report_sql) or die(mys
 	 <!-- Data Tables -->
 	<link href="../css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
 
+	<!-- jquery validation -->
+	<link href="../css/screen.css" rel="stylesheet" type="text/css" />
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -143,6 +146,7 @@ $delivery_report_query = mysqli_query($connect, $delivery_report_sql) or die(mys
 					//echo '<th>Brand</th>';
 					echo '<th>Date Created</th>';
 					echo '<th>Details</th>';
+					echo '<th>Quantity</th>';
 					//echo '<th>Item Code</th>';
 					echo '<th>Unit Price</th>';
 					//echo '<th>Quantity</th>';
@@ -167,8 +171,8 @@ $delivery_report_query = mysqli_query($connect, $delivery_report_sql) or die(mys
 		<?php include("../footer.php"); ?>
 		<!--/footer-->
 
-<!-- User Modal -->
-  <div class="modal fade large add-user-form" id="delivery" role="dialog">
+<!-- Create Delievery Modal -->
+  <div class="modal fade large delivery-form" id="createDeliveryModal" role="dialog">
         <div class="modal-dialog">
     
       <!-- Modal content-->
@@ -200,15 +204,15 @@ $delivery_report_query = mysqli_query($connect, $delivery_report_sql) or die(mys
 				<tbody>
 					<tr>
 						<td>
-							<?php echo $formelem->text(array('id'=>'item_code','name'=>'item_code[]','placeholder'=>'','class'=>'form-control', 'value'=>'')); ?>
+							<?php echo $formelem->text(array('id'=>'item_code','name'=>'item_code[]','placeholder'=>'','class'=>'form-control', 'value'=>'', 'minlength'=>'2', 'required'=>'')); ?>
 						</td>
 						<td>
 							<!--<input type="text" placeholder="" id="" class="form-control">-->
-                            <?php echo $formelem->text(array('id'=>'product_details','name'=>'product_details[]','placeholder'=>'','class'=>'form-control', 'value'=>'')); ?>
+                            <?php echo $formelem->text(array('id'=>'product_details','name'=>'product_details[]','placeholder'=>'','class'=>'form-control', 'value'=>'', 'minlength'=>'2', 'required'=>'')); ?>
 						</td>
 						<td>
 							<!--<input type="text" placeholder="" id="" class="form-control">-->
-                            <?php echo $formelem->text(array('id'=>'unit_price','name'=>'unit_price[]','placeholder'=>'','class'=>'form-control', 'value'=>'')); ?>
+                            <?php echo $formelem->text(array('id'=>'unit_price[]','name'=>'unit_price[]','placeholder'=>'','class'=>'form-control', 'value'=>'')); ?>
 						</td>
 						<td>
 							<!--<input type="text" placeholder="" id="" class="form-control">-->
@@ -232,7 +236,72 @@ $delivery_report_query = mysqli_query($connect, $delivery_report_sql) or die(mys
       <?php echo $formelem->close(); ?>
     </div>
   </div>
- <!-- end User Modal -->
+ <!-- end Delievery Modal -->
+
+ <!-- View/Edit Delievery Modal -->
+  <div class="modal fade large delivery-form" id="viewEditDelieveryModal" role="dialog">
+        <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">View/Edit</h4>
+        </div>
+        <?php echo $formelem->create(array('method'=>'post','class'=>'', 'id'=>'viewEditDelivery')); ?>	
+        <div class="modal-body">
+        <div class="form-group">
+        <p>
+        	<a href='#' class='editBtn btn btn-sm btn-success' type='button'><i class='fa fa-pencil fa-fw'></i>Edit</a>
+        </p>	
+			<table>
+				<thead>
+					<tr>
+						<td>
+							Item Code
+						</td>
+						<td>
+							Details of Product
+						</td>
+						<td>
+							Price
+						</td>
+						<td>
+							QTY
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<?php echo $formelem->text(array('id'=>'edit_item_code','name'=>'item_code[]','placeholder'=>'','class'=>'form-control', 'value'=>'', 'disabled'=>'disabled' )); ?>
+						</td>
+						<td>
+							<!--<input type="text" placeholder="" id="" class="form-control">-->
+                            <?php echo $formelem->text(array('id'=>'edit_product_details','name'=>'product_details[]','placeholder'=>'','class'=>'form-control', 'value'=>'', 'disabled'=>'disabled')); ?>
+						</td>
+						<td>
+							<!--<input type="text" placeholder="" id="" class="form-control">-->
+                            <?php echo $formelem->text(array('id'=>'edit_unit_price','name'=>'unit_price[]','placeholder'=>'','class'=>'form-control', 'value'=>'', 'disabled'=>'disabled')); ?>
+						</td>
+						<td>
+							<!--<input type="text" placeholder="" id="" class="form-control">-->
+                            <?php echo $formelem->text(array('id'=>'edit_quantity','name'=>'quantity[]','placeholder'=>'','class'=>'form-control', 'value'=>'', 'disabled'=>'disabled')); ?>
+						</td>
+					</tr>
+				</tbody>
+			</table>	
+		</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          <?php echo $formelem->button(array('id'=>'edit-btn-row','name'=>'btn-row','class'=>'btn btn-primary', 'value'=>'Save', 'disabled'=>'disabled')); ?>
+        </div>
+     </div>
+      <?php echo $formelem->close(); ?>
+    </div>
+  </div>
+ <!-- end Delievery Modal -->
 
 		<!-- /.modal -->
 
@@ -242,6 +311,7 @@ $delivery_report_query = mysqli_query($connect, $delivery_report_sql) or die(mys
     <!-- jQuery -->
     <script src="../js/jquery.js"></script>
 	<script src="../js/main.js"></script>
+	<script src="../js/jquery.validate.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="../js/bootstrap.min.js"></script>
@@ -250,65 +320,8 @@ $delivery_report_query = mysqli_query($connect, $delivery_report_sql) or die(mys
     <script src="../js/jquery.dataTables.js" type="text/javascript"></script>
     <script src="../js/dataTables.bootstrap.js" type="text/javascript"></script>
     <script src="../js/jquery.dataTables.rowGrouping.js" type="text/javascript"></script>
-
-	<script type="text/javascript">
-            $(function() {
-                /*$("#example1").dataTable({
-					"bSort": false
-				});*/
-
-            	$('#example1').dataTable({ "bLengthChange": false, "bPaginate": false}).rowGrouping({bExpandableGrouping: true});
-
-                $('#example2').dataTable({
-                    "bPaginate": true,
-                    "bLengthChange": false,
-                    "bFilter": false,
-                    "bSort": true,
-                    "bInfo": true,
-                    "bAutoWidth": false
-                });
-                
-
-            });
-
-			$('.addDelivery').on( 'click', function () {
-                $('#delivery').modal('show');
-                var rowCount = $('#deliveryTable >tbody >tr').length;
-                if (rowCount == 1) {
-                	$('.removeRow').css('display','none');
-                } else {
-                	$('.removeRow').css('display','inline');
-                }
-            });
-
-
-            $('.addRow').on( 'click', function () {
-            	
-                $('#deliveryTable tbody:last').append('<tr><td><input type="text" placeholder="" name="item_code[]" id="item_code" class="form-control"></td><td><input type="text" placeholder="" id="product_details" name="product_details[]" class="form-control"></td><td><input type="text" placeholder="" id="unit_price" name="unit_price[]" class="form-control"></td><td><input type="text" placeholder="" id="quantity" name="quantity[]" class="form-control"></td></tr>');
-                $('.removeRow').css('display','inline');
-            } );
-
-            $('.removeRow').on( 'click', function () {
-            	
-            	$('#deliveryTable tbody tr:last').remove();
-
-            	var rowCount = $('#deliveryTable >tbody >tr').length;
-                
-                if (rowCount == 1) {
-                	$('.removeRow').css('display','none');
-                } else {
-                	$('.removeRow').css('display','inline');
-                }
-            
-            } );
-			
-            function ShowLocalDate()
-		    {
-		    var dNow = new Date();
-		    var localdate= (dNow.getMonth()+1) + '/' + dNow.getDate() + '/' + dNow.getFullYear() + ' ' + dNow.getHours() + ':' + dNow.getMinutes();
-		    $('#currentDate').text(localdate)
-		    }
-	</script>
+    <script src="../js/jquery.confirm.js" type="text/javascript"></script>
+    <script src="../js/user-delivery.js" type="text/javascript"></script>
 </body>
 
 </html>

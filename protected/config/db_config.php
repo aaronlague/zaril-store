@@ -1,18 +1,17 @@
 <?php
 //define('DB_SERVER', 'FLEXIADMIN');
-define('DB_SERVER', 'localhost');
+//define('DB_SERVER', 'localhost');
 //define('DB_SERVER', '66.63.178.35\localhost');
 //define('DB_SERVER', '66.63.178.35');
-
-//dev
+define('DB_SERVER', 'localhost');
+//define('DB_USERNAME', 'sa');
 define('DB_USERNAME', 'root');
-define('DB_PASSWORD', '');
+//define('DB_PASSWORD', '');
 //define('DB_DATABASE', 'zaril_db');
 
-//prod
 //define('DB_USERNAME', 'zarilph_admin');
 //define('DB_PASSWORD', 'zaril123');
-
+define('DB_PASSWORD', '');
 define('DB_DATABASE', 'zarilph_zaril_db');
 
 class db_config {
@@ -52,8 +51,8 @@ class db_config {
 		$v = rtrim($v, ', ');
 
 		$sql="INSERT INTO ".$table." (". $q .") VALUES (". $v .")";
-		echo $sql;
-		//return $connect->query($sql);
+		//echo $sql;
+		return $connect->query($sql);
 	}
 
 	

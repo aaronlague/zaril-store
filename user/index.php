@@ -65,7 +65,7 @@ if ($_SESSION['session_is_admin'] == 1) {
         <header class="jumbotron hero-spacer">
             <h1>A Warm Welcome!</h1>
             <p>Zaril's Sales and Inventory System</p>
-            <p><a class="btn btn-primary btn-large">Go to main site</a>
+            <p><a href="http://www.zaril.net/" class="btn btn-primary btn-large">Go to main site</a>
             </p>
         </header>
 

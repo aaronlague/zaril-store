@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+include 'protected/config/db_config.php';
+include 'protected/config/html_config.php';
+include 'protected/library/validation_library.php';
+include 'protected/controllers/index.php';
+
+
+$db = new db_config();
+$formelem = new FormElem();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -70,7 +83,7 @@
 						<option>Brand5</option>
 					</select>
 				</div>
-				  <div class="col-md-3">
+				  <!-- <div class="col-md-3">
 				  		<label>From</label>
 		                <div class='input-group date' id='datetimepicker'>
 		                    <input type='text' class="form-control auto-width" id="datepickerFrom"/>
@@ -81,7 +94,7 @@
 		                <div class='input-group date' id='datetimepicker'>
 		                    <input type='text' class="form-control auto-width" id="datepickerTo"/>
 		                </div>
-				  </div>
+				  </div> -->
 			</div>
 		</div>
         <div class="panel panel-red">
@@ -166,7 +179,7 @@
 						</tbody>
 						<tfoot>
 							<tr>								
-								<th class="total">P3360.00</th>
+								<th class="total"></th>
 								<th class="total">P1006.00</th>
 								<th class="total">P4368.00</th>
 							</tr>

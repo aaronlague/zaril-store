@@ -30,11 +30,10 @@ class UsersModel {
 			}
 
 			$data .= "<tr>";
-			$data .= "<td>" . $email . "</td>";
-			$data .= "<td>" . $username . "</td>";
-			$data .= "<td>" . $brand_name . "</td>";
-			//$data .= "<td>" . md5($password) . "</td>";
-			$data .= "<td>" . $role . "</td>";
+			$data .= "<td class='userEmail'>" . $email . "</td>";
+			$data .= "<td class='userName'>" . $username . "</td>";
+			$data .= "<td class='userBrandName'>" . $brand_name . "</td>";
+			$data .= "<td class='userRole'>" . $role . "</td>";
 			$data .= "<td>
 				<a href='#' class='editBtn btn btn-sm btn-danger' type='button'><i class='fa fa-pencil'></i>Edit</a>
 				<a href='#' target='blank' class='btn btn-sm btn-warning' type='button'><i class='fa fa-refresh'></i>Reset Password</a>																	

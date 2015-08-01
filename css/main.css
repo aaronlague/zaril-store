@@ -158,10 +158,54 @@ footer {
 #datetimepicker img{
     cursor: pointer;
 }
-#delivery .form-control{
+.delivery-form .form-control{
     width: 90%;
     margin-bottom: 5px;
 }
 .left45 {
     margin-left:45px;
 }
+#logoutForm a {
+    clear: both;
+    color: #333;
+    display: block;
+    font-weight: 400;
+    line-height: 1.42857;
+    padding: 3px 20px;
+    white-space: nowrap;
+}
+#logoutForm a:focus, #logoutForm a:hover {
+    background-color:#f5f5f5;
+    color:#262626;
+    text-decoration:none;
+}
+.group-item-expander{
+    background: #eee;
+    border-bottom: 1px solid #ddd;
+}
+
+.expanded-group {
+    background: #eee url("../images/minus.jpg") no-repeat scroll right center;
+}
+.collapsed-group {
+    background: #eee url("../images/plus.jpg") no-repeat scroll right center;
+}
+
+#example1 .status.not-submitted {
+    background-color: #e74c3c;
+    color:#fff;
+    font-weight: bold;
+}
+
+#example1 .status.pending {
+    background-color: #f1c40f;
+    color:#fff;
+    font-weight: bold;
+}
+
+#example1 .status.accepted {
+    background-color: #2ecc71;
+    color:#fff;
+    font-weight: bold;
+}
+

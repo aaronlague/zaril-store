@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+include 'protected/config/db_config.php';
+include 'protected/config/html_config.php';
+include 'protected/library/validation_library.php';
+include 'protected/controllers/index.php';
+
+
+$db = new db_config();
+$formelem = new FormElem();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -100,81 +113,88 @@
 								<th>Sales Tax 3%</th>
 								<th>Total</th>
 							</tr>
+							<tr>
+								<th>Transaction #</th>
+								<th>Time and Date of Purchase</th>								
+								<th>Price</th>
+								<th>Sales Tax 3%</th>
+								<th>Total</th>
+							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td>TSN001</td>
-								<td>11:43 PM 7/13/2015</td>								
+								<td>02/08/2015 00:00:00</td>								
 								<td>P100.00</td>
 								<td>P30.00</td>
 								<td>P130.00</td>
 							</tr>
 							<tr>
 								<td>TSN002</td>
-								<td>11:40 PM 7/13/2015</td>							
+								<td>03/08/2015 00:00:00</td>							
 								<td>P120.00</td>
 								<td>P36.00</td>
 								<td>P156.00</td>
 							</tr>
 								<tr>
 								<td>TSN003</td>
-								<td>11:40 PM 7/14/2015</td>								
+								<td>04/08/2015 00:00:00</td>								
 								<td>P120.00</td>
 								<td>P36.00</td>
 								<td>P156.00</td>
 							</tr>
 								<tr>
 								<td>TSN004</td>
-								<td>11:48 PM 7/14/2015</td>							
+								<td>04/08/2015 00:00:00</td>							
 								<td>P160.00</td>
 								<td>P48.00</td>
 								<td>P208.00</td>
 							</tr>
 								<tr>
 								<td>TSN005</td>
-								<td>08:40 PM 7/15/2015</td>								
+								<td>05/08/2015 00:00:00</td>								
 								<td>P120.00</td>
 								<td>P36.00</td>
 								<td>P156.00</td>
 							</tr>
 								<tr>
 								<td>TSN006</td>
-								<td>12:20 PM 7/15/2015</td>								
+								<td>05/08/2015 00:00:00</td>								
 								<td>P250.00</td>
 								<td>P75.00</td>
 								<td>P325.00</td>
 							</tr>
 								<tr>
 								<td>TSN007</td>
-								<td>01:40 PM 7/15/2015</td>								
+								<td>05/08/2015 00:00:00</td>								
 								<td>P350.00</td>
 								<td>P105.00</td>
 								<td>P455.00</td>
 							</tr>
 								<tr>
 								<td>TSN008</td>
-								<td>11:45 PM 7/15/2015</td>								
+								<td>06/08/2015 00:00:00</td>								
 								<td>P820.00</td>
 								<td>P246.00</td>
 								<td>P1066.00</td>
 							</tr>
 								<tr>
 								<td>TSN009</td>
-								<td>11:49 PM 7/15/2015</td>								
+								<td>07/08/2015 00:00:00</td>								
 								<td>P820.00</td>
 								<td>P246.00</td>
 								<td>P1066.00</td>
 							</tr>
 								<tr>
 								<td>TSN010</td>
-								<td>10:20 PM 7/16/2015</td>								
+								<td>07/08/2015 00:00:00</td>								
 								<td>P500.00</td>
 								<td>P150.00</td>
 								<td>P650.00</td>
 							</tr>
 								<tr>
 								<td>TSN011</td>
-								<td>11:10 PM 7/16/2015</td>								
+								<td>08/08/2015 00:00:00</td>								
 								<td>P500.00</td>
 								<td>P150.00</td>
 								<td>P650.00</td>
@@ -208,6 +228,7 @@
     <script src="js/jquery.js"></script>
 	<script src="js/main.js"></script>
 	<script src="js/jquery-ui.js"></script>
+	<script src="js/jquery.dataTables.columnFilter.js" type="text/javascript"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
@@ -218,7 +239,9 @@
 
 	<script type="text/javascript">
             $(function() {
-                $("#example1").dataTable();
+                $("#example1").dataTable({
+                	"bSort": false,
+                });
                 $('#example2').dataTable({
                     "bPaginate": true,
                     "bLengthChange": false,
@@ -244,9 +267,33 @@
 	    });
 	  });
   </script>
-      
-	</script>
+  <script type="text/javascript">
+$(document).ready(function(){
+                $.datepicker.regional[""].dateFormat = 'dd/mm/yy';
+                $.datepicker.setDefaults($.datepicker.regional['']);
+     /*$('#example1').dataTable()
+		  .columnFilter({ sPlaceHolder: "head:before",
+			aoColumns: [ { type: "text" },
+				     { type: "date-range", sRangeFormat: "Between {from} and {to} dates" },
+                     { type: "text"  },
+                     { type: "text"  },
+                     { type: "text"  }
+				]
 
+		});*/
+$('#example1').dataTable()
+		  .columnFilter({ 	sPlaceHolder: "head:before",
+					aoColumns: [ 	{ type: "text" },
+				    	 		{ type: "date-range" },
+                                { type: "text" },
+                                { type: "text" },
+                                { type: "text" }
+						]
+
+		});
+});
+
+		</script>
 </body>
 
 </html>
