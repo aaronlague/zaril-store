@@ -131,29 +131,7 @@ $total_price = ($price * $quantity) + $sales_tax;
 					</h3>
 				</div>
 			<div class="panel-body">
-				<div class="box-body table-responsive">
-
-					<?php echo '<table class="table table-bordered table-striped" id="example1">';
-					echo '<thead>';
-					echo '<tr>';
-					echo '<th>Deliver ID</th>';
-					echo '<th>Brand</th>';
-					//echo '<th>Brand</th>';
-					echo '<th>Status</th>';
-					echo '<th>QTY Reported</th>';
-					//echo '<th>Item Code</th>';
-					echo '<th>QTY Received</th>';
-					//echo '<th>Quantity</th>';
-					echo '<th>Time Stamp</th>';
-					echo '<th>Details of Product</th>';
-					echo '<th>Action</th>';
-					echo '</tr>';
-					echo '</thead>';
-					echo '<tbody>';
-					echo $deliveryModel->getDeliveriesAdmin('brand6','tbl_deliveries', $connect);
-					echo '</tbody>';
-					echo '</table>';
-					?>
+				<div class="box-body table-responsive" id="deliveryList">
 					
 				</div><!-- /.box-body -->
 			</div>
@@ -228,19 +206,25 @@ $total_price = ($price * $quantity) + $sales_tax;
                     "bAutoWidth": false
                 });
 
-                $('select.form-control').change(function(){
-
-                	//alert($(this).val());
-                	var brand_name = $(this).val();
+                var autoLoadDeliveryList = function(){
+                	var brand_name = $('select.form-control').val();
                 	$.ajax({
-				    	  url: '../ajax/load_brands.php?brand_name=' + brand_name,
+				    	  url: '../ajax/load-brands.php?brand_name=' + brand_name,
 						  method: "POST",
-						  success: function(){
-						  	//location.href = '/user/delivery.php?submit=true';
+						  success: function(data){
+						  	var showResult = $('#deliveryList').load('../ajax/load-brands.php?brand_name='+brand_name+'' );
+						  	return showResult;
 						  	console.log('load brands');
 
 					  	}
-	                })
+	                });
+                }
+
+                autoLoadDeliveryList();
+
+                $('select.form-control').change(function(){
+
+                	autoLoadDeliveryList();
 
             	});
 
@@ -256,6 +240,7 @@ $total_price = ($price * $quantity) + $sales_tax;
 			//document.getElementById("currentTimeDate").innerHTML = time;
 
 			$('#currentTimeDate').attr('placeholder' , time);
+		});
 	</script>
 </body>
 
