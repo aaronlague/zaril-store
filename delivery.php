@@ -106,11 +106,13 @@ $total_price = ($price * $quantity) + $sales_tax;
 				<div class="col-md-3 col-offset-3">
 					<label>Select Brand</label>
 					<select class="form-control">
-						<option>Brand1</option>
-						<option>Brand2</option>
-						<option>Brand3</option>
-						<option>Brand4</option>
-						<option>Brand5</option>
+						<?php 
+						$sqlList = "SELECT DISTINCT brand_name FROM tbl_deliveries";
+						$query = mysqli_query($connect, $sqlList) or die(mysqli_error($connect));
+						while ($row = mysqli_fetch_array($query)){
+						echo "<option value=". $row['brand_name'] .">" . $row['brand_name'] . "</option>";
+						}
+						?>
 					</select>
 				</div>
 			</div>
@@ -130,10 +132,8 @@ $total_price = ($price * $quantity) + $sales_tax;
 				</div>
 			<div class="panel-body">
 				<div class="box-body table-responsive">
-					
-						
-						
-							<?php echo '<table class="table table-bordered table-striped" id="example1">';
+
+					<?php echo '<table class="table table-bordered table-striped" id="example1">';
 					echo '<thead>';
 					echo '<tr>';
 					echo '<th>Deliver ID</th>';
@@ -154,7 +154,6 @@ $total_price = ($price * $quantity) + $sales_tax;
 					echo '</tbody>';
 					echo '</table>';
 					?>
-						
 					
 				</div><!-- /.box-body -->
 			</div>
@@ -228,7 +227,22 @@ $total_price = ($price * $quantity) + $sales_tax;
                     "bInfo": true,
                     "bAutoWidth": false
                 });
-            });
+
+                $('select.form-control').change(function(){
+
+                	//alert($(this).val());
+                	var brand_name = $(this).val();
+                	$.ajax({
+				    	  url: '../ajax/load_brands.php?brand_name=' + brand_name,
+						  method: "POST",
+						  success: function(){
+						  	//location.href = '/user/delivery.php?submit=true';
+						  	console.log('load brands');
+
+					  	}
+	                })
+
+            	});
 
 			$('.editBtn').on( 'click', function () {
                 $('#editModal').modal('show');
