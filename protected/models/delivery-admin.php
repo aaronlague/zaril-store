@@ -6,7 +6,7 @@ class DeliveryModel {
 
 		$data = '';	
 				
-		$sql = "SELECT * FROM ".$table." WHERE brand_name = '". $brandName ."' ORDER BY delivery_id DESC";
+		$sql = "SELECT * FROM ".$table." WHERE brand_name = '". $brandName ."' AND delivery_status = 'Pending' ORDER BY delivery_id DESC";
 		$result = mysqli_query($connect, $sql);
 		//$num = $db->numrows($sql);
 		
