@@ -21,6 +21,8 @@ class DeliveryModel {
 
 			$delivery_id = $row['delivery_report_id'];
 
+			$delivery_item_id  = $row['delivery_id'];
+
 			$status = $row['delivery_status'];
 
 			$brand_name = $row['brand_name'];
@@ -66,9 +68,8 @@ class DeliveryModel {
 
 			$data .= "<td>" . $total_price . "</td>";
 
-			$data .= "<td><a href='#' class='viewBtn btn btn-sm btn-warning' type='button'><i class='fa fa-eye'></i>View</a>";
-//<a href='#' class='btn btn-sm btn-danger' type='button'><i class='fa fa-file'></i>Submit</a></td>			
-//<a href='#' class='editBtn btn btn-sm btn-danger' type='button'><i class='fa fa-pencil'></i>Edit</a>
+			$data .= "<td><a href='#' data-delivery-item-id='".$delivery_item_id."' class='viewBtn btn btn-sm btn-warning' type='button'><i class='fa fa-eye'></i>View</a></td>";
+
 			$data .= "</tr>";
 
     	}

@@ -37,8 +37,22 @@ $(document).ready(function() {
 		$(this).on('click', function(){
 		$('#viewEditDelieveryModal').modal('show');
 		
+		var delivery_item_id = $(this).attr('data-delivery-item-id');
 		var details = $("#example1 tr td.details").html();
 		var unit_price = $("#example1 tr td.unit_price").html();
+
+		$.ajax({
+		    		
+			  url: '../ajax/load-item-details.php?deliveryItemId=' + delivery_item_id,
+			  method: "POST",
+			  success: function(){
+			  	var showResult = $('#deliveryFields').load('../ajax/load-item-details.php?deliveryItemId='+delivery_item_id+'' );
+				return showResult;
+			  	console.log('show delivery item fields');
+
+			  }
+
+		});
 
 		$('#viewEditDelieveryModal #edit_product_details').attr('placeholder' , details);
 		$('#viewEditDelieveryModal #edit_unit_price').attr('placeholder' , unit_price);
@@ -101,9 +115,7 @@ $(document).ready(function() {
 				  success: function(){
 				  	
 				  	$('#example1 tbody tr.group-item  td.status').attr('data-status', 'Pending');
-					
 
-				  	
 				  	location.href = '/user/delivery.php?submit=true';
 				  	console.log('delivery sbmitted');
 

@@ -45,7 +45,6 @@ $delivery_report_query = mysqli_query($connect, $delivery_report_sql) or die(mys
 
 		$delivery_id = "D" . rand(0, 1000) . date("ymds");
 		//$delivery_id = $delivery_id . $i;
-
 		$sales_tax = ($tax_percentage / 100) * $price[$i];
 	    $total_price = ($price[$i] * $quantity[$i]) + $sales_tax;
 
@@ -54,7 +53,6 @@ $delivery_report_query = mysqli_query($connect, $delivery_report_sql) or die(mys
 
 	   $delivery_item_query = mysqli_query($connect, $delivery_item_sql) or die(mysqli_error($connect));
 
-	   //echo $sql;
 	};
 }
 
@@ -272,25 +270,22 @@ $delivery_report_query = mysqli_query($connect, $delivery_report_sql) or die(mys
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>
-							<?php echo $formelem->text(array('id'=>'edit_item_code','name'=>'item_code[]','placeholder'=>'','class'=>'form-control', 'value'=>'', 'disabled'=>'disabled' )); ?>
+					<tr id="deliveryFields">
+						<!-- <td>
+							<?php //echo $formelem->text(array('id'=>'edit_item_code','name'=>'item_code[]','placeholder'=>'','class'=>'form-control', 'value'=>'', 'disabled'=>'disabled' )); ?>
 						</td>
 						<td>
-							<!--<input type="text" placeholder="" id="" class="form-control">-->
-                            <?php echo $formelem->text(array('id'=>'edit_product_details','name'=>'product_details[]','placeholder'=>'','class'=>'form-control', 'value'=>'', 'disabled'=>'disabled')); ?>
+						                            <?php //echo $formelem->text(array('id'=>'edit_product_details','name'=>'product_details[]','placeholder'=>'','class'=>'form-control', 'value'=>'', 'disabled'=>'disabled')); ?>
 						</td>
 						<td>
-							<!--<input type="text" placeholder="" id="" class="form-control">-->
-                            <?php echo $formelem->text(array('id'=>'edit_unit_price','name'=>'unit_price[]','placeholder'=>'','class'=>'form-control', 'value'=>'', 'disabled'=>'disabled')); ?>
+						                            <?php //echo $formelem->text(array('id'=>'edit_unit_price','name'=>'unit_price[]','placeholder'=>'','class'=>'form-control', 'value'=>'', 'disabled'=>'disabled')); ?>
 						</td>
 						<td>
-							<!--<input type="text" placeholder="" id="" class="form-control">-->
-                            <?php echo $formelem->text(array('id'=>'edit_quantity','name'=>'quantity[]','placeholder'=>'','class'=>'form-control', 'value'=>'', 'disabled'=>'disabled')); ?>
-						</td>
+						                            <?php //echo $formelem->text(array('id'=>'edit_quantity','name'=>'quantity[]','placeholder'=>'','class'=>'form-control', 'value'=>'', 'disabled'=>'disabled')); ?>
+						</td> -->
 					</tr>
 				</tbody>
-			</table>	
+			</table>
 		</div>
         </div>
         <div class="modal-footer">
