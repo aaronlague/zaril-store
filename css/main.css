@@ -208,4 +208,12 @@ footer {
     color:#fff;
     font-weight: bold;
 }
-
+.filterColumn .form-control{
+    width: 37%;
+}
+.filter_column .form-control{
+    width: 100%;
+}
+.dataTables_filter{
+    margin-bottom: 10px;
+}

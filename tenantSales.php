@@ -75,12 +75,12 @@ $formelem = new FormElem();
 			<div class="row">
 				<div class="col-md-3">
 					<label>Select Brand</label>
-					<select class="form-control ">
-						<option>Brand1</option>
-						<option>Brand2</option>
-						<option>Brand3</option>
-						<option>Brand4</option>
-						<option>Brand5</option>
+					<select id="select-brand" class="form-control">
+						<option value="Brand1">Brand1</option>
+						<option value="Brand2">Brand2</option>
+						<option value="Brand3">Brand3</option>
+						<option value="Brand4">Brand4</option>
+						<option value="Brand5">Brand5</option>
 					</select>
 				</div>
 				  <!-- <div class="col-md-3">
@@ -120,7 +120,7 @@ $formelem = new FormElem();
 								<th>Total</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody>							
 							<tr>
 								<td>Brand1</td>								
 								<td>P30.00</td>
@@ -210,6 +210,7 @@ $formelem = new FormElem();
 	<!-- DATA TABES SCRIPT -->
     <script src="js/jquery.dataTables.js" type="text/javascript"></script>
     <script src="js/dataTables.bootstrap.js" type="text/javascript"></script>
+    <script src="js/jquery.dataTables.columnFilter.js" type="text/javascript"></script>
 
 	<script type="text/javascript">
             $(function() {
@@ -238,6 +239,15 @@ $formelem = new FormElem();
 			      buttonText: "Select date"
 			    });
 			  });
+
+            $(document).ready(function() {
+			/* Initialise datatables */
+			    var oTable = $('#example1').dataTable();
+
+		    /* Add event listener to the dropdown input */
+		    $('#select-brand').change( function() { oTable.fnFilter( $(this).val() ); } );
+
+		   });
 	</script>
 </body>
 

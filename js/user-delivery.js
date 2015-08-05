@@ -140,6 +140,12 @@ $(document).ready(function() {
     $('input[data-report-status="pending"]').prop('disabled', true);
     $('input[data-report-status="accepted"]').prop('disabled', true);
 
+    $('.print-report').click(function(){
+    	var deliveryReportId = $(this).attr('data-report-id');
+    	//location.href = '/tcpdf/reports/user-delivery-report.php?report_id='+deliveryReportId+'';
+    	window.open('/tcpdf/reports/user-delivery-report.php?report_id='+deliveryReportId+'', '_blank');
+    });
+
 
     $("#createDelivery").validate({
 	  rules: {

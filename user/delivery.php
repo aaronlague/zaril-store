@@ -31,7 +31,7 @@ $delivery_report_id = "DR" . rand(0, 100) . date("ymds");
 $status = 'not submitted';
 $date_created = date("Y-m-d H:i:s");
 $details = $_POST['product_details'];
-$item_code = 'test item';
+$item_code = $_POST['item_code'];
 
 $price = $_POST['unit_price'];
 $quantity = $_POST['quantity'];

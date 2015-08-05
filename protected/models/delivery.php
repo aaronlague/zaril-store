@@ -47,7 +47,13 @@ class DeliveryModel {
 
 			$data .= "<tr>";
 
-			$data .= "<td><input id='submitReport' name='submitReport' type='submit' value='submit' class='btn btn-primary' data-report-id='". $delivery_id ."' data-report-status='".$delivery_col_status."' style='float: right;  margin-right: 73px; width: 141px;'>" . $delivery_id . "</td>";			
+			$data .= "<td>";
+
+			$data .= "<a href='javascript:void(0);' target='_blank' data-report-id='". $delivery_id ."' class='print-report btn btn-info' type='button' style='float: right;  margin-right: 20px; width: 85px;'><i class='fa fa-eye'></i>Print</a>";
+
+			$data .= "<input id='submitReport' name='submitReport' type='submit' value='submit' class='btn btn-primary' data-report-id='". $delivery_id ."' data-report-status='".$delivery_col_status."' style='float: right;  margin-right: 30px; width: 141px;'>" . $delivery_id . "";
+
+			$data .= "</td>";
 
 			$data .= "<td class='status ".$delivery_col_status."'>" . $status . "</td>";
 
