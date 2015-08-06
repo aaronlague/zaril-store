@@ -29,7 +29,7 @@ echo '<th>QTY Reported</th>';
 echo '<th>QTY Received</th>';
 //echo '<th>Quantity</th>';
 echo '<th>Time Stamp</th>';
-echo '<th>Details of Product</th>';
+//echo '<th>Details of Product</th>';
 echo '<th>Action</th>';
 echo '</tr>';
 echo '</thead>';

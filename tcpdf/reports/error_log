@@ -24,3 +24,18 @@
 [05-Aug-2015 16:45:21 Asia/Manila] PHP Parse error:  syntax error, unexpected 'var' (T_VAR) in /home/zarilph/public_html/dev/tcpdf/reports/user-delivery-report.php on line 31
 [05-Aug-2015 16:46:28 Asia/Manila] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given in /home/zarilph/public_html/dev/tcpdf/reports/user-delivery-report.php on line 34
 [05-Aug-2015 16:46:28 Asia/Manila] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/zarilph/public_html/dev/tcpdf/reports/user-delivery-report.php:34) in /home/zarilph/public_html/dev/tcpdf/tcpdf.php on line 7624
+[06-Aug-2015 11:46:06 Asia/Manila] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given in /home/zarilph/public_html/dev/tcpdf/reports/admin-delivery-report.php on line 95
+[06-Aug-2015 11:46:06 Asia/Manila] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/zarilph/public_html/dev/tcpdf/reports/admin-delivery-report.php:95) in /home/zarilph/public_html/dev/tcpdf/tcpdf.php on line 7624
+[06-Aug-2015 11:46:12 Asia/Manila] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given in /home/zarilph/public_html/dev/tcpdf/reports/admin-delivery-report.php on line 95
+[06-Aug-2015 11:46:12 Asia/Manila] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/zarilph/public_html/dev/tcpdf/reports/admin-delivery-report.php:95) in /home/zarilph/public_html/dev/tcpdf/tcpdf.php on line 7624
+[06-Aug-2015 11:51:10 Asia/Manila] PHP Parse error:  syntax error, unexpected 'D7615072625' (T_STRING) in /home/zarilph/public_html/dev/tcpdf/reports/admin-delivery-report.php on line 52
+[06-Aug-2015 15:09:28 Asia/Manila] PHP Warning:  strlen() expects parameter 1 to be string, array given in /home/zarilph/public_html/dev/tcpdf/tcpdf.php on line 6275
+[06-Aug-2015 15:09:28 Asia/Manila] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/zarilph/public_html/dev/tcpdf/tcpdf.php:6275) in /home/zarilph/public_html/dev/tcpdf/tcpdf.php on line 7624
+[06-Aug-2015 15:30:20 Asia/Manila] PHP Warning:  strlen() expects parameter 1 to be string, array given in /home/zarilph/public_html/dev/tcpdf/tcpdf.php on line 6275
+[06-Aug-2015 15:30:20 Asia/Manila] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/zarilph/public_html/dev/tcpdf/tcpdf.php:6275) in /home/zarilph/public_html/dev/tcpdf/tcpdf.php on line 7624
+[06-Aug-2015 15:30:33 Asia/Manila] PHP Parse error:  syntax error, unexpected '.' in /home/zarilph/public_html/dev/tcpdf/reports/admin-delivery-report.php on line 14
+[06-Aug-2015 15:46:25 Asia/Manila] PHP Parse error:  syntax error, unexpected 'color' (T_STRING) in /home/zarilph/public_html/dev/tcpdf/reports/config/tcpdf_config_alt.php on line 117
+[06-Aug-2015 15:47:34 Asia/Manila] PHP Parse error:  syntax error, unexpected 'color' (T_STRING) in /home/zarilph/public_html/dev/tcpdf/reports/config/tcpdf_config_alt.php on line 117
+[06-Aug-2015 15:54:34 Asia/Manila] PHP Fatal error:  Call to a member function SetTextColor() on a non-object in /home/zarilph/public_html/dev/tcpdf/reports/config/tcpdf_config_alt.php on line 114
+[06-Aug-2015 15:55:02 Asia/Manila] PHP Fatal error:  Call to a member function SetTextColor() on a non-object in /home/zarilph/public_html/dev/tcpdf/reports/config/tcpdf_config_alt.php on line 114
+[06-Aug-2015 15:55:06 Asia/Manila] PHP Fatal error:  Call to a member function SetTextColor() on a non-object in /home/zarilph/public_html/dev/tcpdf/reports/config/tcpdf_config_alt.php on line 114

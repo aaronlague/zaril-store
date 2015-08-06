@@ -74,7 +74,7 @@ define ('PDF_HEADER_LOGO', 'tcpdf_logo.jpg');
 /**
  * Header logo image width in user units.
  */
-define ('PDF_HEADER_LOGO_WIDTH', 30);
+define ('PDF_HEADER_LOGO_WIDTH', 35);
 
 /**
  * Cache directory for temporary files (full path).
@@ -114,7 +114,7 @@ define ('PDF_HEADER_TITLE', 'TCPDF Example');
 /**
  * Header description string.
  */
-define ('PDF_HEADER_STRING', "by Nicola Asuni - Tecnick.com\nwww.tcpdf.org");
+define ('PDF_HEADER_STRING', "97 Maginhawa st. Teacher's Village, Quezon City");
 
 /**
  * Document unit of measure [pt=point, mm=millimeter, cm=centimeter, in=inch].
