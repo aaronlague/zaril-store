@@ -9,6 +9,7 @@ include '../protected/controllers/index.php';
 
 $db = new db_config();
 $formelem = new FormElem();
+$brand_name = $_SESSION['brand_name'];
 
 ?>
 <!DOCTYPE html>

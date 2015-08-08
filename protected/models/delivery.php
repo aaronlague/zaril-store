@@ -6,12 +6,8 @@ class DeliveryModel {
 		$db = new db_config();
 
 		$data = '';	
-
 		$sql = "SELECT * FROM ".$table." WHERE brand_name = '". $brandName ."' ORDER BY date_created DESC";
-
 		$result = mysqli_query($connect, $sql);
-
-		//$num = $db->numrows($sql);
 
 		$counter = 1;
 
@@ -20,61 +16,33 @@ class DeliveryModel {
 			$counter++;
 
 			$delivery_id = $row['delivery_report_id'];
-
 			$delivery_item_id  = $row['delivery_id'];
-
 			$status = $row['delivery_status'];
-
 			$brand_name = $row['brand_name'];
-
 			$date_created = $row['date_created'];
-
 			$details = $row['details'];
-
 			$item_code = $row['item_code'];
-
 			$unit_price = $row['unit_price'];
-
 			$quantity = $row['quantity'];
-
 			$sales_tax_amount = $row['sales_tax_amount'];
-
 			$total_price = $row['total_price'];
-
 			$quantity = $row['quantity'];
-
 			$delivery_col_status = str_replace(' ', '-', trim(strtolower($status)));
 
 			$data .= "<tr>";
-
 			$data .= "<td>";
-
-			$data .= "<a href='javascript:void(0);' target='_blank' data-report-id='". $delivery_id ."' class='print-report btn btn-info' type='button' style='float: right;  margin-right: 20px; width: 85px;'><i class='fa fa-eye'></i>Print</a>";
-
-			$data .= "<input id='submitReport' name='submitReport' type='submit' value='submit' class='btn btn-primary' data-report-id='". $delivery_id ."' data-report-status='".$delivery_col_status."' style='float: right;  margin-right: 30px; width: 141px;'>" . $delivery_id . "";
-
+			$data .= "<a href='javascript:void(0);' target='_blank' data-report-id='". $delivery_id ."' class='btn-print-report btn btn-info' type='button' ><i class='fa fa fa-file-pdf-o fa-fw'></i>Print</a>";
+			$data .= "<input id='submitReport' name='submitReport' type='submit' value='submit' class='btn-submit-delivery btn btn-primary' data-report-id='". $delivery_id ."' data-report-status='".$delivery_col_status."'>" . $delivery_id . "";
 			$data .= "</td>";
-
 			$data .= "<td class='status ".$delivery_col_status."'>" . $status . "</td>";
-
-//			$data .= "<td>" . $brand_name . "</td>";
-
 			$data .= "<td>" . $date_created . "</td>";
-
   			$data .= "<td class='details'>" . $details . "</td>";
-
   			$data .= "<td>" . $quantity . "</td>";
-
-//			$data .= "<td>" . $item_code . "</td>";
-
+			$data .= "<td>" . $item_code . "</td>";
 			$data .= "<td class='unit_price'>" . $unit_price . "</td>";
-			
-
 			$data .= "<td>" . $sales_tax_amount . "</td>";
-
 			$data .= "<td>" . $total_price . "</td>";
-
-			$data .= "<td><a href='#' data-delivery-item-id='".$delivery_item_id."' class='viewBtn btn btn-sm btn-warning' type='button'><i class='fa fa-eye'></i>View</a></td>";
+			$data .= "<td><a href='#' data-delivery-item-id='".$delivery_item_id."' data-report-status='".$delivery_col_status."' class='viewBtn btn btn-sm btn-warning' type='button'><i class='fa fa-eye'></i>View</a></td>";
 
 			$data .= "</tr>";
 
@@ -93,9 +61,6 @@ class DeliveryModel {
 		  $data .= "</tfoot>";
 
 		return $data;
-
-	
-
 	}
 
 }?>

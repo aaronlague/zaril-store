@@ -1,4 +1,4 @@
 <?php 
-$brand_name = $_GET['brand_name'];
-echo $brand_name
+$e = $_GET['test'];
+echo $e;
 ?>

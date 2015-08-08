@@ -10,6 +10,8 @@ include '../protected/library/validation_library.php';
 $db = new db_config();
 $formelem = new FormElem();
 
+$brand_name = $_SESSION['brand_name'];
+
 if ($_SESSION['session_userid'] == '') {
 
     header("Location: /login.php?loggedin=false");

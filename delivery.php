@@ -11,36 +11,24 @@ $db = new db_config();
 $formelem = new FormElem();
 $deliveryModel = new DeliveryModel();
 
-//$validationlib = new validationLibrary();
-//$indexController = new IndexController();
-
 $connect = $db->connect();
 
-if(isset($_POST['btn-row'])){
+if(isset($_POST['btn-save'])){
 
-$tax_percentage = 3;
-$price = $_POST['unit_price'];
-$quantity = $_POST['quantity'];
+	$delivery_report_id = $_POST['delivery_report_id'];
+	$status = $_POST['status'];
+	$quantity_received = $_POST['quantity_received'];
+	$timestamp = date('d/m/Y g:i A'); //$_POST['currentTimeDate'];
 
-$sales_tax = ($tax_percentage / 100) * $price;
+	$update_delivery_report_sql = "UPDATE tbl_delivery_report SET delivery_status = '".$status."', quantity_received = '".$quantity_received."', date_created = '".$timestamp."' WHERE delivery_report_id = '".$delivery_report_id."'";
 
-$total_price = ($price * $quantity) + $sales_tax;
+	$delivery_report_query = mysqli_query($connect, $update_delivery_report_sql) or die(mysqli_error($connect));
 
-//echo "<br />" . $sales_tax . "<br />";
-//echo "<br />" . $total_price . "<br />";
 
-//	$data['id'] = '1';
-	$data['delivery_id'] = rand() . date("Ymd");
-	$data['brand_name'] = 'brand6';
-	$data['delivery_status'] = 'pending';
-	$data['date_created'] = date("Y-m-d H:i:s");
-	$data['details'] = $_POST['product_details'];
-	$data['item_code'] = 'test';
-	$data['unit_price'] = $_POST['unit_price']; 
-	$data['quantity'] = $_POST['quantity'];
-	$data['sales_tax_amount'] = $sales_tax; 
-	$data['total_price'] = $total_price; 
-	$db->mquery_insert("tbl_deliveries", $data, $connect);
+	$update_deliveries_sql = "UPDATE tbl_deliveries SET delivery_status = '".$status."', date_accepted = '".$timestamp."' WHERE delivery_report_id = '".$delivery_report_id."'";
+
+	$deliver_query = mysqli_query($connect, $update_deliveries_sql) or die(mysqli_error($connect));
+
 }
 
 ?>
@@ -115,6 +103,13 @@ $total_price = ($price * $quantity) + $sales_tax;
 						?>
 					</select>
 				</div>
+				<div class="col-md-3 col-offset-3">
+					<label>Select Brand</label>
+					<select class="status form-control">
+						<option value="Pending">Pending</option>
+						<option value="Accepted">Accepted</option>
+					</select>
+				</div>
 			</div>
 		</div>
         <div class="panel panel-green">
@@ -153,27 +148,30 @@ $total_price = ($price * $quantity) + $sales_tax;
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 				<h4 class="modal-title">Edit</h4>
 			</div>
+			<?php echo $formelem->create(array('method'=>'post','class'=>'', 'id'=>'updateDeliveryStatus')); ?>
 			<div class="modal-body">
 				<div class="form-group">
 					<label>Status</label>
-					<select class="form-control">
+					<select name="status" class="form-control">
 						<option>Accepted</option>
 						<option>Pending</option>
 					</select>
 				</div>
 				<div class="form-group">
 					<label>QTY Received</label>
-					<input class="form-control" type="text" placeholder="10">
+					<input name='quantity_received' id='quantity_received' class="form-control" type="text" placeholder="10">
 				</div>
 				<div class="form-group">
 					<label for="disabledSelect">Current time and Date</label>
-					<input id="currentTimeDate" class="form-control" type="text" disabled="" placeholder="">
+					<input id="currentTimeDate" name="currentTimeDate" class="form-control" type="text" disabled="" placeholder="">
 				</div>
 			</div>
+			<?php echo $formelem->hidden(array('id'=>'delivery_report_id','name'=>'delivery_report_id','placeholder'=>'','class'=>'', 'value'=>'')); ?>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save</button>
+				<?php echo $formelem->button(array('id'=>'btn-save','name'=>'btn-save','class'=>'btn btn-primary', 'value'=>'Save')); ?>
 			</div>
+			<?php echo $formelem->close(); ?>
 			</div>
       
 		</div>

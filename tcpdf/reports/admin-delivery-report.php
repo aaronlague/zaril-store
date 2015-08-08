@@ -92,7 +92,7 @@ $tbl_footer = '</table>';
 $tbl ='';
 
 
-$sqlGetDeliveryItems = "SELECT * FROM tbl_deliveries WHERE delivery_report_id = '".$reportId."' AND delivery_status = 'Pending'";
+$sqlGetDeliveryItems = "SELECT * FROM tbl_deliveries WHERE delivery_report_id = '".$reportId."' AND delivery_status = 'Pending' OR delivery_status = 'Accepted'";
 
 $delivery_item_results = mysqli_query($connect, $sqlGetDeliveryItems);
 while ($row = mysqli_fetch_array($delivery_item_results)) {

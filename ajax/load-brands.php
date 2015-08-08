@@ -14,6 +14,7 @@ $deliveryModel = new DeliveryModel();
 $connect = $db->connect();
 
 $brand_name = $_GET['brand_name'];
+$status = $_GET['status'];
 
 ?>
 
@@ -34,7 +35,7 @@ echo '<th>Action</th>';
 echo '</tr>';
 echo '</thead>';
 echo '<tbody>';
-echo $deliveryModel->getDeliveriesAdmin($_GET['brand_name'], 'tbl_deliveries', $connect);
+echo $deliveryModel->getDeliveriesAdmin($_GET['brand_name'], $status, 'tbl_deliveries', $connect);
 echo '</tbody>';
 echo '</table>';
 ?>

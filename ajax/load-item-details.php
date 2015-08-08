@@ -17,7 +17,6 @@ $deliveryItemId = $_GET['deliveryItemId'];
 
 ?>
 
-<?php echo '<form>';
+<?php
 echo $deliveryItemModel->getDeliveryItems($_GET['deliveryItemId'], $connect);
-echo '</form>';
 ?>

@@ -10,6 +10,7 @@ $db = new db_config();
 $formelem = new FormElem();
 $UsersModel = new UsersModel();
 $connect = $db->connect();
+$brand_name = $_SESSION['brand_name'];
 
 if(isset($_POST['btn-create'])){
 

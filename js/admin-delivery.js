@@ -1,59 +1,66 @@
 $(document).ready(function() {
 
 	$("#example1").dataTable();
-                $('#example2').dataTable({
-                    "bPaginate": true,
-                    "bLengthChange": false,
-                    "bFilter": false,
-                    "bSort": true,
-                    "bInfo": true,
-                    "bAutoWidth": false
+            $('#example2').dataTable({
+                "bPaginate": true,
+                "bLengthChange": false,
+                "bFilter": false,
+                "bSort": true,
+                "bInfo": true,
+                "bAutoWidth": false
+            });
+
+            var autoLoadDeliveryList = function(){
+            	var brand_name = $('select.form-control').val();
+                var status = $('select.status').val();
+            	$.ajax({
+			    	  url: '../ajax/load-brands.php?brand_name=' + brand_name + '&status=' + status,
+					  method: "POST",
+					  success: function(data){
+					  	var showResult = $('#deliveryList').load('../ajax/load-brands.php?brand_name='+brand_name+'&status='+status+'' );
+					  	return showResult;
+				  	}
                 });
+            }
 
-                var autoLoadDeliveryList = function(){
-                	var brand_name = $('select.form-control').val();
-                	$.ajax({
-				    	  url: '../ajax/load-brands.php?brand_name=' + brand_name,
-						  method: "POST",
-						  success: function(data){
-						  	var showResult = $('#deliveryList').load('../ajax/load-brands.php?brand_name='+brand_name+'' );
-						  	return showResult;
-						  	console.log('load brands');
+            var getDeliveryItemID = function(){
+                var delivery_report_id = $(this).attr('data-report-id');
+                $.ajax({
+                      url: '../ajax/load.php?delivery_report_id=' + delivery_report_id,
+                      method: "POST",
+                      success: function(data){
+                        var showResult = delivery_report_id;
+                        alert(showResult);
+                        return showResult;
+                    }
+                });
+            }
 
-					  	}
-	                });
-                }
+            autoLoadDeliveryList();
 
-                autoLoadDeliveryList();
+            $('select.form-control').change(function(){
 
-                $('select.form-control').change(function(){
+            	autoLoadDeliveryList();
 
-                	autoLoadDeliveryList();
-
-            	});
-
-			$('.editBtn').on( 'click', function () {
-                $('#editModal').modal('show');
-            } );
-
+        	});
 
 			var d = new Date();
 			var n = d.getMonth();
 			var month = n + 1 ;
 			var time = d.getHours() + ":" + d.getMinutes() + " " + month + "/" + d.getDate() + "/" + d.getFullYear();
-			//document.getElementById("currentTimeDate").innerHTML = time;
 
 			$('#currentTimeDate').attr('placeholder' , time);
-            
-	       var initButtons = function(){
-                    $('.print-report').click(function(){
-                        alert('xxx');
-                        var deliveryReportId = $(this).attr('data-report-id');
-                        //location.href = '/tcpdf/reports/user-delivery-report.php?report_id='+deliveryReportId+'';
-                        window.open('/tcpdf/reports/admin-delivery-report.php?report_id='+deliveryReportId+'', '_blank');
-                    })
-                };
+
+            $('#deliveryList').on('click', '.print-report', function(){
+                var deliveryReportId = $(this).attr('data-report-id');
+                window.open('/tcpdf/reports/admin-delivery-report.php?report_id='+deliveryReportId+'', '_blank');
+            });
+
+            $('#deliveryList').on('click', '.editBtn', function () {
                 
-                setTimeout(initButtons, 1000);
+                var report_id = $(this).attr('data-report-id');
+                $('#delivery_report_id').attr('value', report_id);
+                $('#editModal').modal('show');
+            });
 
 });

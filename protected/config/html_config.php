@@ -37,6 +37,25 @@ class FormElem {
         return $elem;
     }
 
+    public function hidden($params = array()) {
+        $elem = '<input type="hidden"';
+        $elem .= (isset($params['id']))        ? " id='{$params['id']}'"                       : '';
+        $elem .= (isset($params['name']))      ? " name='{$params['name']}'"                   : '';
+        $elem .= (isset($params['placeholder']))   ? " placeholder='{$params['placeholder']}'" : '';
+        $elem .= (isset($params['class']))     ? " class='{$params['class']}'"                 : " class=''";
+        $elem .= (isset($params['onclick']))   ? " onclick='{$params['onclick']}'"             : '';
+        $elem .= (isset($params['onkeypress']))? " onkeypress='{$params['onkeypress']}'"       : '';
+        $elem .= (isset($params['value']))     ? ' value="' . $params['value'] . '"'           : '';
+        $elem .= (isset($params['length']))    ? " maxlength='{$params['length']}'"            : '';
+        $elem .= (isset($params['width']))     ? " style='width:{$params['width']}px;'"        : '';
+        $elem .= (isset($params['disabled']))  ? " disabled='{$params['disabled']}'"           : '';
+        $elem .= (isset($params['required']))  ? " required=''"                                : '';
+        $elem .= (isset($params['minlength']))  ? ' minlength="' . $params['minlength'] . '"'  : '';
+        $elem .= (isset($params['required']))  ? ' required="' . $params['required'] . '"'  : '';
+        $elem .= ' />';
+        return $elem;
+    }
+
     public function email($params = array()) {
         $elem = '<input type="email"';
         $elem .= (isset($params['id']))        ? " id='{$params['id']}'"                       : '';

@@ -10,10 +10,6 @@ include '../protected/models/delivery.php';
 $db = new db_config();
 $formelem = new FormElem();
 $deliveryModel = new DeliveryModel();
-
-//$validationlib = new validationLibrary();
-//$indexController = new IndexController();
-
 $connect = $db->connect();
 
 $brand_name = $_SESSION['brand_name'];
@@ -49,11 +45,29 @@ $delivery_report_query = mysqli_query($connect, $delivery_report_sql) or die(mys
 	    $total_price = ($price[$i] * $quantity[$i]) + $sales_tax;
 
 
-	   $delivery_item_sql = "INSERT INTO tbl_deliveries (delivery_id, delivery_report_id, brand_name, delivery_status, date_created, details, item_code, unit_price, quantity, sales_tax_amount, total_price) VALUES ('" .$delivery_id. "', '" .$delivery_report_id. "', '" .$brand_name. "', '" .$status. "', '" .$date_created. "', '" .$details[$i]. "', '" .$item_code. "', '" .$price[$i]. "', '" .$quantity[$i]. "', '" .$sales_tax. "' ,'" .$total_price. "')";
+	   $delivery_item_sql = "INSERT INTO tbl_deliveries (delivery_id, delivery_report_id, brand_name, delivery_status, date_created, details, item_code, unit_price, quantity, sales_tax_amount, total_price) VALUES ('" .$delivery_id. "', '" .$delivery_report_id. "', '" .$brand_name. "', '" .$status. "', '" .$date_created. "', '" .$details[$i]. "', '" .$item_code[$i]. "', '" .$price[$i]. "', '" .$quantity[$i]. "', '" .$sales_tax. "' ,'" .$total_price. "')";
 
 	   $delivery_item_query = mysqli_query($connect, $delivery_item_sql) or die(mysqli_error($connect));
 
+	   header('location: /user/delivery.php?record_created=true');
+
 	};
+
+}
+
+
+if(isset($_POST['update-record'])) {
+
+	$delivery_item_id = $_POST['edit_delivery_item_id'];
+	$item_code = $_POST['edit_item_code'];
+	$item_details = $_POST['edit_product_details'];
+	$item_price = $_POST['edit_unit_price'];
+	$quantity = $_POST['edit_quantity'];
+
+	$delivery_item_update_sql = "UPDATE tbl_deliveries SET item_code = '".$item_code."', details = '".$item_details."', unit_price = '".$item_price."', quantity = '".$quantity."' WHERE delivery_id = '".$delivery_item_id."'";
+
+	$delivery_item_update = mysqli_query($connect, $delivery_item_update_sql) or die(mysqli_error($connect));
+
 }
 
 ?>
@@ -141,13 +155,11 @@ $delivery_report_query = mysqli_query($connect, $delivery_report_sql) or die(mys
 					echo '<tr>';
 					echo '<th>Deliver ID</th>';
 					echo '<th>Status</th>';
-					//echo '<th>Brand</th>';
 					echo '<th>Date Created</th>';
 					echo '<th>Details</th>';
 					echo '<th>Quantity</th>';
-					//echo '<th>Item Code</th>';
+					echo '<th>Item Code</th>';
 					echo '<th>Unit Price</th>';
-					//echo '<th>Quantity</th>';
 					echo '<th>Sales Tax Amount</th>';
 					echo '<th>Total Price</th>';
 					echo '<th></th>';
@@ -205,15 +217,12 @@ $delivery_report_query = mysqli_query($connect, $delivery_report_sql) or die(mys
 							<?php echo $formelem->text(array('id'=>'item_code','name'=>'item_code[]','placeholder'=>'','class'=>'form-control', 'value'=>'', 'minlength'=>'2', 'required'=>'')); ?>
 						</td>
 						<td>
-							<!--<input type="text" placeholder="" id="" class="form-control">-->
                             <?php echo $formelem->text(array('id'=>'product_details','name'=>'product_details[]','placeholder'=>'','class'=>'form-control', 'value'=>'', 'minlength'=>'2', 'required'=>'')); ?>
 						</td>
 						<td>
-							<!--<input type="text" placeholder="" id="" class="form-control">-->
                             <?php echo $formelem->text(array('id'=>'unit_price[]','name'=>'unit_price[]','placeholder'=>'','class'=>'form-control', 'value'=>'')); ?>
 						</td>
 						<td>
-							<!--<input type="text" placeholder="" id="" class="form-control">-->
                             <?php echo $formelem->text(array('id'=>'quantity','name'=>'quantity[]','placeholder'=>'','class'=>'form-control', 'value'=>'')); ?>
 						</td>
 					</tr>
@@ -289,8 +298,10 @@ $delivery_report_query = mysqli_query($connect, $delivery_report_sql) or die(mys
 		</div>
         </div>
         <div class="modal-footer">
+          <?php echo $formelem->button(array('id'=>'update-record','name'=>'update-record','class'=>'btn btn-primary', 'value'=>'update')); ?>
           <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
           <?php echo $formelem->button(array('id'=>'edit-btn-row','name'=>'btn-row','class'=>'btn btn-primary', 'value'=>'Save', 'disabled'=>'disabled')); ?>
+
         </div>
      </div>
       <?php echo $formelem->close(); ?>
