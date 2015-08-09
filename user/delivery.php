@@ -41,7 +41,7 @@ $delivery_report_query = mysqli_query($connect, $delivery_report_sql) or die(mys
 
 		$delivery_id = "D" . rand(0, 1000) . date("ymds");
 		//$delivery_id = $delivery_id . $i;
-		$sales_tax = ($tax_percentage / 100) * $price[$i];
+		$sales_tax = ($tax_percentage / 100) * $price[$i] * $quantity[$i];
 	    $total_price = ($price[$i] * $quantity[$i]);
 
 
@@ -64,12 +64,16 @@ if(isset($_POST['update-record'])) {
 	$item_price = $_POST['edit_unit_price'];
 	$quantity = $_POST['edit_quantity'];
 
-	$sales_tax = ($tax_percentage / 100) * $item_price;
+	$sales_tax_percentage = ($tax_percentage / 100) * $item_price;
+	$sales_tax = $sales_tax_percentage * $quantity;
+
 	$total_price = ($item_price * $quantity);
 
 	$delivery_item_update_sql = "UPDATE tbl_deliveries SET item_code = '".$item_code."', details = '".$item_details."', unit_price = '".$item_price."', quantity = '".$quantity."', sales_tax_amount = '".$sales_tax."', total_price = '".$total_price."' WHERE delivery_id = '".$delivery_item_id."'";
 
 	$delivery_item_update = mysqli_query($connect, $delivery_item_update_sql) or die(mysqli_error($connect));
+
+	header('location: /user/delivery.php?record_updated=true');
 
 }
 
@@ -223,10 +227,10 @@ if(isset($_POST['update-record'])) {
                             <?php echo $formelem->text(array('id'=>'product_details','name'=>'product_details[]','placeholder'=>'','class'=>'form-control', 'value'=>'', 'minlength'=>'2', 'required'=>'')); ?>
 						</td>
 						<td>
-                            <?php echo $formelem->text(array('id'=>'unit_price[]','name'=>'unit_price[]','placeholder'=>'','class'=>'form-control', 'value'=>'')); ?>
+                            <?php echo $formelem->text(array('id'=>'unit_price[]','name'=>'unit_price[]','placeholder'=>'','class'=>'form-control', 'value'=>'', 'minlength'=>'1', 'required'=>'')); ?>
 						</td>
 						<td>
-                            <?php echo $formelem->text(array('id'=>'quantity','name'=>'quantity[]','placeholder'=>'','class'=>'form-control', 'value'=>'')); ?>
+                            <?php echo $formelem->text(array('id'=>'quantity','name'=>'quantity[]','placeholder'=>'','class'=>'form-control', 'value'=>'', 'minlength'=>'1', 'required'=>'')); ?>
 						</td>
 					</tr>
 				</tbody>

@@ -161,7 +161,7 @@ if(isset($_POST['btn-save'])){
 				</div>
 				<div class="form-group">
 					<label>QTY Received</label>
-					<input name='quantity_received' id='quantity_received' class="form-control" type="text" placeholder="10">
+					<input name='quantity_received' id='quantity_received' class="form-control" type="text" placeholder="" minlength="1" required="">
 				</div>
 				<div class="form-group">
 					<label for="disabledSelect">Current time and Date</label>
