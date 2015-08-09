@@ -16,7 +16,7 @@
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">               
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> 
+                    <a href="#" class="dropdown-toggle capitalize" data-toggle="dropdown"><i class="fa fa-user"></i> 
                     <?php
                     echo $brand_name;
                     ?>

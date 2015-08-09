@@ -76,7 +76,7 @@ if ($_SESSION['session_is_admin'] == 1) {
         <!-- Title -->
         <div class="row">
             <div class="col-lg-12">
-                <h3>Brand Name: Psalm's Accessories</h3>
+                <h3>Brand Name: <span class="capitalize"><?php echo $brand_name; ?></span></h3>
             </div>
         </div>
         <!-- /.row -->

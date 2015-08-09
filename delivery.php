@@ -18,9 +18,9 @@ if(isset($_POST['btn-save'])){
 	$delivery_report_id = $_POST['delivery_report_id'];
 	$status = $_POST['status'];
 	$quantity_received = $_POST['quantity_received'];
-	$timestamp = date('d/m/Y g:i A'); //$_POST['currentTimeDate'];
+	$timestamp = date("Y-m-d H:i"); //$_POST['currentTimeDate'];
 
-	$update_delivery_report_sql = "UPDATE tbl_delivery_report SET delivery_status = '".$status."', quantity_received = '".$quantity_received."', date_created = '".$timestamp."' WHERE delivery_report_id = '".$delivery_report_id."'";
+	$update_delivery_report_sql = "UPDATE tbl_delivery_report SET delivery_status = '".$status."', quantity_received = '".$quantity_received."', date_accepted = '".$timestamp."' WHERE delivery_report_id = '".$delivery_report_id."'";
 
 	$delivery_report_query = mysqli_query($connect, $update_delivery_report_sql) or die(mysqli_error($connect));
 
@@ -28,6 +28,8 @@ if(isset($_POST['btn-save'])){
 	$update_deliveries_sql = "UPDATE tbl_deliveries SET delivery_status = '".$status."', date_accepted = '".$timestamp."' WHERE delivery_report_id = '".$delivery_report_id."'";
 
 	$deliver_query = mysqli_query($connect, $update_deliveries_sql) or die(mysqli_error($connect));
+
+	header('location: /delivery.php?report_status_updated=true');
 
 }
 

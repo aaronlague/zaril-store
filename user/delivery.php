@@ -42,7 +42,7 @@ $delivery_report_query = mysqli_query($connect, $delivery_report_sql) or die(mys
 		$delivery_id = "D" . rand(0, 1000) . date("ymds");
 		//$delivery_id = $delivery_id . $i;
 		$sales_tax = ($tax_percentage / 100) * $price[$i];
-	    $total_price = ($price[$i] * $quantity[$i]) + $sales_tax;
+	    $total_price = ($price[$i] * $quantity[$i]);
 
 
 	   $delivery_item_sql = "INSERT INTO tbl_deliveries (delivery_id, delivery_report_id, brand_name, delivery_status, date_created, details, item_code, unit_price, quantity, sales_tax_amount, total_price) VALUES ('" .$delivery_id. "', '" .$delivery_report_id. "', '" .$brand_name. "', '" .$status. "', '" .$date_created. "', '" .$details[$i]. "', '" .$item_code[$i]. "', '" .$price[$i]. "', '" .$quantity[$i]. "', '" .$sales_tax. "' ,'" .$total_price. "')";
@@ -64,7 +64,10 @@ if(isset($_POST['update-record'])) {
 	$item_price = $_POST['edit_unit_price'];
 	$quantity = $_POST['edit_quantity'];
 
-	$delivery_item_update_sql = "UPDATE tbl_deliveries SET item_code = '".$item_code."', details = '".$item_details."', unit_price = '".$item_price."', quantity = '".$quantity."' WHERE delivery_id = '".$delivery_item_id."'";
+	$sales_tax = ($tax_percentage / 100) * $item_price;
+	$total_price = ($item_price * $quantity);
+
+	$delivery_item_update_sql = "UPDATE tbl_deliveries SET item_code = '".$item_code."', details = '".$item_details."', unit_price = '".$item_price."', quantity = '".$quantity."', sales_tax_amount = '".$sales_tax."', total_price = '".$total_price."' WHERE delivery_id = '".$delivery_item_id."'";
 
 	$delivery_item_update = mysqli_query($connect, $delivery_item_update_sql) or die(mysqli_error($connect));
 
@@ -142,11 +145,11 @@ if(isset($_POST['update-record'])) {
 						Delivery List
 					</h3>
 					
-					<h3 class="panel-title pull-right">
+					<!-- <h3 class="panel-title pull-right">
 						<a href="#">
 							<i class="fa fa-print fa-fw"></i>Print
 						</a>
-					</h3>
+					</h3> -->
 				</div>
 			<div class="panel-body">
 				<div class="box-body table-responsive">
@@ -298,9 +301,9 @@ if(isset($_POST['update-record'])) {
 		</div>
         </div>
         <div class="modal-footer">
-          <?php echo $formelem->button(array('id'=>'update-record','name'=>'update-record','class'=>'btn btn-primary', 'value'=>'update')); ?>
+          <?php echo $formelem->button(array('id'=>'update-record','name'=>'update-record','class'=>'btn btn-primary edit-btn-row', 'value'=>'update', 'disabled'=>'disabled' )); ?>
           <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-          <?php echo $formelem->button(array('id'=>'edit-btn-row','name'=>'btn-row','class'=>'btn btn-primary', 'value'=>'Save', 'disabled'=>'disabled')); ?>
+          
 
         </div>
      </div>

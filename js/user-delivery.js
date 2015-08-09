@@ -60,7 +60,7 @@ $(document).ready(function() {
 
         $('#edit_quantity').removeAttr('disabled');
 
-        $('#edit-btn-row').removeAttr('disabled');
+        $('.edit-btn-row').removeAttr('disabled');
 
     });
 
@@ -285,7 +285,7 @@ $(document).ready(function() {
     $('.viewBtn[data-report-status="accepted"]').attr('disabled', true);
 
 
-    $('.print-report').click(function(){
+    $('.btn-print-report').click(function(){
 
     	var deliveryReportId = $(this).attr('data-report-id');
 

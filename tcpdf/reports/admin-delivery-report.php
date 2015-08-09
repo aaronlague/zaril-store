@@ -34,6 +34,7 @@ $pdf->SetFont('', '', 8, '', true);
 $pdf->AddPage();
 
 $reportId = $_GET['report_id'];
+$status = $_GET['status'];
 
 $tbl_header .= '<style>
 	
@@ -92,7 +93,7 @@ $tbl_footer = '</table>';
 $tbl ='';
 
 
-$sqlGetDeliveryItems = "SELECT * FROM tbl_deliveries WHERE delivery_report_id = '".$reportId."' AND delivery_status = 'Pending' OR delivery_status = 'Accepted'";
+$sqlGetDeliveryItems = "SELECT * FROM tbl_deliveries WHERE delivery_report_id = '".$reportId."' AND delivery_status = '".$status."'";
 
 $delivery_item_results = mysqli_query($connect, $sqlGetDeliveryItems);
 while ($row = mysqli_fetch_array($delivery_item_results)) {
