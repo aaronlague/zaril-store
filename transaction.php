@@ -5,12 +5,18 @@ include 'protected/config/db_config.php';
 include 'protected/config/html_config.php';
 include 'protected/library/validation_library.php';
 include 'protected/controllers/index.php';
-
+include 'protected/models/transaction-items-display.php';
 
 $db = new db_config();
 $formelem = new FormElem();
+$transactionItemsModel = new TransactionItemsModel();
+$connect = $db->connect();
+
 $brand_name = $_SESSION['brand_name'];
+
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -94,45 +100,7 @@ $brand_name = $_SESSION['brand_name'];
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>Brand1</td>
-								<td>ITM1001</td>
-								<td>Women Sandals</td>
-								<td>P100.00</td>
-								<td>P30.00</td>
-								<td>P130.00</td>
-								<td class="text-center">
-									<a href="#">
-										<i class="fa fa-remove remove"></i>
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Brand2</td>
-								<td>ITM1002</td>
-								<td>Accessories</td>
-								<td>P120.00</td>
-								<td>P36.00</td>
-								<td>P156.00</td>
-								<td class="text-center">
-									<a href="#">
-										<i class="fa fa-remove remove"></i>
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Brand3</td>
-								<td>ITM1002</td>
-								<td>Accessories</td>
-								<td>P120.00</td>
-								<td>P36.00</td>
-								<td>P156.00</td>
-								<td class="text-center">
-									<a href="#">
-										<i class="fa fa-remove remove"></i>
-									</a>
-								</td>
-							</tr>							
+							<?php echo $transactionItemsModel->getTransactionItems($connect) ?>
 						</tbody>
 					</table>
 
