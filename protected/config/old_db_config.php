@@ -1,44 +1,25 @@
 <?php
-//--------------------------
-//local
-//--------------------------
+//define('DB_SERVER', 'FLEXIADMIN');
 define('DB_SERVER', 'localhost');
-
-//--------------------------
-//prod and dev
-//--------------------------
 //define('DB_SERVER', '66.63.178.35\localhost');
+//define('DB_SERVER', '66.63.178.35');
 
-//--------------------------
-//Local
-//--------------------------
+//dev
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
+//define('DB_DATABASE', 'zaril_db');
+
+//prod
+//define('DB_USERNAME', 'zarilph_admin');
+//define('DB_PASSWORD', 'zaril123');
+
 define('DB_DATABASE', 'zarilph_zaril_db');
-//echo "This is the local environment";
-
-//--------------------------
-//Dev
-//--------------------------
-//define('DB_USERNAME', 'zarilph_admin');
-//define('DB_PASSWORD', 'zaril123');
-//define('DB_DATABASE', 'zarilph_zaril_db_dev');
-//echo "This is the development environment";
-
-//--------------------------
-//Prod
-//--------------------------
-//define('DB_USERNAME', 'zarilph_admin');
-//define('DB_PASSWORD', 'zaril123');
-//define('DB_DATABASE', 'zarilph_zaril_db');
-
-error_reporting(E_ERROR | E_PARSE);
 
 class db_config {
 
 	/*** SQL Server Settings Start ***/
 	public function connect() {  
-	 	$link = mysqli_connect( DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
+	 	$link = mysqli_connect( DB_SERVER, DB_USERNAME, DB_PASSWORD, "zarilph_zaril_db");
 	 	if($link){
 	  		//echo "Connection established.<br />";
 	 	}else{
@@ -71,8 +52,8 @@ class db_config {
 		$v = rtrim($v, ', ');
 
 		$sql="INSERT INTO ".$table." (". $q .") VALUES (". $v .")";
-		//echo $sql;
-		return $connect->query($sql);
+		echo $sql;
+		//return $connect->query($sql);
 	}
 
 	

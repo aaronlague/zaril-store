@@ -1,25 +1,16 @@
 <?php
 class DeliveryModel {
 	public function getDeliveriesAdmin($brandName, $status, $table, $connect){
-	/*public function getDeliveriesAdmin($brandName, $table, $connect){*/
 	
 		$db = new db_config();
 
 		$data = '';	
-
+		
 		$sql .= "SELECT tbl_delivery_report.delivery_report_id, tbl_delivery_report.brand_name, tbl_delivery_report.delivery_status, tbl_delivery_report.quantity_received, tbl_delivery_report.date_accepted, SUM(tbl_deliveries.quantity) FROM tbl_deliveries INNER JOIN tbl_delivery_report ON tbl_deliveries.delivery_report_id = tbl_delivery_report.delivery_report_id WHERE tbl_delivery_report.brand_name = '".$brandName."' AND tbl_delivery_report.delivery_status = '".$status."' GROUP BY tbl_delivery_report.delivery_report_id";
 
 		$result = mysqli_query($connect, $sql);
-
-		//echo $sql;
-		//print_r($result);
 		
 		$counter = 1;
-		
-		if($result === FALSE) { 
-		    die(mysql_error()); // TODO: better error handling
-		}
-
 		while ($row = mysqli_fetch_array($result)) {
 
 			$delivery_id = $row['delivery_report_id'];
