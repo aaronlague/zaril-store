@@ -76,7 +76,7 @@ $brand_name = $_SESSION['brand_name'];
         <!-- Page Data Grid -->
         <div class="form-group">
 			<label>Enter Product Code</label>
-			<input class="form-control auto-width">
+			<input id="item-code" class="form-control auto-width">
 		</div>
         <div class="panel panel-yellow">
 				<div class="panel-heading">
@@ -100,10 +100,10 @@ $brand_name = $_SESSION['brand_name'];
 							</tr>
 						</thead>
 						<tbody>
-							<?php echo $transactionItemsModel->getTransactionItems($connect) ?>
+							<?php //echo $transactionItemsModel->getTransactionItems($connect) ?>
 						</tbody>
 					</table>
-
+					
 					<div class="row">
 
 						<div class="text-center">
@@ -155,47 +155,82 @@ $brand_name = $_SESSION['brand_name'];
     <script src="js/dataTables.bootstrap.js" type="text/javascript"></script>
 
 	<script type="text/javascript">
-            $(function() {
-                $("#example1").dataTable();
+            $(document).ready(function() {
+
+                var $itemTable = $("#example1").DataTable({
+                	//"oLanguage": {"sZeroRecords": "", "sEmptyTable": ""}
+                });
                 $('#example2').dataTable({
                     "bPaginate": true,
                     "bLengthChange": false,
                     "bFilter": false,
                     "bSort": true,
-                    "bInfo": true,
+                    "bInfo": false,
                     "bAutoWidth": false
                 });
+
+
+                $('#item-code').on('keypress', function (event) {
+
+                	if(event.which === 13){
+
+                		var item_code = $('#item-code').val();
+
+		            	$.ajax({
+
+					    	  url: '../ajax/load-item.php?item_code=' + item_code,
+							  method: "POST",
+							  success: function(data){
+							  	//var showResult = $('#deliveryList').load('../ajax/load-item.php?item_code=' + item_code +'' );
+							  	var $itemTable = $("#example1").DataTable();
+							  	var items = data;
+
+							  	$('#example1 tbody').append(items);
+							  	//$itemTable.row.add(items).draw();
+							  	//$itemTable.dataTable().fnAddData(items);
+
+							  	//return showResult;
+							  	//console.log(showResult);
+
+						  	}
+
+		                });
+
+                	}
+
+                });
+
+                
+                $('.cancel').on( 'click', function () {
+	                $('tbody').remove();
+	            });
+			
+			
+				$('#btnFinish').on( 'click', function () {
+					var totalAmount = $("#totalAmount").html().replace(/total:|P|.00/gi, '');
+					var amountGiven = $("#amountGiven").val();
+					
+					var t = parseFloat(totalAmount);
+					var a = parseFloat(amountGiven)
+
+					var change = a - t;
+					
+					$('#change').attr('value', change)
+
+					console.log(change);
+	                if(a == ""){
+						alert("Fill up");
+					}else if(t <= a){
+						
+						alert("transaction successful!");
+					}
+					else{
+						alert("Amount given is less than total amount");
+					}
+	            });
+
             });
 
-			$('.cancel').on( 'click', function () {
-                $('tbody').remove();
-            } );
-
-			
-			
-			$('#btnFinish').on( 'click', function () {
-				var totalAmount = $("#totalAmount").html().replace(/total:|P|.00/gi, '');
-				var amountGiven = $("#amountGiven").val();
-				
-				var t = parseFloat(totalAmount);
-				var a = parseFloat(amountGiven)
-
-				var change = a - t;
-				
-				$('#change').attr('value', change)
-
-				console.log(change);
-                if(a == ""){
-					alert("Fill up");
-				}else if(t <= a){
-					
-					alert("transaction successful!");
-				}
-				else{
-					alert("Amount given is less than total amount");
-				}
-            } );
-			
 	</script>
 
 </body>
