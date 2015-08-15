@@ -42,6 +42,8 @@ $brand_name = $_SESSION['brand_name'];
 	 <!-- Data Tables -->
 	<link href="css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
 
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -77,6 +79,7 @@ $brand_name = $_SESSION['brand_name'];
         <div class="form-group">
 			<label>Enter Product Code</label>
 			<input id="item-code" class="form-control auto-width">
+			<button class="btn btn-success btn-go-add" type="button">Go <i class="fa fa-arrow-right"></i></button> 
 		</div>
         <div class="panel panel-yellow">
 				<div class="panel-heading">
@@ -87,7 +90,15 @@ $brand_name = $_SESSION['brand_name'];
 				</div>
 			<div class="panel-body">
 				<div class="box-body table-responsive">
-					<table id="example1" class="table table-bordered table-striped">
+					<table id="transactionTable" class="table table-bordered table-striped">
+						<tfoot>
+				            <tr>
+				                <th colspan="3" style="text-align:right">Total:</th>
+				                <th class="price-col"></th>
+				                <th class="tax-col"></th>
+				                <th class="total-price-col"></th>
+				            </tr>
+				        </tfoot>
 						<thead>
 							<tr>
 								<th>Brand</th>
@@ -100,7 +111,9 @@ $brand_name = $_SESSION['brand_name'];
 							</tr>
 						</thead>
 						<tbody>
-							<?php //echo $transactionItemsModel->getTransactionItems($connect) ?>
+							<!-- <tr class="odd"><td class="">brand6</td><td class="">RXSHX</td><td class="">Rockshox Pike</td><td class="">6000.00</td><td class="">135.00</td><td class="">9135.00</td><td class=""><button class="btn btn-primary btn-remove-item" data-dismiss="modal" type="button">Remove</button></td></tr>
+							<tr class="odd"><td class="">brand6</td><td class="">RXSHX</td><td class="">Rockshox Pike</td><td class="">6000.00</td><td class="">135.00</td><td class="">9135.00</td><td class=""><button class="btn btn-primary btn-remove-item" data-dismiss="modal" type="button">Remove</button></td></tr>
+							<tr class="odd"><td class="">brand6</td><td class="">RXSHX</td><td class="">Rockshox Pike</td><td class="">6000.00</td><td class="">135.00</td><td class="">9135.00</td><td class=""><button class="btn btn-primary btn-remove-item" data-dismiss="modal" type="button">Remove</button></td></tr> -->
 						</tbody>
 					</table>
 					
@@ -109,9 +122,9 @@ $brand_name = $_SESSION['brand_name'];
 						<div class="text-center">
 							<div class="panel panel-default">
 								<div class="panel-body"> 
-									<div> Sub Total: P340.00 </div>
-									<div> Sales Tax: P102.00 </div>
-									<div id="totalAmount">Total: P442.00</div>
+									<div class="sub-total"> Sub Total: <span></span></div>
+									<div class="sales-tax"> Sales Tax: <span></span></div>
+									<div class="total-amount">Total: <span></span></div>
 								</div>								
 							</div>
 							<div class="form-group">
@@ -133,7 +146,6 @@ $brand_name = $_SESSION['brand_name'];
 			</div>
 		</div>
                 <!-- /.row -->
-
         <hr>
 
         <!--footer-->
@@ -153,85 +165,8 @@ $brand_name = $_SESSION['brand_name'];
 	<!-- DATA TABES SCRIPT -->
     <script src="js/jquery.dataTables.js" type="text/javascript"></script>
     <script src="js/dataTables.bootstrap.js" type="text/javascript"></script>
-
-	<script type="text/javascript">
-            $(document).ready(function() {
-
-                var $itemTable = $("#example1").DataTable({
-                	//"oLanguage": {"sZeroRecords": "", "sEmptyTable": ""}
-                });
-                $('#example2').dataTable({
-                    "bPaginate": true,
-                    "bLengthChange": false,
-                    "bFilter": false,
-                    "bSort": true,
-                    "bInfo": false,
-                    "bAutoWidth": false
-                });
-
-
-                $('#item-code').on('keypress', function (event) {
-
-                	if(event.which === 13){
-
-                		var item_code = $('#item-code').val();
-
-		            	$.ajax({
-
-					    	  url: '../ajax/load-item.php?item_code=' + item_code,
-							  method: "POST",
-							  success: function(data){
-							  	//var showResult = $('#deliveryList').load('../ajax/load-item.php?item_code=' + item_code +'' );
-							  	var $itemTable = $("#example1").DataTable();
-							  	var items = data;
-
-							  	$('#example1 tbody').append(items);
-							  	//$itemTable.row.add(items).draw();
-							  	//$itemTable.dataTable().fnAddData(items);
-
-							  	//return showResult;
-							  	//console.log(showResult);
-
-						  	}
-
-		                });
-
-                	}
-
-                });
-
-                
-                $('.cancel').on( 'click', function () {
-	                $('tbody').remove();
-	            });
-			
-			
-				$('#btnFinish').on( 'click', function () {
-					var totalAmount = $("#totalAmount").html().replace(/total:|P|.00/gi, '');
-					var amountGiven = $("#amountGiven").val();
-					
-					var t = parseFloat(totalAmount);
-					var a = parseFloat(amountGiven)
-
-					var change = a - t;
-					
-					$('#change').attr('value', change)
-
-					console.log(change);
-	                if(a == ""){
-						alert("Fill up");
-					}else if(t <= a){
-						
-						alert("transaction successful!");
-					}
-					else{
-						alert("Amount given is less than total amount");
-					}
-	            });
-
-            });
-
-	</script>
+    <script src="js/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="js/transaction.js" type="text/javascript"></script>
 
 </body>
 

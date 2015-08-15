@@ -24,6 +24,8 @@ class LoginController {
 			$username = $row['username'];
 			$is_admin = $row['is_admin'];
 			$brand_name = $row['brand_name'];
+			$id = $row['id'];
+
 
 			//
 			
@@ -32,6 +34,10 @@ class LoginController {
 				session_start();
                 $_SESSION['session_userid']  = $username;
                 $_SESSION['session_is_admin'] = $is_admin;
+                $_SESSION['brand_name'] = $brand_name;
+                $_SESSION['id'] = $id;
+               
+
                 session_write_close();
 				
 				header("Location: index.php");	
@@ -41,6 +47,7 @@ class LoginController {
                 $_SESSION['session_userid']  = $username;
                 $_SESSION['session_is_admin'] = $is_admin;
                 $_SESSION['brand_name'] = $brand_name;
+                $_SESSION['id'] = $id;
                 session_write_close();
 
 				header("Location: /user/index.php");	

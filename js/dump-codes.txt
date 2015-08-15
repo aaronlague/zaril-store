@@ -1,0 +1,27 @@
+$('.cancel').on( 'click', function () {
+        $('tbody').remove();
+    });
+
+
+	$('#btnFinish').on( 'click', function () {
+		var totalAmount = $("#totalAmount").html().replace(/total:|P|.00/gi, '');
+		var amountGiven = $("#amountGiven").val();
+		
+		var t = parseFloat(totalAmount);
+		var a = parseFloat(amountGiven)
+
+		var change = a - t;
+		
+		$('#change').attr('value', change)
+
+		console.log(change);
+        if(a == ""){
+			alert("Fill up");
+		}else if(t <= a){
+			
+			alert("transaction successful!");
+		}
+		else{
+			alert("Amount given is less than total amount");
+		}
+    });

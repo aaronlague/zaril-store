@@ -12,41 +12,39 @@
 
 		$counter = 1;
 
-		$num = $db->numrows($result);
+		$data = array();
 
-		if($num == 0){
-
-			$data = 'no available';
-
-		} else {
-
-			while ($row = mysqli_fetch_array($result)) {
+		while ($row = mysqli_fetch_array($result)) {
 		
-				$delivery_report_id = $row['delivery_report_id'];
-				$delivery_id = $row['delivery_id'];
-				$brand_name = $row['brand_name'];
-				$item_code = $row['item_code'];
-				$details = $row['details'];
-				$unit_price = $row['unit_price'];
-				$sales_tax_amount = $row['sales_tax_amount'];
-				$total_price = $row['total_price'];
-				$quantity_received = $row['quantity_received'];
+			//$delivery_report_id = $row['delivery_report_id'];
+			//$delivery_id = $row['delivery_id'];
+			$brand_name = $row['brand_name'];
+			$item_code = $row['item_code'];
+			$details = $row['details'];
+			$unit_price = $row['unit_price'];
+			$sales_tax_amount = $row['sales_tax_amount'];
+			$total_price = $row['total_price'];
+			//$quantity_received = $row['quantity_received'];
+			$action_btn = "<button class='btn btn-primary btn-remove-item' data-dismiss='modal' type='button'>Remove</button>";
+			/*$data .= "<tr>";
+			$data .= "<td>" .$brand_name. "</td>";
+			$data .= "<td>" .$item_code. "</td>";
+			$data .= "<td>" .$details. "</td>";
+			$data .= "<td>" .$unit_price. "</td>";
+			$data .= "<td>" .$sales_tax_amount. "</td>";
+			$data .= "<td>" .$total_price. "</td>";
+			$data .= "<td class='text-center'><a href='#'><i class='fa fa-remove remove'></i></a></td>";
+			$data .= "</tr>";*/
 
-				$data .= "<tr>";
-				$data .= "<td>" .$brand_name. "</td>";
-				$data .= "<td>" .$item_code. "</td>";
-				$data .= "<td>" .$details. "</td>";
-				$data .= "<td>" .$unit_price. "</td>";
-				$data .= "<td>" .$sales_tax_amount. "</td>";
-				$data .= "<td>" .$total_price. "</td>";
-				$data .= "<td class='text-center'><a href='#'><i class='fa fa-remove remove'></i></a></td>";
-				$data .= "</tr>";
-			}
 
-			return $data;
+			array_push($data, $brand_name, $item_code, $details, $unit_price, $sales_tax_amount, $total_price, $action_btn);
+
+
 
 		}
-		
+
+		echo json_encode($data);
+		//return $data;
 
 	}
 

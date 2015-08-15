@@ -4,13 +4,28 @@ session_start();
 include '../protected/config/db_config.php';
 include '../protected/config/html_config.php';
 include '../protected/library/validation_library.php';
-include '../protected/controllers/index.php';
-
+include '../protected/models/user-sales-report.php';
 
 $db = new db_config();
 $formelem = new FormElem();
+$UsersSalesModel = new UsersSalesModel();
+$connect = $db->connect();
 $brand_name = $_SESSION['brand_name'];
+$id = $_SESSION['id'];
+ 
 
+if(isset($_POST['change-password'])){
+
+
+$id = $_POST['id'];
+$password = $_POST['new-password'];
+
+$user_update_sql = "UPDATE tbl_users SET password = '".$password."' WHERE id = '".$id."'";
+
+$user_update = mysqli_query($connect, $user_update_sql) or die(mysqli_error($connect));
+header('location: /logout.php');
+
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +55,11 @@ $brand_name = $_SESSION['brand_name'];
 	<!-- Jquery-Ui CSS -->
     <link href="../css/jquery-ui.css" rel="stylesheet">
 
+    <!-- JQuery-DataTables-ColumnFilter CSS -->
+    <link href="../css/demo_table.css" rel="stylesheet">
 
+    <!-- jquery validation -->
+    <link href="../css/screen.css" rel="stylesheet" type="text/css" />
 		
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -74,22 +93,6 @@ $brand_name = $_SESSION['brand_name'];
 		</ol>
 
         <!-- Page Data Grid -->
-        <div class="form-group">
-        	<div class="row">
-				  <div class="col-md-3">
-				  		<label>From</label>
-		                <div class='input-group date' id='datetimepicker'>
-		                    <input type='text' class="form-control auto-width" id="datepickerFrom"/>
-		                </div>
-				  </div>
-				  <div class="col-md-9">
-				  		<label>To</label>
-		                <div class='input-group date' id='datetimepicker'>
-		                    <input type='text' class="form-control auto-width" id="datepickerTo"/>
-		                </div>
-				  </div>
-			</div>
-        </div>
         <div class="panel panel-violet">
 				<div class="panel-heading">
 					<h3 class="panel-title" style="width:500px">
@@ -98,14 +101,14 @@ $brand_name = $_SESSION['brand_name'];
 					</h3>
 					
 					<h3 class="panel-title pull-right">
-						<a href="#">
+						<a href="#" class="btn-print-report">
 							<i class="fa fa-print fa-fw"></i>Print
 						</a>
 					</h3>
 				</div>
 			<div class="panel-body">
 				<div class="box-body table-responsive">
-					<table id="example1" class="table table-bordered table-striped">
+					<!-- <table id="example1" class="table table-bordered table-striped">
 						<thead>
 							<tr>
 								<th>Transaction #</th>
@@ -216,7 +219,40 @@ $brand_name = $_SESSION['brand_name'];
 								<th class="total">P4368.00</th>
 							</tr>
 						</tfoot>
-					</table>
+					</table> -->
+					<?php echo '<table class="table table-bordered table-striped" id="example">';
+					echo '<thead>';
+                    echo '<tr>';
+					echo '<th>Transaction #</th>';
+					echo '<th>DateTime of Purchase</th>';
+					//echo '<th>Brand</th>';
+					echo '<th>Item Code</th>';
+					//echo '<th>Password</th>';
+					//echo '<th>Item Code</th>';
+					echo '<th>Price</th>';
+					//echo '<th>Quantity</th>';
+					echo '<th>Sales Tax</th>';
+					echo '<th>Total</th>';
+					echo '</tr>';
+
+					echo '<tr>';
+					echo '<th>Transaction #</th>';
+					echo '<th>DateTime of Purchase</th>';
+					//echo '<th>Brand</th>';
+					echo '<th>Item Code</th>';
+					//echo '<th>Password</th>';
+					//echo '<th>Item Code</th>';
+					echo '<th>Price</th>';
+					//echo '<th>Quantity</th>';
+					echo '<th>Sales Tax</th>';
+					echo '<th>Total</th>';
+					echo '</tr>';
+					echo '</thead>';
+					echo '<tbody>';
+					echo $UsersSalesModel->getUsersSales($brand_name,'tbl_sales_trans',$connect);
+					echo '</tbody>';
+					echo '</table>';
+					?>
 				</div><!-- /.box-body -->
 			</div>
 		</div>
@@ -235,16 +271,19 @@ $brand_name = $_SESSION['brand_name'];
     <script src="../js/jquery.js"></script>
 	<script src="../js/main.js"></script>
 	<script src="../js/jquery-ui.js"></script>
-
+	<script src="../js/jquery.validate.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="../js/bootstrap.min.js"></script>
 
 	<!-- DATA TABES SCRIPT -->
-    <script src="../js/jquery.dataTables.js" type="text/javascript"></script>
+    <script src="../js/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="../js/dataTables.bootstrap.js" type="text/javascript"></script>
+    <script src="../js/jquery.dataTables.columnFilter.js" type="text/javascript"></script>
+
+    <script src="../js/user-sales.js" type="text/javascript"></script>
 
 	<script type="text/javascript">
-            $(function() {
+            /*$(function() {
                 $("#example1").dataTable();
                 $('#example2').dataTable({
                     "bPaginate": true,
@@ -254,25 +293,62 @@ $brand_name = $_SESSION['brand_name'];
                     "bInfo": true,
                     "bAutoWidth": false
                 });
-            });
+            });*/
 
-    $(function() {
-	    $( "#datepickerFrom" ).datepicker({
-	      showOn: "button",
-	      buttonImage: "../images/calendar.jpg",
-	      buttonImageOnly: true,
-	      buttonText: "Select date"
-	    });
-	    $( "#datepickerTo" ).datepicker({
-	      showOn: "button",
-	      buttonImage: "../images/calendar.jpg",
-	      buttonImageOnly: true,
-	      buttonText: "Select date"
-	    });
-	  });
+	    /*$(function() {
+		    $( "#datepickerFrom" ).datepicker({
+		      showOn: "button",
+		      buttonImage: "../images/calendar.jpg",
+		      buttonImageOnly: true,
+		      buttonText: "Select date"
+		    });
+		    $( "#datepickerTo" ).datepicker({
+		      showOn: "button",
+		      buttonImage: "../images/calendar.jpg",
+		      buttonImageOnly: true,
+		      buttonText: "Select date"
+		    });
+		  });*/
   </script>
-      
-	</script>
+  <script type="text/javascript">
+$(document).ready(function(){
+                $.datepicker.regional[""].dateFormat = 'dd/mm/yy';
+                $.datepicker.setDefaults($.datepicker.regional['']);
+     $('#example').dataTable({
+		"aoColumns": [ 
+			{ "sWidth": "200px" },
+			null,
+			null
+		]
+	} )
+		  .columnFilter({ sPlaceHolder: "head:before",
+			aoColumns: [ { type: "text" },
+				     { type: "date-range", sRangeFormat: "Between {from} and {to}"  },
+                                     { type: "text" },
+                                     { type: "text" },
+                                     { type: "text" },
+                                     { type: "text" }
+				]
+
+		});
+		  $(".filterColumn input, .filter_column input").addClass('form-control input-group');
+});
+
+		</script>
+        <script type="text/javascript">
+
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-17838786-4']);
+            _gaq.push(['_trackPageview']);
+
+            (function () {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+
+</script>    
+	
 
 </body>
 

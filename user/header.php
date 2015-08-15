@@ -1,24 +1,4 @@
-<?php
-if(isset($_POST['change-password'])){
 
-    
-    /*$data['email'] = $_POST['email'];
-    $data['username'] = $_POST['username'];;
-    $data['brand_name'] = $_POST['brandname'];
-    $data['password'] = $_POST['password'];
-    $data['is_admin'] = $_POST['isAdmin'];
-    $data['date_created'] = date("Y-m-d H:i:s");*/
-    
-    $id = $_POST['id'];
-    $password = $_POST['new-password'];
-
-    $user_update_sql = "UPDATE tbl_users SET password = '".$password."' WHERE id = '".$id."'";
-
-    $user_update = mysqli_query($connect, $user_update_sql) or die(mysqli_error($connect));
-    header('location: logout.php');
-
-}
-?>
 <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">

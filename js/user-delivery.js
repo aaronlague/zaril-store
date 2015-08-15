@@ -48,6 +48,15 @@ $(document).ready(function() {
 
     });
 
+    $('.btn-add-item').on( 'click', function () {
+
+    	$('#addItemModal').modal('show');
+
+    	var delivery_item_id = $(this).attr('data-report-id');
+    	
+    	$('#addItemModal #delivery_report_id').attr('value', delivery_item_id)
+    	
+    });
 
 
 	$('.editBtn').on( 'click', function () {
@@ -85,9 +94,6 @@ $(document).ready(function() {
 
 
 		$.ajax({
-
-		    		
-
 			  url: '../ajax/load-item-details.php?deliveryItemId=' + delivery_item_id,
 
 			  method: "POST",
@@ -99,19 +105,12 @@ $(document).ready(function() {
 				return showResult;
 
 			  	console.log('show delivery item fields');
-
-
-
 			  }
-
-
-
 		});
 
 
 
 		$('#viewEditDelieveryModal #edit_product_details').attr('placeholder' , details);
-
 		$('#viewEditDelieveryModal #edit_unit_price').attr('placeholder' , unit_price);
 
 
@@ -120,7 +119,121 @@ $(document).ready(function() {
 
 	});
 
+	/*$( "#example1 .btn-delete-report" ).each(function(index) {
+		
+		$(this).on('click', function(){
 
+		$('#deleteDelieveryModal').modal('show');
+
+
+		var delivery_report_id = $(this).attr('data-report-id');
+
+		var details = $("#example1 tr td.details").html();
+
+		var unit_price = $("#example1 tr td.unit_price").html();
+
+		$.ajax({
+			  url: '../ajax/load-item-details.php?deliveryReportId=' + delivery_report_id,
+
+			  method: "POST",
+
+			  success: function(){
+
+			  	var showResult = $('#deleteDeliveryFields').load('../ajax/load-item-details-delete-report.php?deliveryReportId='+delivery_report_id+'' );
+
+				return showResult;
+
+			  	console.log(showResult);
+			  }
+		});
+
+
+
+		$('#deleteDelieveryModal #edit_product_details').attr('placeholder' , details);
+		$('#deleteDelieveryModal #edit_unit_price').attr('placeholder' , unit_price);
+
+
+
+		});   
+
+	});*/
+	$( "#example1 tr .btn-delete-item" ).each(function(index) {
+
+		$(this).on('click', function(){
+
+		$('#deleteDelieveryItemModal').modal('show');
+
+
+		var delivery_item_id = $(this).attr('data-delivery-item-id');
+
+		var details = $("#example1 tr td.details").html();
+
+		var unit_price = $("#example1 tr td.unit_price").html();
+
+		$.ajax({
+			  url: '../ajax/load-item-details.php?deliveryItemId=' + delivery_item_id,
+
+			  method: "POST",
+
+			  success: function(){
+
+			  	var showResult = $('#daleteFields').load('../ajax/load-item-details-delete.php?deliveryItemId='+delivery_item_id+'' );
+
+				return showResult;
+
+			  	console.log(showResult);
+			  }
+		});
+
+
+
+		$('#deleteDelieveryModal #edit_product_details').attr('placeholder' , details);
+		$('#deleteDelieveryModal #edit_unit_price').attr('placeholder' , unit_price);
+
+
+
+		});   
+
+	});
+
+	$( "#example1 .btn-delete-report" ).each(function(index) {
+		
+		$(this).on('click', function(){
+
+		$('#deleteDelieveryModal').modal('show');
+
+
+		var delivery_report_id = $(this).attr('data-report-id');
+
+		var details = $("#example1 tr td.details").html();
+
+		var unit_price = $("#example1 tr td.unit_price").html();
+
+		$.ajax({
+			  url: '../ajax/load-item-details.php?deliveryReportId=' + delivery_report_id,
+
+			  method: "POST",
+
+			  success: function(){
+
+			  	var showResult = $('#deleteDeliveryFields').load('../ajax/load-item-details-delete-report.php?deliveryReportId='+delivery_report_id+'' );
+
+				return showResult;
+
+			  	console.log(showResult);
+			  }
+		});
+
+
+
+		$('#deleteDelieveryModal #edit_product_details').attr('placeholder' , details);
+		$('#deleteDelieveryModal #edit_unit_price').attr('placeholder' , unit_price);
+
+
+
+		});   
+
+	});
 
     $('.addRow').on( 'click', function () {
 
@@ -140,9 +253,17 @@ $(document).ready(function() {
 
 		//} 
 
+		var count = $("#deliveryTable >tbody >tr").length + 1;
 
+		if(count > 10){
+			alert("Maximum row is 10!");
+		}
+		else{
 
-         $('#deliveryTable tbody:last').append('<tr><td><input type="text" placeholder="" name="item_code[]" id="item_code" class="form-control" minlength="2" required></td><td><input type="text" placeholder="" id="product_details" name="product_details[]" class="form-control" minlength="2" required></td><td><input type="text" placeholder="" id="unit_price" name="unit_price[]" class="form-control" minlength="1" required></td><td><input type="text" placeholder="" id="quantity" name="quantity[]" class="form-control" minlength="1" required></td></tr>');
+			$('#deliveryTable tbody:last').append('<tr><td>'+count+'</td><td><input type="text" placeholder="" name="item_code[]" id="item_code" class="form-control" minlength="2" required></td><td><input type="text" placeholder="" id="product_details" name="product_details[]" class="form-control" minlength="2" required></td><td><input type="text" placeholder="" id="unit_price" name="unit_price[]" class="form-control" minlength="1" required></td><td><input type="text" placeholder="" id="quantity" name="quantity[]" class="form-control" minlength="1" required></td></tr>');
+		}
+
+         
 
          $('.removeRow').css('display','inline');
 
@@ -276,13 +397,18 @@ $(document).ready(function() {
 
 
 
-    $('input[data-report-status="pending"]').prop('disabled', true);
+    /*$('input[data-report-status="pending"]').prop('disabled', true);
 
     $('input[data-report-status="accepted"]').prop('disabled', true);
 
-    $('.viewBtn[data-report-status="pending"]').attr('disabled', true);
+    $('.viewBtn[data-report-status="pending"], .viewBtn[data-report-status="accepted"]').attr('disabled', true);
 
-    $('.viewBtn[data-report-status="accepted"]').attr('disabled', true);
+    $('.btn-delete-report[data-report-status="pending"], .btn-delete-report[data-report-status="accepted"]').attr('disabled', true);
+
+    $('.btn-delete-item[data-report-status="pending"], .btn-delete-item[data-report-status="accepted"]').attr('disabled', true);*/
+
+    $('.check-status[data-report-status="pending"], .check-status[data-report-status="accepted"]').attr('disabled', true);
+    
 
 
     $('.btn-print-report').click(function(){
@@ -299,7 +425,7 @@ $(document).ready(function() {
 
 
 
-    $("#createDelivery").validate({
+    /*$("#createDelivery").validate({
 
 	  rules: {
 
@@ -323,7 +449,7 @@ $(document).ready(function() {
 
 	  }
 
-	});
+	});*/
 
 
 

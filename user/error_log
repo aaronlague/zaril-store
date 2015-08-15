@@ -163,3 +163,4 @@
 [30-Jul-2015 17:57:27 Asia/Manila] PHP Warning:  include(footer.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/user/sales.php on line 227
 [30-Jul-2015 17:57:27 Asia/Manila] PHP Warning:  include(footer.php): failed to open stream: No such file or directory in /home/zarilph/public_html/dev/user/sales.php on line 227
 [30-Jul-2015 17:57:27 Asia/Manila] PHP Warning:  include(): Failed opening 'footer.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/zarilph/public_html/dev/user/sales.php on line 227
+[09-Aug-2015 13:28:37 Asia/Manila] PHP Fatal error:  Unsupported operand types in /home/zarilph/public_html/dev/user/delivery.php on line 45

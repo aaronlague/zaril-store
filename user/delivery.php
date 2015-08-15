@@ -13,11 +13,34 @@ $deliveryModel = new DeliveryModel();
 $connect = $db->connect();
 
 $brand_name = $_SESSION['brand_name'];
+$id = $_SESSION['id'];
 $tax_percentage = 3;
+
 
 if ($_SESSION['session_userid'] == '') {
 
     header("Location: /login.php?loggedin=false");
+}
+
+
+if(isset($_POST['change-password'])){
+
+    
+    /*$data['email'] = $_POST['email'];
+    $data['username'] = $_POST['username'];;
+    $data['brand_name'] = $_POST['brandname'];
+    $data['password'] = $_POST['password'];
+    $data['is_admin'] = $_POST['isAdmin'];
+    $data['date_created'] = date("Y-m-d H:i:s");*/
+    
+    $id = $_POST['id'];
+    $password = $_POST['new-password'];
+
+    $user_update_sql = "UPDATE tbl_users SET password = '".$password."' WHERE id = '".$id."'";
+
+    $user_update = mysqli_query($connect, $user_update_sql) or die(mysqli_error($connect));
+    header('location: /logout.php');
+
 }
 
 if(isset($_POST['btn-row'])){
@@ -55,6 +78,28 @@ $delivery_report_query = mysqli_query($connect, $delivery_report_sql) or die(mys
 
 }
 
+if(isset($_POST['add-item'])){
+
+
+$delivery_report_id = $_POST['delivery_report_id']; 
+$status = 'not submitted';
+$date_created = date("Y-m-d H:i:s");
+$details = $_POST['product_details'];
+$item_code = $_POST['item_code'];
+
+$price = $_POST['unit_price'];
+$quantity = $_POST['quantity'];
+
+$delivery_id = "D" . rand(0, 1000) . date("ymds");
+$sales_tax = ($tax_percentage / 100) * $price * $quantity;
+$total_price = ($price * $quantity);
+
+//$delivery_report_sql = "INSERT INTO tbl_deliveries (delivery_report_id, brand_name, delivery_status, date_created) VALUES ('" .$delivery_report_id. "', '" .$brand_name. "', '" .$status. "', '" .$date_created. "')";
+	$delivery_item_sql = "INSERT INTO tbl_deliveries (delivery_id, delivery_report_id, brand_name, delivery_status, date_created, details, item_code, unit_price, quantity, sales_tax_amount, total_price) VALUES ('" .$delivery_id. "', '" .$delivery_report_id. "', '" .$brand_name. "', '" .$status. "', '" .$date_created. "', '" .$details. "', '" .$item_code. "', '" .$price. "', '" .$quantity. "', '" .$sales_tax. "' ,'" .$total_price. "')";
+	$delivery_report_query = mysqli_query($connect, $delivery_item_sql) or die(mysqli_error($connect));
+	header('location: /user/delivery.php?record_created=true');
+}
+
 
 if(isset($_POST['update-record'])) {
 
@@ -77,6 +122,40 @@ if(isset($_POST['update-record'])) {
 
 }
 
+if(isset($_POST['delete-record'])) {
+
+	$delivery_item_id = $_POST['edit_delivery_item_id'];
+	$item_code = $_POST['edit_item_code'];
+	$item_details = $_POST['edit_product_details'];
+	$item_price = $_POST['edit_unit_price'];
+	$quantity = $_POST['edit_quantity'];
+
+	$sales_tax_percentage = ($tax_percentage / 100) * $item_price;
+	$sales_tax = $sales_tax_percentage * $quantity;
+
+	$total_price = ($item_price * $quantity);
+
+	$delivery_item_delete_sql = "DELETE from tbl_deliveries WHERE delivery_id = '".$delivery_item_id."'";
+
+	$delivery_item_delete = mysqli_query($connect, $delivery_item_delete_sql) or die(mysqli_error($connect));
+
+	header('location: /user/delivery.php?record_updated=true');
+
+}
+
+if(isset($_POST['delete-delivery'])) {
+
+	$data_report_id = $_POST['delete_delivery_item_id'];
+
+
+
+	$delivery_delivery_delete_sql = "DELETE from tbl_deliveries WHERE delivery_report_id = '".$data_report_id."'";
+
+	$delivery_delivery_delete = mysqli_query($connect, $delivery_delivery_delete_sql) or die(mysqli_error($connect));
+
+	header('location: /user/delivery.php?record_updated=true');
+
+}
 ?>
 
 <!DOCTYPE html>
@@ -188,22 +267,23 @@ if(isset($_POST['update-record'])) {
 		<?php include("../footer.php"); ?>
 		<!--/footer-->
 
-<!-- Create Delievery Modal -->
-  <div class="modal fade large delivery-form" id="createDeliveryModal" role="dialog">
-        <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Delivery</h4>
-        </div>
-        <?php echo $formelem->create(array('method'=>'post','class'=>'', 'id'=>'createDelivery')); ?>	
-        <div class="modal-body">
-        <div class="form-group">	
+	<!-- Create Delievery Modal -->
+	<div class="modal fade large delivery-form" id="createDeliveryModal" role="dialog">
+	    <div class="modal-dialog">
+
+	  <!-- Modal content-->
+	  <div class="modal-content">
+	    <div class="modal-header">
+	      <button type="button" class="close" data-dismiss="modal">&times;</button>
+	      <h4 class="modal-title">Delivery</h4>
+	    </div>
+	    <?php echo $formelem->create(array('method'=>'post','class'=>'', 'id'=>'createDelivery')); ?>	
+	    <div class="modal-body">
+	    <div class="form-group">	
 			<table id="deliveryTable">
 				<thead>
 					<tr>
+						<td style="width:50px;">No.</td>
 						<td>
 							Item Code
 						</td>
@@ -220,17 +300,18 @@ if(isset($_POST['update-record'])) {
 				</thead>
 				<tbody>
 					<tr>
+						<td>1</td>
 						<td>
 							<?php echo $formelem->text(array('id'=>'item_code','name'=>'item_code[]','placeholder'=>'','class'=>'form-control', 'value'=>'', 'minlength'=>'2', 'required'=>'')); ?>
 						</td>
 						<td>
-                            <?php echo $formelem->text(array('id'=>'product_details','name'=>'product_details[]','placeholder'=>'','class'=>'form-control', 'value'=>'', 'minlength'=>'2', 'required'=>'')); ?>
+	                        <?php echo $formelem->text(array('id'=>'product_details','name'=>'product_details[]','placeholder'=>'','class'=>'form-control', 'value'=>'', 'minlength'=>'2', 'required'=>'')); ?>
 						</td>
 						<td>
-                            <?php echo $formelem->text(array('id'=>'unit_price[]','name'=>'unit_price[]','placeholder'=>'','class'=>'form-control', 'value'=>'', 'minlength'=>'1', 'required'=>'')); ?>
+	                        <?php echo $formelem->text(array('id'=>'unit_price[]','name'=>'unit_price[]','placeholder'=>'','class'=>'form-control', 'value'=>'', 'minlength'=>'1', 'required'=>'')); ?>
 						</td>
 						<td>
-                            <?php echo $formelem->text(array('id'=>'quantity','name'=>'quantity[]','placeholder'=>'','class'=>'form-control', 'value'=>'', 'minlength'=>'1', 'required'=>'')); ?>
+	                        <?php echo $formelem->text(array('id'=>'quantity','name'=>'quantity[]','placeholder'=>'','class'=>'form-control', 'value'=>'', 'minlength'=>'1', 'required'=>'')); ?>
 						</td>
 					</tr>
 				</tbody>
@@ -241,33 +322,95 @@ if(isset($_POST['update-record'])) {
 			<button type="button" class="btn btn-success removeRow">Remove Row</button>
 		</div>
 		
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-          <?php echo $formelem->button(array('id'=>'btn-row','name'=>'btn-row','class'=>'btn btn-primary', 'value'=>'Create')); ?>
-        </div>
-     </div>
-      <?php echo $formelem->close(); ?>
-    </div>
-  </div>
- <!-- end Delievery Modal -->
+	    </div>
+	    <div class="modal-footer">
+	      <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+	      <?php echo $formelem->button(array('id'=>'btn-row','name'=>'btn-row','class'=>'btn btn-primary', 'value'=>'Create')); ?>
+	    </div>
+	 </div>
+	  <?php echo $formelem->close(); ?>
+	</div>
+	</div>
+	<!-- end Delievery Modal -->
 
- <!-- View/Edit Delievery Modal -->
-  <div class="modal fade large delivery-form" id="viewEditDelieveryModal" role="dialog">
-        <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">View/Edit</h4>
-        </div>
-        <?php echo $formelem->create(array('method'=>'post','class'=>'', 'id'=>'viewEditDelivery')); ?>	
-        <div class="modal-body">
-        <div class="form-group">
-        <p>
-        	<a href='#' class='editBtn btn btn-sm btn-success' type='button'><i class='fa fa-pencil fa-fw'></i>Edit</a>
-        </p>	
+	<!-- Add Item Modal -->
+	<div class="modal fade large delivery-form" id="addItemModal" role="dialog">
+	    <div class="modal-dialog">
+
+	  <!-- Modal content-->
+	  <div class="modal-content">
+	    <div class="modal-header">
+	      <button type="button" class="close" data-dismiss="modal">&times;</button>
+	      <h4 class="modal-title">Add Item</h4>
+	    </div>
+	    <?php echo $formelem->create(array('method'=>'post','class'=>'', 'id'=>'createDelivery')); ?>	
+	    <div class="modal-body">
+	    <div class="form-group">	
+			<table id="deliveryTable">
+				<thead>
+					<tr>
+						<td style='display:none;'><input id='delivery_report_id' name='delivery_report_id' class='form-control' type='hidden' value=''></td>
+						<td style="width:50px;">No.</td>
+						<td>
+							Item Code
+						</td>
+						<td>
+							Details of Product
+						</td>
+						<td>
+							Price
+						</td>
+						<td>
+							QTY
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>
+							<?php echo $formelem->text(array('id'=>'item_code','name'=>'item_code','placeholder'=>'','class'=>'form-control', 'value'=>'', 'minlength'=>'2', 'required'=>'')); ?>
+						</td>
+						<td>
+	                        <?php echo $formelem->text(array('id'=>'product_details','name'=>'product_details','placeholder'=>'','class'=>'form-control', 'value'=>'', 'minlength'=>'2', 'required'=>'')); ?>
+						</td>
+						<td>
+	                        <?php echo $formelem->text(array('id'=>'unit_price','name'=>'unit_price','placeholder'=>'','class'=>'form-control', 'value'=>'', 'minlength'=>'1', 'required'=>'')); ?>
+						</td>
+						<td>
+	                        <?php echo $formelem->text(array('id'=>'quantity','name'=>'quantity','placeholder'=>'','class'=>'form-control', 'value'=>'', 'minlength'=>'1', 'required'=>'')); ?>
+						</td>
+					</tr>
+				</tbody>
+			</table>	
+		</div>
+	    </div>
+	    <div class="modal-footer">
+	      <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+	      <?php echo $formelem->button(array('id'=>'add-item','name'=>'add-item','class'=>'btn btn-primary', 'value'=>'add-item')); ?>
+	    </div>
+	 </div>
+	  <?php echo $formelem->close(); ?>
+	</div>
+	</div>
+	<!-- end Add Item Modal -->
+
+	<!-- View/Edit Delievery Modal -->
+	<div class="modal fade large delivery-form" id="viewEditDelieveryModal" role="dialog">
+	    <div class="modal-dialog">
+
+	  <!-- Modal content-->
+	  <div class="modal-content">
+	    <div class="modal-header">
+	      <button type="button" class="close" data-dismiss="modal">&times;</button>
+	      <h4 class="modal-title">View/Edit</h4>
+	    </div>
+	    <?php echo $formelem->create(array('method'=>'post','class'=>'', 'id'=>'viewEditDelivery')); ?>	
+	    <div class="modal-body">
+	    <div class="form-group">
+	    <p>
+	    	<a href='#' class='editBtn btn btn-sm btn-success' type='button'><i class='fa fa-pencil fa-fw'></i>Edit</a>
+	    </p>	
 			<table>
 				<thead>
 					<tr>
@@ -303,18 +446,151 @@ if(isset($_POST['update-record'])) {
 				</tbody>
 			</table>
 		</div>
-        </div>
-        <div class="modal-footer">
-          <?php echo $formelem->button(array('id'=>'update-record','name'=>'update-record','class'=>'btn btn-primary edit-btn-row', 'value'=>'update', 'disabled'=>'disabled' )); ?>
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-          
+	    </div>
+	    <div class="modal-footer">
+	      <?php echo $formelem->button(array('id'=>'update-record','name'=>'update-record','class'=>'btn btn-primary edit-btn-row', 'value'=>'update', 'disabled'=>'disabled' )); ?>
+	      <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+	      
 
-        </div>
-     </div>
-      <?php echo $formelem->close(); ?>
-    </div>
-  </div>
- <!-- end Delievery Modal -->
+	    </div>
+	 </div>
+	  <?php echo $formelem->close(); ?>
+	</div>
+	</div>
+	<!-- View/Edit Delievery Modal -->
+
+	<!-- Delete Delievery Item Modal -->
+	<div class="modal fade large delivery-form" id="deleteDelieveryItemModal" role="dialog">
+	    <div class="modal-dialog">
+
+	  <!-- Modal content-->
+	  <div class="modal-content">
+	    <div class="modal-header">
+	      <button type="button" class="close" data-dismiss="modal">&times;</button>
+	      <h4 class="modal-title">Delete Item</h4>
+	    </div>
+	    <?php echo $formelem->create(array('method'=>'post','class'=>'', 'id'=>'viewEditDelivery')); ?>	
+	    <div class="modal-body">
+	    <div class="form-group">
+	    <div class="alert alert-danger" role="alert">
+			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+			<span class="sr-only">Error:</span>
+			Are you sure you want to delete this item?
+		</div>	
+			<table class="display-border">
+				<thead>
+					<tr>
+						<th>
+							Item Code
+						</th>
+						<th>
+							Details of Product
+						</th>
+						<th>
+							Price
+						</th>
+						<th>
+							QTY
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr id="daleteFields">
+						<!-- <td>
+							<?php //echo $formelem->text(array('id'=>'edit_item_code','name'=>'item_code[]','placeholder'=>'','class'=>'form-control', 'value'=>'', 'disabled'=>'disabled' )); ?>
+						</td>
+						<td>
+						                            <?php //echo $formelem->text(array('id'=>'edit_product_details','name'=>'product_details[]','placeholder'=>'','class'=>'form-control', 'value'=>'', 'disabled'=>'disabled')); ?>
+						</td>
+						<td>
+						                            <?php //echo $formelem->text(array('id'=>'edit_unit_price','name'=>'unit_price[]','placeholder'=>'','class'=>'form-control', 'value'=>'', 'disabled'=>'disabled')); ?>
+						</td>
+						<td>
+						                            <?php //echo $formelem->text(array('id'=>'edit_quantity','name'=>'quantity[]','placeholder'=>'','class'=>'form-control', 'value'=>'', 'disabled'=>'disabled')); ?>
+						</td> -->
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	    </div>
+	    <div class="modal-footer">
+	      <?php echo $formelem->button(array('id'=>'delete-record','name'=>'delete-record','class'=>'btn btn-primary edit-btn-row', 'value'=>'Yes')); ?>
+	      <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+	      
+
+	    </div>
+	 </div>
+	  <?php echo $formelem->close(); ?>
+	</div>
+	</div>
+	<!-- end Delete Delievery Item Modal -->
+
+	<!-- Delete Delievery Modal -->
+	<div class="modal fade large delivery-form" id="deleteDelieveryModal" role="dialog">
+	    <div class="modal-dialog">
+
+	  <!-- Modal content-->
+	  <div class="modal-content">
+	    <div class="modal-header">
+	      <button type="button" class="close" data-dismiss="modal">&times;</button>
+	      <h4 class="modal-title">Delete Delivery Report</h4>
+	    </div>
+	    <?php echo $formelem->create(array('method'=>'post','class'=>'', 'id'=>'viewEditDelivery')); ?>	
+	    <div class="modal-body">
+	        <div class="form-group">
+	        <div class="alert alert-danger" role="alert">
+				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				<span class="sr-only">Error:</span>
+				Are you sure you want to delete this delivery report?
+			</div>	
+			<table class="display-border">
+				<thead>
+					<tr>
+						<th>
+							Item Code
+						</th>
+						<th>
+							Details of Product
+						</th>
+						<th>
+							Price
+						</th>
+						<th>
+							QTY
+						</th>
+					</tr>
+				</thead>
+				<tbody id="deleteDeliveryFields">
+					
+						<!-- <td>
+							<?php //echo $formelem->text(array('id'=>'edit_item_code','name'=>'item_code[]','placeholder'=>'','class'=>'form-control', 'value'=>'', 'disabled'=>'disabled' )); ?>
+						</td>
+						<td>
+						                            <?php //echo $formelem->text(array('id'=>'edit_product_details','name'=>'product_details[]','placeholder'=>'','class'=>'form-control', 'value'=>'', 'disabled'=>'disabled')); ?>
+						</td>
+						<td>
+						                            <?php //echo $formelem->text(array('id'=>'edit_unit_price','name'=>'unit_price[]','placeholder'=>'','class'=>'form-control', 'value'=>'', 'disabled'=>'disabled')); ?>
+						</td>
+						<td>
+						                            <?php //echo $formelem->text(array('id'=>'edit_quantity','name'=>'quantity[]','placeholder'=>'','class'=>'form-control', 'value'=>'', 'disabled'=>'disabled')); ?>
+						</td> -->
+					
+				</tbody>
+			</table>
+					
+			</div>
+	    </div>
+	    <div class="modal-footer">
+	      <?php echo $formelem->button(array('id'=>'delete-delivery','name'=>'delete-delivery','class'=>'btn btn-primary', 'value'=>'Yes')); ?>
+	      <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+	      
+
+	    </div>
+	 </div>
+	  <?php echo $formelem->close(); ?>
+	</div>
+	</div>
+	<!-- end Delete Delievery Modal -->
 
 		<!-- /.modal -->
 

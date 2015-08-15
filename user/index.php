@@ -2,15 +2,30 @@
 
 session_start();
 
+/*include '../protected/config/db_config.php';
+include '../protected/config/html_config.php';
+include '../protected/library/validation_library.php';*/
+
 include '../protected/config/db_config.php';
 include '../protected/config/html_config.php';
 include '../protected/library/validation_library.php';
+include '../protected/controllers/index.php';
 
 
 $db = new db_config();
 $formelem = new FormElem();
 
+$connect = $db->connect();
+
 $brand_name = $_SESSION['brand_name'];
+$id = $_SESSION['id'];
+
+/*$db = new db_config();
+$formelem = new FormElem();
+
+$brand_name = $_SESSION['brand_name'];
+$id = $_SESSION['id'];
+*/
 
 if ($_SESSION['session_userid'] == '') {
 
@@ -22,7 +37,22 @@ if ($_SESSION['session_is_admin'] == 1) {
     header("Location: /index.php?redirected=true");
 }
 
+
+if(isset($_POST['change-password'])){
+
+    
+    $id = $_POST['id'];
+    $password = $_POST['new-password'];
+
+    $user_update_sql = "UPDATE tbl_users SET password = '".$password."' WHERE id = '".$id."'";
+
+    $user_update = mysqli_query($connect, $user_update_sql) or die(mysqli_error($connect));
+    header('location: /logout.php');
+
+}
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,6 +74,9 @@ if ($_SESSION['session_is_admin'] == 1) {
 
     <!-- Custom Fonts -->
     <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- jquery validation -->
+    <link href="../css/screen.css" rel="stylesheet" type="text/css" />
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -143,10 +176,11 @@ if ($_SESSION['session_is_admin'] == 1) {
 
     <!-- jQuery -->
     <script src="../js/jquery.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/jquery.validate.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="../js/bootstrap.min.js"></script>
-
 </body>
 
 </html>

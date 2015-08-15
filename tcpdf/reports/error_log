@@ -39,3 +39,4 @@
 [06-Aug-2015 15:54:34 Asia/Manila] PHP Fatal error:  Call to a member function SetTextColor() on a non-object in /home/zarilph/public_html/dev/tcpdf/reports/config/tcpdf_config_alt.php on line 114
 [06-Aug-2015 15:55:02 Asia/Manila] PHP Fatal error:  Call to a member function SetTextColor() on a non-object in /home/zarilph/public_html/dev/tcpdf/reports/config/tcpdf_config_alt.php on line 114
 [06-Aug-2015 15:55:06 Asia/Manila] PHP Fatal error:  Call to a member function SetTextColor() on a non-object in /home/zarilph/public_html/dev/tcpdf/reports/config/tcpdf_config_alt.php on line 114
+[12-Aug-2015 23:34:03 Asia/Manila] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 65552 bytes) in /home/zarilph/public_html/dev/tcpdf/include/tcpdf_static.php on line 815
