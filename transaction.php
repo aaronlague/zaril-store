@@ -14,8 +14,30 @@ $connect = $db->connect();
 
 $brand_name = $_SESSION['brand_name'];
 
-?>
+if(isset($_POST['btn-finish'])){
+	
+	$sales_transaction_id = "ST" . rand(0, 100) . date("ymds");
+	$subtotal = $_POST['subtotal'];
+	$sales_tax = $_POST['sales_tax'];
+	$total_amount = $_POST['total_amount'];
+	$amount_given = $_POST['amount_given'];
+	$change_amount = $_POST['change_amount'];
+	$transaction_date = date("Y-m-d H:i:s");
 
+	$sales_transaction_report_sql = "INSERT INTO tbl_sales_trans_report (sales_transaction_id, subtotal, sales_tax_total, total_amount, amount_given, change_amount, transaction_date) VALUES ('".$sales_transaction_id."', '".$subtotal."', '".$sales_tax."', '".$total_amount."', '".$amount_given."', '".$change_amount."', '".$transaction_date."')";
+	//$sales_transaction_report_sql = "INSERT INTO tbl_sales_trans_report (sales_transaction_id, subtotal, sales_tax_total, total_amount, amount_given, change_amount, transaction_date) VALUES ('ST4915081647', '140000', '4200', '144200', '150000', '5800', '2015-08-16 04:20:47')";
+
+	$sales_transaction_report_query = mysqli_query($connect, $sales_transaction_report_sql) or die(mysqli_error($connect));
+
+	header('location: /transaction.php?transaction_saved=true');
+
+	//echo $sales_transaction_report_sql;
+
+
+
+}
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -118,29 +140,36 @@ $brand_name = $_SESSION['brand_name'];
 					</table>
 					
 					<div class="row">
-
+					<?php echo $formelem->create(array('method'=>'post','class'=>'', 'id'=>'saveSalesTransaction')); ?>
 						<div class="text-center">
 							<div class="panel panel-default">
-								<div class="panel-body"> 
-									<div class="sub-total"> Sub Total: <span></span></div>
-									<div class="sales-tax"> Sales Tax: <span></span></div>
-									<div class="total-amount">Total: <span></span></div>
+								<div class="panel-body" style="width:50%; margin:0 auto;"> 
+									<div class="form-group sub-total"><label>Sub Total:</label>
+										<?php echo $formelem->text(array('id'=>'subtotal','name'=>'subtotal','placeholder'=>'','class'=>'form-control', 'value'=>'')); ?>
+									</div>
+									<div class="form-group sales-tax"><label>Sales Tax:</label>
+										<?php echo $formelem->text(array('id'=>'sales_tax','name'=>'sales_tax','placeholder'=>'','class'=>'form-control', 'value'=>'')); ?>
+									</div>
+									<div class="form-group total-amount"><label>Total:</label>
+										<?php echo $formelem->text(array('id'=>'total_amount','name'=>'total_amount','placeholder'=>'','class'=>'form-control', 'value'=>'')); ?>
+									</div>
 								</div>								
 							</div>
 							<div class="form-group">
 								<label>Amount Given</label>
-								<input id="amountGiven" class="form-control auto-width">
+								<input id="amount_given" name="amount_given" class="form-control auto-width">
 							</div>
 							<div class="form-group">
 								<label>Change</label>
-								<input id="change" class="form-control auto-width left45" disabled="">
+								<input id="change_amount" name="change_amount" class="form-control auto-width left45">
 							</div>
 						</div>
 						<div class="pull-right">
-								<button id="btnFinish" class="btn btn-primary big" data-dismiss="modal" type="button">Finish</button>
-								<button class="btn btn-danger big cancel" data-dismiss="modal" type="button">Cancel</button>
+							<?php echo $formelem->button(array('id'=>'btn-finish','name'=>'btn-finish','class'=>'btn btn-primary big', 'value'=>'Finish')); ?>
+								<!-- <button id="btnFinish" class="btn btn-primary btn-finish big" data-dismiss="modal" type="button">Finish</button> -->
+							<button class="btn btn-danger big cancel" data-dismiss="modal" type="button">Cancel</button>
 						</div>
-
+					<?php echo $formelem->close(); ?>
 					</div>
 				</div><!-- /.box-body -->
 			</div>
@@ -157,6 +186,7 @@ $brand_name = $_SESSION['brand_name'];
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
+    <script src="js/jquery.validate.js"></script>
 	<script src="js/main.js"></script>
 
     <!-- Bootstrap Core JavaScript -->

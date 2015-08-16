@@ -37,13 +37,13 @@ function addRowToDatatable(){
 	            nTotalPriceCell[3].innerHTML = parseInt(iTotalPrice * 100)/100;
 
 	            var subTotalCol = $('th.price-col').text();
-	            $('.sub-total span').html(subTotalCol);
+	            $('.sub-total input').val(subTotalCol);
 
 	            var salesTaxCol = $('th.tax-col').text();
-	            $('.sales-tax span').html(salesTaxCol);
+	            $('.sales-tax input').val(salesTaxCol);
 
 	            var totalPriceCol = $('th.total-price-col').text();
-	            $('.total-amount span').html(parseInt(subTotalCol) + parseInt(salesTaxCol));
+	            $('.total-amount input').val(parseInt(subTotalCol) + parseInt(salesTaxCol));
 
 	        }
 	  	});
@@ -90,8 +90,6 @@ function removeRowDatatable(){
     }); 
 
 }
-
-
 
 function sumTotalCol (){
 
@@ -148,13 +146,13 @@ $(document).ready(function() {
 	            nTotalPriceCell[3].innerHTML = parseInt(iTotalPrice * 100)/100;
 
 	            var subTotalCol = $('th.price-col').text();
-	            $('.sub-total span').html(subTotalCol);
+	            $('.sub-total input').val(subTotalCol);
 
 	            var salesTaxCol = $('th.tax-col').text();
-	            $('.sales-tax span').html(salesTaxCol);
+	            $('.sales-tax input').val(salesTaxCol);
 
 	            var totalPriceCol = $('th.total-price-col').text();
-	            $('.total-amount span').html(parseInt(subTotalCol) + parseInt(salesTaxCol));
+	            $('.total-amount input').val(parseInt(subTotalCol) + parseInt(salesTaxCol));
 	        }
 	    }
    	);
@@ -200,9 +198,10 @@ $(document).ready(function() {
     });
 
     removeRowDatatable();
-
-
-
-      
+    
+    $('#amount_given').on('keyup', function(){
+    	var change = $(this).val() - $('#total_amount').val();
+    	$('#change_amount').val(change);
+    })
 
 });

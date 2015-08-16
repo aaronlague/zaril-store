@@ -185,6 +185,7 @@ if(isset($_POST['btn-save'])){
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
+    <script src="js/jquery.validate.js"></script>
 	<script src="js/main.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
