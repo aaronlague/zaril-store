@@ -26,6 +26,24 @@ if(isset($_POST['btn-create'])){
 
 }
 
+if(isset($_POST['update-record'])) {
+
+
+
+	$id = $_POST['id'];
+	$email = $_POST['email'];
+	$username = $_POST['username'];
+	$brandname = $_POST['brandname'];
+	$is_admin = $_POST['isadmin'];
+
+	$user_item_update_sql = "UPDATE tbl_users SET id = '".$id."', email = '".$email."', username = '".$username."', brand_name = '".$brandname."' WHERE id = '".$id."'";
+
+	$user_item_update = mysqli_query($connect, $user_item_update_sql) or die(mysqli_error($connect));
+
+	header('location: /user.php?record_updated=true');
+
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -146,32 +164,9 @@ if(isset($_POST['btn-create'])){
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Edit User</h4>
+          <h4 class="modal-title">Add User</h4>
         </div>
         <div class="modal-body">
-			<!--<form action="#">
-				<div class="form-group">					
-					<label>User ID</label>	
-					<input type="text" placeholder="" id="userId" class="form-control" disabled="">
-				</div>
-				<div class="form-group">		
-					<label>User Account</label>
-					<input type="text" placeholder="" id="userAccount" class="form-control">
-				</div>
-				<div class="form-group">
-					<label>Name</label>
-					<input type="text" placeholder="" id="userName" class="form-control">
-				</div>
-				<div class="form-group">
-					<label>Address</label>
-					<input type="text" placeholder="" id="userAddress" class="form-control">
-				</div>
-				<div class="form-group">
-					<label>Contact Number</label>
-					<input type="text" placeholder="" id="userContact" class="form-control">
-				</div>
-			</form>	-->
-
 			<?php echo $formelem->create(array('method'=>'post','class'=>'', 'id'=>'createUser')); ?>
 
 			<div class="form-group">
@@ -214,6 +209,62 @@ if(isset($_POST['btn-create'])){
   </div>
  <!-- end User Modal -->
 
+<!-- edit User Modal -->
+  <div class="modal fade large add-user-form" id="editUserModal" role="dialog">
+        <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Edit User</h4>
+        </div>   
+        <?php echo $formelem->create(array('method'=>'post','class'=>'', 'id'=>'editUser')); ?>     
+        <div id="userFields" class="modal-body">
+			
+
+			<!-- <div class="form-group">
+				<label>Email</label>
+				<br />
+				<?php echo $formelem->email(array('id'=>'email','name'=>'email','placeholder'=>'email','class'=>'form-control', 'value'=>'', 'required'=>'')); ?>
+			</div>
+			<div class="form-group">
+				<label>Username</label>
+				<br />
+				<?php echo $formelem->username(array('id'=>'username','name'=>'username','placeholder'=>'username','class'=>'form-control', 'value'=>'', 'minlength'=>'2', 'required'=>'')); ?>
+			</div>
+			<div class="form-group">
+				<label>Brand name</label>
+				<br />
+				<?php echo $formelem->brandname(array('id'=>'brandname','name'=>'brandname', 'placeholder'=>'brandname', 'class'=>'form-control', 'value'=>'', 'minlength'=>'2', 'required'=>'')); ?>
+			</div>
+			<div class="form-group pw">
+				<label>Password</label>
+				<br />
+				<?php echo $formelem->brandname(array('id'=>'password','name'=>'password','placeholder'=>'Password','class'=>'form-control', 'minlength'=>'4', 'required'=>'')); ?>
+			</div>
+			<div class="form-group">
+				<label>Is admin?</label>
+				<br />
+				<?php echo $formelem->checkbox(array('id'=>'isAdmin','name'=>'isAdmin','class'=>'', 'value'=>'0')); ?>
+			</div> -->
+			
+			
+			
+        </div>
+        
+        <div class="modal-footer">
+          <?php echo $formelem->button(array('id'=>'update-record','name'=>'update-record','class'=>'btn btn-primary', 'value'=>'update')); ?>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>          
+		  
+        </div>
+		<?php echo $formelem->close(); ?>
+     </div>
+      
+    </div>
+  </div>
+ <!-- end edit User Modal -->
+
     </div>
     <!-- /.container -->
 
@@ -231,64 +282,9 @@ if(isset($_POST['btn-create'])){
     <script src="js/jquery.dataTables.js" type="text/javascript"></script>
     <script src="js/dataTables.bootstrap.js" type="text/javascript"></script>
 
-	<script type="text/javascript">
-	$.validator.setDefaults({
-		submitHandler: function() {
-			alert("submitted!");
-			$('.modal').close();
-		}
-	});
-            $(function() {
-                $("#example1").dataTable();
-                $('#example2').dataTable({
-                    "bPaginate": true,
-                    "bLengthChange": false,
-                    "bFilter": false,
-                    "bSort": true,
-                    "bInfo": true,
-                    "bAutoWidth": false
-                });
-            });
+    <script src="js/user-account.js"></script>
 
-			$('.editBtn').on( 'click', function () {
-                $('#UserModal').modal('show');
-            } );
-            $('.addUser').on( 'click', function () {
-                $('#UserModal').modal('show');
-            } );
-
-			$( "#example1 tr .editBtn" ).each(function(index) {
-				$(this).on('click', function(){
-					$('#UserModal').modal('show');
-					
-					var email = $("#example1 tr td.userEmail").html();
-					var name = $("#example1 tr td.userName").html();
-					var brandname = $("#example1 tr td.userBrandName").html();
-					var role = $("#example1 tr td.userRole").html();
-					
-
-					console.log(email);
-					
-
-					$('#UserModal #email').attr('placeholder' , email);
-					$('#UserModal #username').attr('placeholder' , name);
-					$('#UserModal #brandname').attr('placeholder' , brandname);
-					//$('#UserModal #password').attr('placeholder' , address);
-					$('#UserModal #isAdmin').attr('checked' , role);
-				});   
-			});
-
-			$(document).ready(function(){
-				$("#createUser").validate();
-				
-				$('#isAdmin').click(function(){
-
-					$(this).attr('value', this.checked ? 1 : 0)
-				});
-				
-
-			});
-	</script>
+	
 </body>
 
 </html>

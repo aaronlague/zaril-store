@@ -253,7 +253,7 @@ $(document).ready(function() {
 
 		//} 
 
-		var count = $("#deliveryTable >tbody >tr").length + 1;
+		var count = $("#deliveryTable >tbody >tr").length;
 
 		if(count > 10){
 			alert("Maximum row is 10!");
