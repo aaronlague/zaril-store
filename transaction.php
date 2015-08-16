@@ -24,14 +24,37 @@ if(isset($_POST['btn-finish'])){
 	$change_amount = $_POST['change_amount'];
 	$transaction_date = date("Y-m-d H:i:s");
 
+	
+	$brand_name_item = $_POST['brand_name'];
+	$item_code = $_POST['item_code'];
+	$item_description = $_POST['description'];
+	$price = $_POST['price'];
+	$sales_tax_amount = $_POST['sales_tax'];
+	$total_sales_price = $_POST['total'];
+	$transaction_date = date("Y-m-d H:i:s");
+
+
 	$sales_transaction_report_sql = "INSERT INTO tbl_sales_trans_report (sales_transaction_id, subtotal, sales_tax_total, total_amount, amount_given, change_amount, transaction_date) VALUES ('".$sales_transaction_id."', '".$subtotal."', '".$sales_tax."', '".$total_amount."', '".$amount_given."', '".$change_amount."', '".$transaction_date."')";
-	//$sales_transaction_report_sql = "INSERT INTO tbl_sales_trans_report (sales_transaction_id, subtotal, sales_tax_total, total_amount, amount_given, change_amount, transaction_date) VALUES ('ST4915081647', '140000', '4200', '144200', '150000', '5800', '2015-08-16 04:20:47')";
 
 	$sales_transaction_report_query = mysqli_query($connect, $sales_transaction_report_sql) or die(mysqli_error($connect));
+
+	for ($i=0; $i<count($brand_name_item); $i++) {
+
+		$sales_transaction_item_id = "ST" . rand(0, 1000) . date("ymds");
+
+		$sales_transaction_item_sql = "INSERT INTO tbl_sales_trans (sales_transaction_item_id, sales_transaction_id, brand_name, item_code, item_description, transaction_date, price, sales_tax_amount, total_sales_price) VALUES ('".$sales_transaction_item_id."', '".$sales_transaction_id."', '".$brand_name_item[$i]."', '".$item_code[$i]."', '".$item_description[$i]."', '".$transaction_date."', '".$price[$i]."', '".$sales_tax_amount[$i]."', '".$total_sales_price[$i]."')";
+
+		$sales_transaction_item_query = mysqli_query($connect, $sales_transaction_item_sql) or die(mysqli_error($connect));
+
+		//echo $sales_transaction_item_sql;
+	}
+
+	
 
 	header('location: /transaction.php?transaction_saved=true');
 
 	//echo $sales_transaction_report_sql;
+	//echo $sales_transaction_item_sql;
 
 
 
@@ -163,6 +186,9 @@ if(isset($_POST['btn-finish'])){
 								<label>Change</label>
 								<input id="change_amount" name="change_amount" class="form-control auto-width left45">
 							</div>
+						</div>
+						<div class="items-row">
+							<table></table>
 						</div>
 						<div class="pull-right">
 							<?php echo $formelem->button(array('id'=>'btn-finish','name'=>'btn-finish','class'=>'btn btn-primary big', 'value'=>'Finish')); ?>

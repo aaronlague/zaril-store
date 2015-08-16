@@ -59,6 +59,7 @@ function addRowToDatatable(){
 		  	var items = JSON.parse(data);
 		  	var checkItemCode = items.length;
 		  	
+		  	
 
 		  	if (items.length == '0') 	{
 		  		console.log(checkItemCode);
@@ -69,6 +70,15 @@ function addRowToDatatable(){
 		  		itemTable.fnAddData(items);
 		  		itemTable.fnDraw();
 		  		sumTotalCol();
+
+		  		//alert(items[0] + " " + items[1] +" "+ items[2] +" "+ items[3] +" "+ items[4] +" "+ items[5]);
+		  		var itemRow = "<tr><td><input name='brand_name[]' type='hidden' value='"+items[0]+"'><input name='item_code[]' type='hidden' value='"+items[1]+"'><input name='description[]' type='hidden' value='"+items[2]+"'><input name='price[]' type='hidden' value='"+items[3]+"'><input name='sales_tax[]' type='hidden' value='"+items[4]+"'><input name='total[]' type='hidden' value='"+items[5]+"'></td></tr>";
+
+
+		  		/*var itemRow = "<tr><td><input name='brand_name' type='hidden' value='"+items[0]+"'><input name='item_code' type='hidden' value='"+items[1]+"'><input name='description' type='hidden' value='"+items[2]+"'><input name='price' type='hidden' value='"+items[3]+"'><input name='sales_tax' type='hidden' value='"+items[4]+"'><input name='total' type='hidden' value='"+items[5]+"'></td></tr>";*/
+
+		  		$(".items-row table").append(itemRow);
+		  		
 		  	}
 	  	}
 
