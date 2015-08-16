@@ -197,6 +197,45 @@ if(isset($_POST['btn-finish'])){
 						</div>
 					<?php echo $formelem->close(); ?>
 					</div>
+					
+					<button class="btn-print-report" value="Print">Print</button>
+
+					<div id="receipt" style="display:none;">
+			            <div style="text-align:center; font-size:10px;">ZÁRIL lifestyle store</div>
+			            <div style="text-align:center; font-size:8px; border-bottom:1px solid black">
+			                97 Maginhawa st. Teacher's Village, Quezon City<br />
+			                Tel NO.:947-51-55 <br />
+			                TIN NO.:215-514-548-541
+			            </div>
+			            <div class="printableItems" style="font-size:8px; border-bottom:1px solid black; margin: 0 auto; width: 200px;">
+
+			                <table>
+			                </table>
+			                
+						</div>
+			            <div class="printableTotals" style="font-size:8px; border-bottom:1px solid black">
+			            	<table>
+			            		<tr>
+			            			<td>Sub-total</td>
+			            			<td class="r_subtotal">------<span></span></td>
+			            			
+			            		</tr>
+			            		<tr>
+			            			<td>Total</td>
+			            			<td class="r_total">------<span></span></td>
+			            		</tr>
+			                </table>
+			                <!-- Sub-total -------- 100.00 <br />
+			                Total     -------- 100.00 <br /> -->
+			            </div>
+			            <div style="font-size:8px; text-align:center;">          
+			                Thank you. Please come again<br />
+			                Like us on Facebook:<br />
+			                Zaril lifestyle store           
+			            </div>
+						
+			        </div>
+
 				</div><!-- /.box-body -->
 			</div>
 		</div>

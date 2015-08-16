@@ -71,7 +71,7 @@ $brand_name = $_SESSION['brand_name'];
             </div>
             <div style="font-size:8px; border-bottom:1px solid black; margin: 0 auto; width: 200px;">
 
-                 Item1 -------- 100.00 <br />
+                Item1 -------- 100.00 <br />
                 Item2 -------- 100.00 <br />
                 Item3 -------- 100.00 <br />
                 Item4 -------- 100.00 <br />

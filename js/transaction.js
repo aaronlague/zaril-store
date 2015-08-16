@@ -38,12 +38,14 @@ function addRowToDatatable(){
 
 	            var subTotalCol = $('th.price-col').text();
 	            $('.sub-total input').val(subTotalCol);
+	            $('.printableTotals table td.r_subtotal span').text(subTotalCol);
 
 	            var salesTaxCol = $('th.tax-col').text();
 	            $('.sales-tax input').val(salesTaxCol);
 
 	            var totalPriceCol = $('th.total-price-col').text();
 	            $('.total-amount input').val(parseInt(subTotalCol) + parseInt(salesTaxCol));
+	            $('.printableTotals table td.r_total span').text(parseInt(subTotalCol) + parseInt(salesTaxCol));
 
 	        }
 	  	});
@@ -73,11 +75,10 @@ function addRowToDatatable(){
 
 		  		//alert(items[0] + " " + items[1] +" "+ items[2] +" "+ items[3] +" "+ items[4] +" "+ items[5]);
 		  		var itemRow = "<tr><td><input name='brand_name[]' type='hidden' value='"+items[0]+"'><input name='item_code[]' type='hidden' value='"+items[1]+"'><input name='description[]' type='hidden' value='"+items[2]+"'><input name='price[]' type='hidden' value='"+items[3]+"'><input name='sales_tax[]' type='hidden' value='"+items[4]+"'><input name='total[]' type='hidden' value='"+items[5]+"'></td></tr>";
-
-
-		  		/*var itemRow = "<tr><td><input name='brand_name' type='hidden' value='"+items[0]+"'><input name='item_code' type='hidden' value='"+items[1]+"'><input name='description' type='hidden' value='"+items[2]+"'><input name='price' type='hidden' value='"+items[3]+"'><input name='sales_tax' type='hidden' value='"+items[4]+"'><input name='total' type='hidden' value='"+items[5]+"'></td></tr>";*/
+		  		var printableItems = "<tr><td>"+items[2]+"</td><td>--"+items[3]+"</td></tr>"
 
 		  		$(".items-row table").append(itemRow);
+		  		$(".printableItems table").append(printableItems);
 		  		
 		  	}
 	  	}
@@ -157,12 +158,14 @@ $(document).ready(function() {
 
 	            var subTotalCol = $('th.price-col').text();
 	            $('.sub-total input').val(subTotalCol);
+	            $('.printableTotals table td.r_subtotal span').text(subTotalCol);
 
 	            var salesTaxCol = $('th.tax-col').text();
 	            $('.sales-tax input').val(salesTaxCol);
 
 	            var totalPriceCol = $('th.total-price-col').text();
 	            $('.total-amount input').val(parseInt(subTotalCol) + parseInt(salesTaxCol));
+	            $('.printableTotals table td.r_total span').text(parseInt(subTotalCol) + parseInt(salesTaxCol));
 	        }
 	    }
    	);
@@ -212,6 +215,19 @@ $(document).ready(function() {
     $('#amount_given').on('keyup', function(){
     	var change = $(this).val() - $('#total_amount').val();
     	$('#change_amount').val(change);
-    })
+    });
+
+    $('.btn-print-report').click(function(){
+    	var html = $('#receipt').html()
+    	alert('Print receipt');
+    	//location.href = '/tcpdf/reports/user-delivery-report.php?report_id='+deliveryReportId+'';
+
+    	window.open('/tcpdf/receipt/receipt.php?html='+html+'', '_blank');
+
+    });
+
+   
+
+
 
 });
