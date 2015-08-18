@@ -249,7 +249,7 @@ header('location: /logout.php');
 					echo '</tr>';
 					echo '</thead>';
 					echo '<tbody>';
-					echo $UsersSalesModel->getUsersSales($brand_name,'tbl_sales_trans',$connect);
+					echo $UsersSalesModel->getUsersSales($connect);
 					echo '</tbody>';
 					echo '</table>';
 					?>

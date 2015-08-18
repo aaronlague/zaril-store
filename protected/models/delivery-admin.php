@@ -6,7 +6,7 @@ class DeliveryModel {
 
 		$data = '';	
 		
-		$sql .= "SELECT tbl_delivery_report.delivery_report_id, tbl_delivery_report.brand_name, tbl_delivery_report.delivery_status, tbl_delivery_report.quantity_received, tbl_delivery_report.date_accepted, SUM(tbl_deliveries.quantity) FROM tbl_deliveries INNER JOIN tbl_delivery_report ON tbl_deliveries.delivery_report_id = tbl_delivery_report.delivery_report_id WHERE tbl_delivery_report.brand_name = '".$brandName."' AND tbl_delivery_report.delivery_status = '".$status."' GROUP BY tbl_delivery_report.delivery_report_id";
+		$sql .= "SELECT tbl_delivery_report.delivery_report_id, tbl_delivery_report.brand_name, tbl_delivery_report.delivery_status, SUM(tbl_deliveries.quantity_received), tbl_delivery_report.date_accepted, SUM(tbl_deliveries.quantity) FROM tbl_deliveries INNER JOIN tbl_delivery_report ON tbl_deliveries.delivery_report_id = tbl_delivery_report.delivery_report_id WHERE tbl_delivery_report.brand_name = '".$brandName."' AND tbl_delivery_report.delivery_status = '".$status."' GROUP BY tbl_delivery_report.delivery_report_id";
 
 		$result = mysqli_query($connect, $sql);
 		
@@ -17,7 +17,7 @@ class DeliveryModel {
 			$brand_name = $row['brand_name'];
 			$status = $row['delivery_status'];
 			$quantity_reported = $row['SUM(tbl_deliveries.quantity)'];
-			$quantity_received = $row['quantity_received'];
+			$quantity_received = $row['SUM(tbl_deliveries.quantity_received)'];
 			$date_accepted = $row['date_accepted'];
 			
 			$data .= "<tr>";

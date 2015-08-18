@@ -26,13 +26,6 @@ if ($_SESSION['session_userid'] == '') {
 if(isset($_POST['change-password'])){
 
     
-    /*$data['email'] = $_POST['email'];
-    $data['username'] = $_POST['username'];;
-    $data['brand_name'] = $_POST['brandname'];
-    $data['password'] = $_POST['password'];
-    $data['is_admin'] = $_POST['isAdmin'];
-    $data['date_created'] = date("Y-m-d H:i:s");*/
-    
     $id = $_POST['id'];
     $password = $_POST['new-password'];
 
@@ -63,12 +56,10 @@ $delivery_report_query = mysqli_query($connect, $delivery_report_sql) or die(mys
 	for ($i=0; $i<count($details); $i++) { 
 
 		$delivery_id = "D" . rand(0, 1000) . date("ymds");
-		//$delivery_id = $delivery_id . $i;
 		$sales_tax = ($tax_percentage / 100) * $price[$i] * $quantity[$i];
 	    $total_price = ($price[$i] * $quantity[$i]);
 
-
-	   $delivery_item_sql = "INSERT INTO tbl_deliveries (delivery_id, delivery_report_id, brand_name, delivery_status, date_created, details, item_code, unit_price, quantity, sales_tax_amount, total_price) VALUES ('" .$delivery_id. "', '" .$delivery_report_id. "', '" .$brand_name. "', '" .$status. "', '" .$date_created. "', '" .$details[$i]. "', '" .$item_code[$i]. "', '" .$price[$i]. "', '" .$quantity[$i]. "', '" .$sales_tax. "' ,'" .$total_price. "')";
+	   $delivery_item_sql = "INSERT INTO tbl_deliveries (delivery_id, delivery_report_id, brand_name, delivery_status, date_created, details, item_code, unit_price, quantity, quantity_received, sales_tax_amount, total_price) VALUES ('" .$delivery_id. "', '" .$delivery_report_id. "', '" .$brand_name. "', '" .$status. "', '" .$date_created. "', '" .$details[$i]. "', '" .$item_code[$i]. "', '" .$price[$i]. "', '" .$quantity[$i]. "', '" .$quantity[$i]. "', '" .$sales_tax. "' ,'" .$total_price. "')";
 
 	   $delivery_item_query = mysqli_query($connect, $delivery_item_sql) or die(mysqli_error($connect));
 

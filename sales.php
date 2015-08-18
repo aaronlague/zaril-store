@@ -5,12 +5,13 @@ include 'protected/config/db_config.php';
 include 'protected/config/html_config.php';
 include 'protected/library/validation_library.php';
 include 'protected/controllers/index.php';
-
+include 'protected/models/admin-sales-report.php';
 
 $db = new db_config();
 $formelem = new FormElem();
 $brand_name = $_SESSION['brand_name'];
-
+$SalesModel = new SalesModel();
+$connect = $db->connect();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -99,7 +100,7 @@ $brand_name = $_SESSION['brand_name'];
 					</h3>
 					
 					<h3 class="panel-title pull-right">
-						<a href="#">
+						<a href="#" class="btn-print-report">
 							<i class="fa fa-print fa-fw"></i>Print
 						</a>
 					</h3>
@@ -213,7 +214,7 @@ $brand_name = $_SESSION['brand_name'];
 						</tfoot>
 					</table>  -->
 					<div id="demo">
-						<table id="example" class="table table-bordered table-striped">
+						<!-- <table id="example" class="table table-bordered table-striped">
 		                    <thead>
 		                        <tr>
 		                            <th style="width:20%">Transaction #</th>
@@ -321,7 +322,30 @@ $brand_name = $_SESSION['brand_name'];
 									<th>Total</th>
 		                        </tr>
 		                    </tfoot>
-	                	</table>
+	                	</table> -->
+	                	<?php echo '<table class="table table-bordered table-striped" id="example">';
+					echo '<thead>';
+                    echo '<tr>';
+					echo '<th>Transaction #</th>';
+					echo '<th>DateTime of Purchase</th>';
+					echo '<th>Price</th>';
+					echo '<th>Sales Tax</th>';
+					echo '<th>Total</th>';
+					echo '</tr>';
+
+					echo '<tr>';
+					echo '<th>Transaction #</th>';
+					echo '<th>DateTime of Purchase</th>';
+					echo '<th>Price</th>';
+					echo '<th>Sales Tax</th>';
+					echo '<th>Total</th>';
+					echo '</tr>';
+					echo '</thead>';
+					echo '<tbody>';
+					echo $SalesModel->getSales($connect);
+					echo '</tbody>';
+					echo '</table>';
+					?>
                 	</div>
 					<!-- <div id="demo">
 						<table id="example" class="table table-bordered table-striped">
@@ -1041,9 +1065,9 @@ $brand_name = $_SESSION['brand_name'];
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
-	<script src="js/main.js"></script>
+	<!--<script src="js/main.js"></script>-->
 	<script src="js/jquery-ui.js"></script>
-
+	<script src="js/admin-sales.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
 
@@ -1083,43 +1107,6 @@ $brand_name = $_SESSION['brand_name'];
 
 
   </script>
-<script type="text/javascript">
-$(document).ready(function(){
-                $.datepicker.regional[""].dateFormat = 'dd/mm/yy';
-                $.datepicker.setDefaults($.datepicker.regional['']);
-     $('#example').dataTable({
-		"aoColumns": [ 
-			{ "sWidth": "200px" },
-			null,
-			null
-		]
-	} )
-		  .columnFilter({ sPlaceHolder: "head:before",
-			aoColumns: [ { type: "text" },
-				     { type: "date-range", sRangeFormat: "Between {from} and {to}"  },
-                                     { type: "text" },
-                                     { type: "text" },
-                                     { type: "text" }
-				]
-
-		});
-		  $(".filterColumn input, .filter_column input").addClass('form-control input-group');
-});
-
-		</script>
-        <script type="text/javascript">
-
-            var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-17838786-4']);
-            _gaq.push(['_trackPageview']);
-
-            (function () {
-                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-            })();
-
-</script>
 </body>
 
 </html>

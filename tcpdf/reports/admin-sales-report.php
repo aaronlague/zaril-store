@@ -62,7 +62,7 @@ $pdf->AddPage();
 
 
 
-//$reportId = $_GET['report_id'];
+$brand_name = $_GET['brand_name'];
 
 
 
@@ -78,17 +78,19 @@ $tbl_header .= '<style>
 	}
 </style>';
 
+//$sql = "SELECT * FROM tbl_sales_trans ORDER BY transaction_date DESC";
+$sqlGetSalesReport = "SELECT * FROM tbl_sales_trans_report  ORDER BY transaction_date DESC";
+$sales_report_results = mysqli_query($connect, $sqlGetSalesReport);
 
-$sqlGetTenantReport = "SELECT * FROM tbl_sales_trans ORDER BY transaction_date DESC";
+while ($row = mysqli_fetch_array($sales_report_results)) {
 
-
-$tenant_report_results = mysqli_query($connect, $sqlGetTenantReport);
-
-while ($row = mysqli_fetch_array($tenant_report_results)) {
-
-	$brand_name = $row['brand_name'];			
-	$sales_tax_amount = $row['sales_tax_amount'];	
-	$total_sales_price = $row['total_sales_price'];
+	$sales_transaction_id = $row['sales_transaction_id'];
+	$brand_name = $row['brand_name'];		
+	$subtotal = $row['subtotal'];	
+	$sales_tax_amount = $row['sales_tax_amount'];
+	$total_amount = $row['total_amount'];
+	$transaction_date = $row['transaction_date'];
+	
 
 	$new_date = date("d/m/Y h:i:s", strtotime($transaction_date) );
 
@@ -101,13 +103,19 @@ $tbl_header .='<table border="0">';
 
 $tbl_header .='<tr>';
 
-$tbl_header .='<td colspan="7"><strong>Brand Name:</strong></td>';
+$tbl_header .='<td colspan="7"><strong>Sales Report</strong></td>';
 
 $tbl_header .='</tr>';
 
 $tbl_header .='<tr>';
 
-$tbl_header .='<td colspan="7"><strong>Date:</strong></td>';
+$tbl_header .='<td colspan="7"><strong>From:</strong></td>';
+
+$tbl_header .='</tr>';
+
+$tbl_header .='<tr>';
+
+$tbl_header .='<td colspan="7"><strong>To:</strong></td>';
 
 $tbl_header .='</tr>';
 
@@ -124,9 +132,13 @@ $tbl_header .= '<table border="1">';
 
 $tbl_header_titles .='<tr class="headings">';
 
-$tbl_header_titles .='<td>Brand</td>';
+$tbl_header_titles .='<td>Transaction #</td>';
 
-$tbl_header_titles .='<td>Sales Tax 3%</td>';
+$tbl_header_titles .='<td>DateTime of Purchase</td>';
+
+$tbl_header_titles .='<td>Price</td>';
+
+$tbl_header_titles .='<td>Sales Tax</td>';
 
 $tbl_header_titles .='<td>Total</td>';
 
@@ -137,23 +149,34 @@ $tbl_footer = '</table>';
 $tbl ='';
 
 
-$tenant_report_results = mysqli_query($connect, $sqlGetTenantReport);
-while ($row = mysqli_fetch_array($tenant_report_results)) {
+$sales_report_results = mysqli_query($connect, $sqlGetSalesReport);
+while ($row = mysqli_fetch_array($sales_report_results)) {
 
 
-	$brand_name = $row['brand_name'];			
-	$sales_tax_amount = $row['sales_tax_amount'];	
-	$total_sales_price = $row['total_sales_price'];
+	$sales_transaction_id = $row['sales_transaction_id'];
+	$brand_name = $row['brand_name'];		
+	$subtotal = $row['subtotal'];	
+	$sales_tax_amount = $row['sales_tax_amount'];
+	$total_amount = $row['total_amount'];
+	$transaction_date = $row['transaction_date'];
+	
+
+	$new_date = date("d/m/Y h:i:s", strtotime($transaction_date) );
+
 
 
 
 	$tbl .= '<tr class="details">';
 
-	$tbl .= '<td>' . $brand_name . '</td>';
+	$tbl .= '<td>' . $sales_transaction_id . '</td>';
+
+	$tbl .= '<td>' . $new_date . '</td>';
+
+	$tbl .= '<td>' . $subtotal . '</td>';
 
 	$tbl .= '<td>' . $sales_tax_amount . '</td>';
 
-	$tbl .= '<td>' . $total_sales_price . '</td>';
+	$tbl .= '<td>' . $total_amount . '</td>';
 
 	$tbl .= '</tr>';
 
@@ -163,4 +186,4 @@ while ($row = mysqli_fetch_array($tenant_report_results)) {
 
 $pdf->writeHTML($tbl_header . $tbl_header_titles . $tbl . $tbl_footer, true, false, false, false, '');
 
-$pdf->Output('tenant-sales-'.$reportId.'.pdf', 'I');
+$pdf->Output('user-sales-'.$reportId.'.pdf', 'I');

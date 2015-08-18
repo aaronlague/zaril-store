@@ -145,7 +145,7 @@ $brand_name = $_SESSION['brand_name'];
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
-	<script src="js/main.js"></script>
+	<!--<script src="js/main.js"></script>-->
 	<script src="js/jquery-ui.js"></script>
 
     <!-- Bootstrap Core JavaScript -->

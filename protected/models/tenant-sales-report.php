@@ -6,7 +6,8 @@ class TenantsSalesModel {
 
 		$data = '';	
 				
-		$sql = "SELECT * FROM tbl_admin_sales_trans ORDER BY transaction_date DESC";
+		//$sql = "SELECT * FROM tbl_admin_sales_trans ORDER BY transaction_date DESC";
+		$sql = "SELECT * FROM tbl_sales_trans ORDER BY transaction_date DESC";
 		$result = mysqli_query($connect, $sql);
 		//$num = $db->numrows($sql);
 		

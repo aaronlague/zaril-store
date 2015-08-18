@@ -17,13 +17,22 @@ if(isset($_POST['btn-save'])){
 
 	$delivery_report_id = $_POST['delivery_report_id'];
 	$status = $_POST['status'];
-	$quantity_received = $_POST['quantity_received'];
+	//$quantity_received = $_POST['quantity_received'];
 	$timestamp = date("Y-m-d H:i"); //$_POST['currentTimeDate'];
+
+	$get_quantity_sql = "SELECT SUM(quantity_received) FROM tbl_deliveries WHERE delivery_report_id = '".$delivery_report_id."'";
+
+	$get_quantity_result = mysqli_query($connect, $get_quantity_sql);
+
+	while ($row = mysqli_fetch_array($get_quantity_result)) {
+
+		$quantity_received = $row['SUM(quantity_received)'];
+
+	}
 
 	$update_delivery_report_sql = "UPDATE tbl_delivery_report SET delivery_status = '".$status."', quantity_received = '".$quantity_received."', date_accepted = '".$timestamp."' WHERE delivery_report_id = '".$delivery_report_id."'";
 
 	$delivery_report_query = mysqli_query($connect, $update_delivery_report_sql) or die(mysqli_error($connect));
-
 
 	$update_deliveries_sql = "UPDATE tbl_deliveries SET delivery_status = '".$status."', date_accepted = '".$timestamp."' WHERE delivery_report_id = '".$delivery_report_id."'";
 
@@ -159,10 +168,10 @@ if(isset($_POST['btn-save'])){
 						<option>Pending</option>
 					</select>
 				</div>
-				<div class="form-group">
+				<!-- <div class="form-group">
 					<label>QTY Received</label>
 					<input name='quantity_received' id='quantity_received' class="form-control" type="text" placeholder="" minlength="1" required="">
-				</div>
+				</div> -->
 				<div class="form-group">
 					<label for="disabledSelect">Current time and Date</label>
 					<input id="currentTimeDate" name="currentTimeDate" class="form-control" type="text" disabled="" placeholder="">

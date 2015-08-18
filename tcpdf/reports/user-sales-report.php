@@ -78,19 +78,19 @@ $tbl_header .= '<style>
 	}
 </style>';
 
-
+//$sql = "SELECT * FROM tbl_sales_trans ORDER BY transaction_date DESC";
 $sqlGetSalesReport = "SELECT * FROM tbl_sales_trans WHERE brand_name = '". $brand_name ."' ORDER BY transaction_date DESC";
 $user_report_results = mysqli_query($connect, $sqlGetSalesReport);
 
 while ($row = mysqli_fetch_array($user_report_results)) {
 
-	$brand_name = $row['brand_name'];
 	$sales_transaction_id = $row['sales_transaction_id'];
-	$transaction_date = $row['transaction_date'];
-	$item_code = $row['item_code'];
+	$brand_name = $row['brand_name'];
+	$item_code = $row['item_code'];			
 	$price = $row['price'];
-	$sales_tax_amount = $row['sales_tax_amount'];	
-	$total_sales_price = $row['total_sales_price'];
+	$sales_tax_amount = $row['price'];
+	$total_sales_price = $row['price'];
+	$transaction_date = $row['transaction_date'];
 
 	$new_date = date("d/m/Y h:i:s", strtotime($transaction_date) );
 
@@ -148,11 +148,12 @@ while ($row = mysqli_fetch_array($user_report_results)) {
 
 
 	$sales_transaction_id = $row['sales_transaction_id'];
-	$transaction_date = $row['transaction_date'];
-	$item_code = $row['item_code'];
+	$brand_name = $row['brand_name'];
+	$item_code = $row['item_code'];			
 	$price = $row['price'];
-	$sales_tax_amount = $row['sales_tax_amount'];	
-	$total_sales_price = $row['total_sales_price'];
+	$sales_tax_amount = $row['price'];
+	$total_sales_price = $row['price'];
+	$transaction_date = $row['transaction_date'];
 
 	$new_date = date("d/m/Y h:i:s", strtotime($transaction_date) );
 
