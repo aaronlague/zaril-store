@@ -51,6 +51,11 @@ footer {
     border-color: #6d2c89;
     color: #fff;
 }
+.panel-brown > .panel-heading {
+    background-color: #b8945c;
+    border-color: #b8945c;
+    color: #fff;
+}
 .panel-green > .panel-heading {
     background-color: #5cb85c;
     border-color: #5cb85c;
@@ -74,6 +79,9 @@ footer {
 .panel-violet > a {
     color:#6d2c89;
 }
+.panel-brown > a {
+    color:#b8945c;
+}
 .panel-green > a {
     color: #5cb85c;
 }
@@ -88,6 +96,9 @@ footer {
 }
 .panel-violet {
     border-color: #6d2c89;
+}
+.panel-brown {
+    border-color: #b8945c;
 }
 .panel-green {
     border-color: #5cb85c;

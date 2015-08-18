@@ -22,20 +22,13 @@
 			$item_code = $row['item_code'];
 			$details = $row['details'];
 			$unit_price = $row['unit_price'];
-			$sales_tax_amount = $row['sales_tax_amount'];
-			$total_price = $row['total_price'];
-			//$quantity_received = $row['quantity_received'];
+			//$sales_tax_amount = $row['sales_tax_amount']; //old implementation based on unit_price x quantity * 0.03
+			$sales_tax_amount = $unit_price * 0.03; // sales tax based on unit price
+			$sales_tax_amount = number_format($sales_tax_amount, 2, '.', '');
+			//$total_price = $row['total_price'];
+			$total_price = $unit_price + $sales_tax_amount;
+			$total_price = number_format($total_price, 2, '.', '');
 			$action_btn = "<button class='btn btn-primary btn-remove-item' data-dismiss='modal' type='button'>Remove</button>";
-			/*$data .= "<tr>";
-			$data .= "<td>" .$brand_name. "</td>";
-			$data .= "<td>" .$item_code. "</td>";
-			$data .= "<td>" .$details. "</td>";
-			$data .= "<td>" .$unit_price. "</td>";
-			$data .= "<td>" .$sales_tax_amount. "</td>";
-			$data .= "<td>" .$total_price. "</td>";
-			$data .= "<td class='text-center'><a href='#'><i class='fa fa-remove remove'></i></a></td>";
-			$data .= "</tr>";*/
-
 
 			array_push($data, $brand_name, $item_code, $details, $unit_price, $sales_tax_amount, $total_price, $action_btn);
 
