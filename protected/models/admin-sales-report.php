@@ -20,7 +20,7 @@ class SalesModel {
 			$sales_transaction_id = $row['sales_transaction_id'];
 			$brand_name = $row['brand_name'];
 			$subtotal = $row['subtotal'];	
-			$sales_tax_amount = $row['sales_tax_amount'];
+			$sales_tax_total = $row['sales_tax_total'];
 			$total_amount = $row['total_amount'];
 			$transaction_date = $row['transaction_date'];
 			
@@ -31,7 +31,7 @@ class SalesModel {
 			$data .= "<td class='userEmail'>" . $sales_transaction_id . "</td>";
 			$data .= "<td class='userName'>" . $new_date . "</td>";
 			$data .= "<td class='userRole'>" . $subtotal . "</td>";
-			$data .= "<td class='userRole'>" . $sales_tax_amount . "</td>";
+			$data .= "<td class='userRole'>" . $sales_tax_total . "</td>";
 			$data .= "<td class='userRole'>" . $total_amount . "</td>";
 			$data .= "</tr>";
     	}

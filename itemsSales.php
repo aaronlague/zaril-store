@@ -38,7 +38,7 @@ header('location: /logout.php');
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Sales Report</title>
+    <title>Items Sales Report</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -79,7 +79,7 @@ header('location: /logout.php');
     <!-- Page Content -->
     <div class="container">
 
-		<h1>Sales Report</h1>
+		<h1>Items Sales Report</h1>
         <hr>
 		<ol class="breadcrumb">
 			<li>
@@ -87,8 +87,8 @@ header('location: /logout.php');
 				<a href="index.php">Home</a>
 			</li>
 			<li class="active">
-				<i class="fa fa-money fa-fw"></i>
-				Sales Report 
+				<i class="fa fa-tasks fa-fw"></i>
+				Items Sales Report 
 			</li>
 		</ol>
 
@@ -97,7 +97,7 @@ header('location: /logout.php');
 				<div class="panel-heading">
 					<h3 class="panel-title" style="width:500px">
 						<i class="fa fa-money fa-fw"></i>
-						Sales List
+						Items Sales List
 					</h3>
 					
 					<h3 class="panel-title pull-right">

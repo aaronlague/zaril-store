@@ -6,6 +6,8 @@ function addRowToDatatable(){
 	  		"aoColumnDefs": [
 		      { "sClass": "sum", "aTargets": [ 0 ] }
 		    ],
+		    "aaSorting": [],
+		    "bSort": false,
 		    "fnFooterCallback": function ( nRow, aaData, iStart, iEnd, aiDisplay ) {
 
 	            var iPrice = 0;
@@ -44,8 +46,8 @@ function addRowToDatatable(){
 	            $('.sales-tax input').val(salesTaxCol);
 
 	            var totalPriceCol = $('th.total-price-col').text();
-	            $('.total-amount input').val(parseInt(subTotalCol) + parseInt(salesTaxCol));
-	            $('.printableTotals table td.r_total span').text(parseInt(subTotalCol) + parseInt(salesTaxCol));
+	            $('.total-amount input').val(parseInt(subTotalCol));
+	            $('.printableTotals table td.r_total span').text(parseInt(subTotalCol));
 
 	        }
 	  	});
@@ -65,7 +67,7 @@ function addRowToDatatable(){
 
 		  	if (items.length == '0') 	{
 		  		console.log(checkItemCode);
-		  		alert('No item code found');
+		  		alert('No item code found / or the item is out of stock');
 
 		  	} else {
 
@@ -80,10 +82,17 @@ function addRowToDatatable(){
 		  		$(".items-row table").append(itemRow);
 		  		$(".printableItems table").append(printableItems);
 		  		
+
+
+		  		var nNodes = itemTable.fnGetNodes();
+
+				console.log(items);
 		  	}
 	  	}
 
     });
+
+
 }
 
 function removeRowDatatable(){
@@ -96,7 +105,13 @@ function removeRowDatatable(){
 	$("#transactionTable tbody").on('click', '.btn-remove-item', function() {
         
 		var rowIndex = $(this).closest("tr").get(0);
+		var thisIndex = $(this).closest("tr").index();
+
+		//we remove first the item for saving
+		$('#saveSalesTransaction table tr').eq(thisIndex).remove();
+		//then we remove the item on the datatables
 		itemTable.fnDeleteRow(itemTable.fnGetPosition(rowIndex));
+
 
     }); 
 
@@ -119,13 +134,15 @@ function sumTotalCol (){
 }
 
 $(document).ready(function() {
+//$("#saveSalesTransaction").validate();
 
     $("#transactionTable").DataTable(
 	    {
 	  		"aoColumnDefs": [
 		      { "sClass": "sum", "aTargets": [5] }
 		    ],
-
+		    "aaSorting": [],
+		    "bSort": false,
 		    "fnFooterCallback": function ( nRow, aaData, iStart, iEnd, aiDisplay ) {
 
 	            var iPrice = 0;
@@ -164,9 +181,10 @@ $(document).ready(function() {
 	            $('.sales-tax input').val(salesTaxCol);
 
 	            var totalPriceCol = $('th.total-price-col').text();
-	            $('.total-amount input').val(parseInt(subTotalCol) + parseInt(salesTaxCol));
-	            $('.printableTotals table td.r_total span').text(parseInt(subTotalCol) + parseInt(salesTaxCol));
-	        }
+	            $('.total-amount input').val(parseInt(subTotalCol));
+	            $('.printableTotals table td.r_total span').text(parseInt(subTotalCol));
+	        },
+
 	    }
    	);
 
@@ -217,6 +235,20 @@ $(document).ready(function() {
     	$('#change_amount').val(change);
     });
 
+	$( "#amount_given" ).focusout(function() {
+	    var total = $('#total_amount').val();
+    	var amount_given = $('#amount_given').val();
+
+    	
+    	//alert();
+    	if(amount_given < total){
+    			alert("Given Amount is lessthan total amount");
+    	}
+    	else{
+    		
+    	}
+	  });
+
     $('.btn-print-report').click(function(){
     	var html = $('#receipt').html()
     	alert('Print receipt');
@@ -225,7 +257,13 @@ $(document).ready(function() {
     	window.open('/tcpdf/receipt/receipt.php?html='+html+'', '_blank');
 
     });
+    /*$('.btn-finish').click(function(){
+    	var amount_given = $("#amount_given").val();
+    	var change_amount = $("#amount_given").val();
 
+    	alert();
+    });*/
+    
    
 
 

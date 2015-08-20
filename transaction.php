@@ -18,7 +18,7 @@ if(isset($_POST['btn-finish'])){
 	
 	$sales_transaction_id = "ST" . rand(0, 100) . date("ymds");
 	$subtotal = $_POST['subtotal'];
-	$sales_tax = $_POST['sales_tax'];
+	$sales_tax = $_POST['total_sales_tax'];
 	$total_amount = $_POST['total_amount'];
 	$amount_given = $_POST['amount_given'];
 	$change_amount = $_POST['change_amount'];
@@ -38,6 +38,8 @@ if(isset($_POST['btn-finish'])){
 
 	$sales_transaction_report_query = mysqli_query($connect, $sales_transaction_report_sql) or die(mysqli_error($connect));
 
+	//echo $sales_transaction_report_sql;
+
 	for ($i=0; $i<count($brand_name_item); $i++) {
 
 		$sales_transaction_item_id = "ST" . rand(0, 1000) . date("ymds");
@@ -49,14 +51,35 @@ if(isset($_POST['btn-finish'])){
 		//echo $sales_transaction_item_sql;
 	}
 
-	
+	for ($i=0; $i<count($sales_transaction_id); $i++) {
+
+		$count_item_sql = "SELECT sales_transaction_id, item_code, COUNT( * ) AS sold FROM tbl_sales_trans WHERE sales_transaction_id = '".$sales_transaction_id."' GROUP BY item_code";
+
+		$count_item_query = mysqli_query($connect, $count_item_sql) or die(mysqli_error($connect));
+
+		$data = '';
+		
+		while ($row = mysqli_fetch_array($count_item_query)) {
+
+			//print_r($row);
+			$sales_transaction_id = $row['sales_transaction_id'];
+			$item_code = $row['item_code'];
+			$sold = $row['sold'];
+
+			$data .= $sales_transaction_id;
+			$data .= $item_code;
+			$data .= $sold;
+
+			$sql = "UPDATE tbl_deliveries SET quantity = (quantity - $sold) WHERE item_code = '".$item_code."'";
+		  	$query = mysqli_query($connect, $sql) or die(mysqli_error($connect));
+		}
+
+	}
 
 	header('location: /transaction.php?transaction_saved=true');
 
 	//echo $sales_transaction_report_sql;
 	//echo $sales_transaction_item_sql;
-
-
 
 }
 
@@ -88,6 +111,8 @@ if(isset($_POST['btn-finish'])){
 	<link href="css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
 
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+	
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -171,7 +196,7 @@ if(isset($_POST['btn-finish'])){
 										<?php echo $formelem->text(array('id'=>'subtotal','name'=>'subtotal','placeholder'=>'','class'=>'form-control', 'value'=>'')); ?>
 									</div>
 									<div class="form-group sales-tax"><label>Sales Tax:</label>
-										<?php echo $formelem->text(array('id'=>'sales_tax','name'=>'sales_tax','placeholder'=>'','class'=>'form-control', 'value'=>'')); ?>
+										<?php echo $formelem->text(array('id'=>'total_sales_tax','name'=>'total_sales_tax','placeholder'=>'','class'=>'form-control', 'value'=>'')); ?>
 									</div>
 									<div class="form-group total-amount"><label>Total:</label>
 										<?php echo $formelem->text(array('id'=>'total_amount','name'=>'total_amount','placeholder'=>'','class'=>'form-control', 'value'=>'')); ?>
@@ -180,7 +205,7 @@ if(isset($_POST['btn-finish'])){
 							</div>
 							<div class="form-group">
 								<label>Amount Given</label>
-								<input id="amount_given" name="amount_given" class="form-control auto-width">
+								<input id="amount_given" name="amount_given" class="form-control auto-width" minlength="1" required="">
 							</div>
 							<div class="form-group">
 								<label>Change</label>
@@ -191,14 +216,15 @@ if(isset($_POST['btn-finish'])){
 							<table></table>
 						</div>
 						<div class="pull-right">
-							<?php echo $formelem->button(array('id'=>'btn-finish','name'=>'btn-finish','class'=>'btn btn-primary big', 'value'=>'Finish')); ?>
+							<?php echo $formelem->button(array('id'=>'btn-finish','name'=>'btn-finish','class'=>'btn btn-primary big', 'value'=>'Finish', 'style'=>'margin-right: 5px')); ?> 
 								<!-- <button id="btnFinish" class="btn btn-primary btn-finish big" data-dismiss="modal" type="button">Finish</button> -->
+							<button class="btn-print-report btn btn-success big" value="Print">Print</button>
 							<button class="btn btn-danger big cancel" data-dismiss="modal" type="button">Cancel</button>
 						</div>
 					<?php echo $formelem->close(); ?>
 					</div>
 					
-					<button class="btn-print-report" value="Print">Print</button>
+					
 
 					<div id="receipt" style="display:none;">
 			            <div style="text-align:center; font-size:10px;">ZÁRIL lifestyle store</div>
