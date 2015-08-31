@@ -15,5 +15,6 @@ $userid = $_GET['userid'];
 ?>
 
 <?php
-echo $userModel->getUsersDetail($_GET['userid'], $connect);
+echo $userid;
+echo $userModel->passwordReset($userid, $connect);
 ?>

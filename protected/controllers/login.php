@@ -26,10 +26,6 @@ class LoginController {
 			$brand_name = $row['brand_name'];
 			$id = $row['id'];
 
-
-			//
-			
-
 			if ($is_admin == 1){
 				session_start();
                 $_SESSION['session_userid']  = $username;
@@ -37,7 +33,6 @@ class LoginController {
                 $_SESSION['brand_name'] = $brand_name;
                 $_SESSION['id'] = $id;
                
-
                 session_write_close();
 				
 				header("Location: index.php");	

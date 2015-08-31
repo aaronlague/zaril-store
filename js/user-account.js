@@ -44,49 +44,73 @@ $( "#example1 tr .editBtn" ).each(function(index) {
 
 		$('#editUserModal').modal('show');
 
-		
-
 		var user_id = $(this).attr('data-id');
 
 		console.log(user_id);
 
-		$.ajax({
-			  url: '../ajax/load-user.php?userid=' + user_id,
+			$.ajax({
 
-			  method: "POST",
+				  url: '../ajax/load-user.php?userid=' + user_id,
 
-			  success: function(){
+				  method: "POST",
 
-			  	var showResult = $('#userFields').load('../ajax/load-user.php?userid=' + user_id +'' );			  
-				return showResult;
+				  success: function(){
 
-			  	console.log('show delivery item fields');
-			  }
-		});
+				  	var showResult = $('#userFields').load('../ajax/load-user.php?userid=' + user_id +'' );			  
+					return showResult;
 
-
-		
-
-		//$('#viewEditDelieveryModal #edit_product_details').attr('placeholder' , details);
-		//$('#viewEditDelieveryModal #edit_unit_price').attr('placeholder' , unit_price);
-
-
+				  	console.log('show delivery item fields');
+				  }
+			});
 
 		}); 
-
-		
 
 	});
 
 
-			$("#createUser").validate();
-			$("#editUser").validate();
-				
-				$('#isAdmin').click(function(){
+	$("#createUser").validate();
+	$("#editUser").validate();
+	
+	$('#isAdmin').click(function(){
 
-					$(this).attr('value', this.checked ? 1 : 0)
+		$(this).attr('value', this.checked ? 1 : 0)
+
+	});
+
+	$( "#example1 tr .resetBtn" ).each(function(index) {
+
+		$(this).on('click', function(){
+
+			var user_id = $(this).attr('data-id');
+
+			$.confirm({
+
+				text: "Are you sure you want to reset password?",
+		    	
+		    	confirm: function() {
+			    	$.ajax({
+
+			    	  url: '../ajax/reset-user.php?userid=' + user_id,
+					  method: "POST",
+					  success: function(){
+					  	alert('password reset success');
+					  }
+
+					});
+
+			    },
+
+			    cancel: function() {
+
+			        //location.href = '/user/delivery.php?submit=false';
+			        
+
+			    }
+
 			});
 
+		});
 
+	});
 
 });

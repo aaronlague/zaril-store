@@ -19,6 +19,7 @@ if(isset($_POST['btn-create'])){
 	$data['username'] = $_POST['username'];;
 	$data['brand_name'] = $_POST['brandname'];
 	$data['password'] = $_POST['password'];
+	$data['backup_password'] = $_POST['password'];
 	$data['is_admin'] = $_POST['isAdmin'];
 	$data['date_created'] = date("Y-m-d H:i:s");
 	
@@ -281,7 +282,7 @@ if(isset($_POST['update-record'])) {
 	<!-- DATA TABES SCRIPT -->
     <script src="js/jquery.dataTables.js" type="text/javascript"></script>
     <script src="js/dataTables.bootstrap.js" type="text/javascript"></script>
-
+    <script src="../js/jquery.confirm.js" type="text/javascript"></script>
     <script src="js/user-account.js"></script>
 
 	

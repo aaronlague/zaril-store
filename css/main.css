@@ -219,8 +219,9 @@ footer {
     color:#fff;
     font-weight: bold;
 }
-.filterColumn .form-control{
+.filterColumn .form-control, .filter_column .date_range_filter.form-control{
     width: 37%;
+    display: inline;
 }
 .filter_column .form-control{
     width: 100%;

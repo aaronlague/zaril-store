@@ -1,27 +1,14 @@
-$('.cancel').on( 'click', function () {
-        $('tbody').remove();
-    });
+$fromDate = $_POST['date_from'];
+$toDate = $_POST['date_to'];
+
+echo $UsersSalesModel->getUsersSales($brand_name, $fromDate, $toDate, $connect);
+
+BETWEEN CAST('".$fromDate."' AS DATE) AND CAST('".$toDate."' AS DATE)
 
 
-	$('#btnFinish').on( 'click', function () {
-		var totalAmount = $("#totalAmount").html().replace(/total:|P|.00/gi, '');
-		var amountGiven = $("#amountGiven").val();
-		
-		var t = parseFloat(totalAmount);
-		var a = parseFloat(amountGiven)
-
-		var change = a - t;
-		
-		$('#change').attr('value', change)
-
-		console.log(change);
-        if(a == ""){
-			alert("Fill up");
-		}else if(t <= a){
-			
-			alert("transaction successful!");
-		}
-		else{
-			alert("Amount given is less than total amount");
-		}
-    });
+SELECT *
+FROM tbl_sales_trans
+WHERE brand_name = 'brand6'
+AND transaction_date >= '2015-08-17 05:54:55'
+AND transaction_date <= '2015-08-24 05:54:55'
+LIMIT 0 , 30 

@@ -1,12 +1,12 @@
 <?php
 class UsersSalesModel {
-	public function getUsersSales($connect){
+	public function getUsersSales($brand, $connect){
 	
 		$db = new db_config();
 
 		$data = '';	
 				
-		$sql = "SELECT * FROM tbl_sales_trans ORDER BY transaction_date DESC";
+		$sql = "SELECT * FROM tbl_sales_trans WHERE brand_name = '".$brand."' ORDER BY transaction_date DESC";
 		$result = mysqli_query($connect, $sql);
 		//$num = $db->numrows($sql);
 		

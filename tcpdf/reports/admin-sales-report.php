@@ -63,7 +63,8 @@ $pdf->AddPage();
 
 
 $brand_name = $_GET['brand_name'];
-
+$from = $_GET['from'];
+$to = $_GET['to'];
 
 
 $tbl_header .= '<style>
@@ -79,7 +80,7 @@ $tbl_header .= '<style>
 </style>';
 
 //$sql = "SELECT * FROM tbl_sales_trans ORDER BY transaction_date DESC";
-$sqlGetSalesReport = "SELECT * FROM tbl_sales_trans_report  ORDER BY transaction_date DESC";
+$sqlGetSalesReport = "SELECT * FROM tbl_sales_trans_report ORDER BY transaction_date DESC";
 $sales_report_results = mysqli_query($connect, $sqlGetSalesReport);
 
 while ($row = mysqli_fetch_array($sales_report_results)) {
@@ -109,13 +110,13 @@ $tbl_header .='</tr>';
 
 $tbl_header .='<tr>';
 
-$tbl_header .='<td colspan="7"><strong>From:</strong></td>';
+$tbl_header .='<td colspan="7"><strong>From:</strong>' . $from . '</td>';
 
 $tbl_header .='</tr>';
 
 $tbl_header .='<tr>';
 
-$tbl_header .='<td colspan="7"><strong>To:</strong></td>';
+$tbl_header .='<td colspan="7"><strong>To:</strong>' . $to . '</td>';
 
 $tbl_header .='</tr>';
 

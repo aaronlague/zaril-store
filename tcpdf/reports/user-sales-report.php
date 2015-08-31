@@ -63,8 +63,11 @@ $pdf->AddPage();
 
 
 $brand_name = $_GET['brand_name'];
+$fromDate = date('Y-m-d', strtotime($_GET['dateFrom'])) . ' 00:00:00';
+$toDate = date('Y-m-d', strtotime($_GET['dateTo'])) . ' 23:59:59';
 
-
+//echo $fromDate;
+//echo $toDate;
 
 $tbl_header .= '<style>
 	tr.info td {
@@ -79,8 +82,20 @@ $tbl_header .= '<style>
 </style>';
 
 //$sql = "SELECT * FROM tbl_sales_trans ORDER BY transaction_date DESC";
-$sqlGetSalesReport = "SELECT * FROM tbl_sales_trans WHERE brand_name = '". $brand_name ."' ORDER BY transaction_date DESC";
-$user_report_results = mysqli_query($connect, $sqlGetSalesReport);
+//$sqlGetSalesReport = "SELECT * FROM tbl_sales_trans WHERE brand_name = '". $brand_name ."' BETWEEN CAST('".$fromDate."' AS DATE) AND CAST('".$toDate."' AS DATE) ORDER BY transaction_date DESC";
+
+if (($_GET['dateFrom'] == NULL) || ($_GET['dateTo'] == NULL)) {
+
+
+		$sqlGetSalesReport = "SELECT * FROM tbl_sales_trans WHERE brand_name = '". $brand_name ."' ORDER BY transaction_date DESC";
+
+
+} else {
+
+		$sqlGetSalesReport = "SELECT * FROM tbl_sales_trans WHERE brand_name = '". $brand_name ."' AND transaction_date >= '".$fromDate."' AND transaction_date <= '".$toDate."'";
+
+}
+
 
 while ($row = mysqli_fetch_array($user_report_results)) {
 
@@ -130,7 +145,7 @@ $tbl_header_titles .='<td>Transaction #</td>';
 
 $tbl_header_titles .='<td>DateTime of Purchase</td>';
 
-$tbl_header_titles .='<td>Price</td>';
+$tbl_header_titles .='<td>Item Code</td>';
 
 $tbl_header_titles .='<td>Sales Tax</td>';
 

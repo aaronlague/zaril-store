@@ -37,7 +37,7 @@ class UsersModel {
 			$data .= "<td class='userRole'>" . $role . "</td>";
 			$data .= "<td>
 				<a href='#' data-id='".$id."' class='editBtn btn btn-sm btn-danger' type='button'><i class='fa fa-pencil'></i>Edit</a>
-				<a href='#' target='blank' class='btn btn-sm btn-warning' type='button'><i class='fa fa-refresh'></i>Reset Password</a>																	
+				<a href='#' data-id='".$id."' class='resetBtn btn btn-sm btn-warning' type='button'><i class='fa fa-refresh'></i>Reset Password</a>																	
 			</td>";
 			$data .= "</tr>";
     	}
@@ -94,4 +94,15 @@ class UsersModel {
 		return $data;
 	
 	}
+
+	public function passwordReset($userid, $connect){
+
+		$db = new db_config();
+				
+		$sql = "UPDATE tbl_users SET password = backup_password WHERE id = '".$userid."'";
+
+		$result = mysqli_query($connect, $sql);
+
+	}
+
 }?>
